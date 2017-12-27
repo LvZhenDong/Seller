@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_f2"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_home_top" />
+
+    <RelativeLayout
+        android:id="@+id/rl_shop_info"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/toolbar"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_status_shop"
+            style="@style/TvShopStatus"
+            android:layout_alignParentRight="true"
+            android:drawableTop="@drawable/ic_shop"
+            android:text="营业中" />
+
+        <TextView
+            android:id="@+id/tv_status_bind"
+            style="@style/TvShopStatus"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/tv_status_shop"
+            android:drawableTop="@drawable/ic_bind"
+            android:text="未绑定" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_launcher_background" />
+
+        <View
+            android:id="@+id/view_center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/view_center"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/tv_status_bind"
+            android:layout_toRightOf="@id/iv_head"
+            android:ellipsize="end"
+            android:padding="3dp"
+            android:singleLine="true"
+            android:text="冬季的樱花sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdsdf"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tv_Blod" />
+
+        <TextView
+            android:id="@+id/tv_check_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_center"
+            android:layout_alignLeft="@id/tv_user_name"
+            android:layout_toRightOf="@id/iv_head"
+            android:padding="3dp"
+            android:text="点击查看门店详情"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tv_Normal" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_banner"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_below="@id/rl_shop_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/margin_hor"
+        android:layout_marginRight="@dimen/margin_hor"
+        android:background="@drawable/bg_home_banner">
+
+        <RelativeLayout style="@style/RlHomeRevenue">
+
+            <TextView
+                android:id="@+id/tv_turnover"
+                style="@style/TvHomeRevenue"
+                android:text="1234" />
+
+            <TextView
+                style="@style/TvHomeRevenueBlack"
+                android:layout_above="@id/tv_turnover"
+                android:text="今日营业额" />
+
+            <TextView
+                android:id="@+id/tv_yesterday_turnover"
+                style="@style/TvHomeRevenueBlack.Small"
+                android:layout_below="@id/tv_turnover"
+                android:text="昨日123" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/RlHomeRevenue">
+
+            <TextView
+                android:id="@+id/tv_order_quantity"
+                style="@style/TvHomeRevenue"
+                android:text="1234" />
+
+            <TextView
+                style="@style/TvHomeRevenueBlack"
+                android:layout_above="@id/tv_order_quantity"
+                android:text="今日订单" />
+
+            <TextView
+                android:id="@+id/tv_yesterday_order_quantity"
+                style="@style/TvHomeRevenueBlack.Small"
+                android:layout_below="@id/tv_order_quantity"
+                android:text="昨日123" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="45dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@color/tv_name" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@color/tv_name" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/RlHomeRevenue">
+
+            <TextView
+                android:id="@+id/tv_balance"
+                style="@style/TvHomeRevenue"
+                android:text="1234" />
+
+            <TextView
+                style="@style/TvHomeRevenueBlack"
+                android:layout_above="@id/tv_balance"
+                android:text="可用余额" />
+
+            <TextView
+                android:id="@+id/tv_drawal"
+                style="@style/TvHomeRevenueBlack.Small"
+                android:layout_below="@id/tv_balance"
+                android:text="可以提现123" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_main"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/ll_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

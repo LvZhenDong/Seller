@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_login_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_home_top" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/bg_white_shadow_radius"
+        android:padding="3dp"
+        android:src="@drawable/logo" />
+
+    <RelativeLayout
+        android:id="@+id/rl_phone"
+        style="@style/RlStroke"
+        android:layout_below="@id/iv_login_top"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/et_phone"
+            style="@style/EtStroke"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLength="11" />
+
+        <TextView
+            android:id="@+id/tv_send_ver_code"
+            android:layout_width="80dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/bg_btn_green_radius_selector"
+            android:padding="5dp"
+            android:text="@string/get_ver_code"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tv_Normal" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_ver_code"
+        style="@style/RlStroke"
+        android:layout_below="@id/rl_phone"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/et_ver_code"
+            style="@style/EtStroke"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="6" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:id="@+id/ll_treaty"
+        android:layout_below="@id/rl_ver_code"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cb_treaty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我已阅读并已同意"
+            android:gravity="center"
+            android:textSize="@dimen/tv_light"
+            android:textColor="@color/tv_name"/>
+        <TextView
+            android:id="@+id/tv_treaty"
+            android:gravity="center"
+            android:textSize="@dimen/tv_light"
+            android:textColor="@color/colorPrimary"
+            android:text="《共享点餐商家入驻告知书》"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <TextView
+        android:enabled="false"
+        android:id="@+id/tv_login"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/ll_treaty"
+        style="@style/RlStroke"
+        android:text="立即登录"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="@dimen/tv_Normal"
+        android:background="@drawable/bg_btn_green_gradient_selector"/>
+
+    <TextView
+        android:id="@+id/tv_help"
+        android:padding="5dp"
+        android:textSize="@dimen/tv_light"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_login"
+        android:text="登录遇到问题？"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

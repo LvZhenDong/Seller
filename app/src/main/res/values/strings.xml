@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Seller</string>
+    <string name="get_ver_code">获取验证码</string>
+    <string name="logging">正在登录&#8230;</string>
+    <string name="sending">正在发送验证码&#8230;</string>
+    <string name="waiting">请稍后&#8230;</string>
+    <string name="send_ver_code_success">验证码发送成功，请注意查收</string>
+    <string name="emptyPhone">请输入手机号码</string>
+    <string name="emptyVerCode">请输入验证码</string>
+    <string name="errorPhone">手机号码格式不正确，请检查</string>
+</resources>

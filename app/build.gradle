@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "food.xinyuan.seller"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "USE_CANARY", "true"
+            minifyEnabled false
+            shrinkResources false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.debug
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "USE_CANARY", "false"
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+
+    compileOptions {//就算你使用 AndroidStuido v3.0, 也需要配置以下参数
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    //Butterknife 插件,很多人因为没加这个而报错,切记!!!
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    //依赖插件, annotationProcessor 是 AndroidStudio 自带并用来替换 APT
+    implementation project(':arms')
+    implementation rootProject.ext.dependencies["retrofit-url-manager"]
+
+    compile 'com.alibaba:arouter-api:1.2.1.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
+
+    compile 'me.yokeyword:fragmentation:1.1.9'
+    compile 'me.yokeyword:fragmentation-core:1.1.9'
+    compile 'com.lzy.widget:imagepicker:0.6.1'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.2'
+    compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
+    //    AES加密
+    compile 'com.scottyab:aes-crypto:0.0.4'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+}
