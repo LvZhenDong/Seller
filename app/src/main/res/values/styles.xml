@@ -67,8 +67,64 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="BigTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/tv_Big</item>
+        <item name="android:textColor">@color/tv_name</item>
+    </style>
 
+    <style name="NormalTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/tv_Normal</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/tv_name</item>
+    </style>
 
+    <style name="RegularTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/tv_Regular</item>
+        <item name="android:textColor">@color/tv_name</item>
+    </style>
+
+    <style name="RlItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/height_item</item>
+        <item name="android:background">@drawable/bg_white_selector</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="TvItem" parent="RlItem">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/tv_name</item>
+        <item name="android:textSize">@dimen/tv_Blod</item>
+        <item name="android:drawableRight">@drawable/fragmentation_ic_right</item>
+    </style>
+
+    <style name="TvItemTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/tv_name</item>
+        <item name="android:textSize">@dimen/tv_Blod</item>
+    </style>
+
+    <style name="TvItemHint">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/tv_hint</item>
+        <item name="android:textSize">@dimen/tv_Normal</item>
+    </style>
+
+    <style name="XYLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2px</item>
+        <item name="android:background">@color/colorLine</item>
+    </style>
 
 
 

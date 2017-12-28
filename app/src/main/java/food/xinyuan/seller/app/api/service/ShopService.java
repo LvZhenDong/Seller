@@ -1,7 +1,10 @@
 package food.xinyuan.seller.app.api.service;
 
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
+import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
+import food.xinyuan.seller.app.data.bean.response.Printer;
+import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -27,4 +30,19 @@ public interface ShopService {
     @Headers({"Domain-Name: main"})
     @GET("/seller/realtimestatistics")
     Observable<HttpResponseData<ShopStatistics>> getShopStatistics();
+
+
+    /**
+     * 查询店铺详情
+     */
+    @Headers({"Domain-Name: main"})
+    @GET("/seller/shopDetail")
+    Observable<HttpResponseData<ShopDetail>> getShopDetail();
+
+    /**
+     * 获取打印机列表
+     */
+    @Headers({"Domain-Name: main"})
+    @GET("/seller/printer")
+    Observable<HttpResponseData<ListResponse<Printer>>> getPrinters();
 }

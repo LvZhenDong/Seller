@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_header_tv_tv" />
+
+    <RelativeLayout
+        android:id="@+id/rl_account"
+        style="@style/RlItem"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            style="@style/TvItemTitle"
+            android:text="账号" />
+
+        <TextView
+            android:id="@+id/tv_account"
+            style="@style/TvItemHint"
+            android:text="12345678901" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_printer"
+        style="@style/TvItem"
+        android:layout_marginTop="10dp"
+        android:text="@string/printer_setting" />
+
+    <TextView
+        android:id="@+id/tv_about_us"
+        style="@style/TvItem"
+        android:layout_marginTop="10dp"
+        android:text="关于我们" />
+
+    <View style="@style/XYLine" />
+
+    <RelativeLayout
+        android:id="@+id/rl_version"
+        style="@style/RlItem">
+
+        <TextView
+            style="@style/TvItemTitle"
+            android:text="当前版本" />
+
+        <TextView
+            android:id="@+id/tv_version"
+            style="@style/TvItemHint"
+            android:text="1.0" />
+
+    </RelativeLayout>
+
+    <View style="@style/XYLine" />
+
+    <TextView
+        android:id="@+id/tv_clear_cache"
+        style="@style/TvItem"
+        android:text="清理缓存" />
+
+    <TextView
+        android:id="@+id/tv_service"
+        style="@style/TvItem"
+        android:layout_marginTop="10dp"
+        android:drawableRight="@null"
+        android:gravity="center"
+        android:text="客服电话 028-1234567"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/tv_login_out"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_item"
+        android:layout_marginLeft="@dimen/margin_hor"
+        android:layout_marginRight="@dimen/margin_hor"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_btn_red_selector"
+        android:gravity="center"
+        android:text="退出登录"
+        android:textColor="@color/white" />
+</LinearLayout>

@@ -59,4 +59,6 @@
 
     <dimen name="margin_hor">15dp</dimen>
     <dimen name="margin_hor_20">20dp</dimen>
+
+    <dimen name="height_item">45dp</dimen>
 </resources>

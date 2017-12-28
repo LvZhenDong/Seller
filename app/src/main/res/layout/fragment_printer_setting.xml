@@ -6,8 +6,10 @@
     android:background="@color/bg_white"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/main_content"
+    <include layout="@layout/view_header_tv_tv" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_printer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 </LinearLayout>

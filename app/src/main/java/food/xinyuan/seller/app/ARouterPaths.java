@@ -8,6 +8,7 @@ package food.xinyuan.seller.app;
 public interface ARouterPaths {
     String LOGIN = "/app/login";
     String MAIN = "/app/main";
+    String SHOP_DETAIL="/app/shopDetail";
     String SETTING = "/app/setting";
     String MAP = "/app/map";
     String ORDER_DETAIL = "/app/orderDetail";

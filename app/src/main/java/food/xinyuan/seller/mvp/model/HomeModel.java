@@ -11,21 +11,20 @@ import com.jess.arms.di.scope.ActivityScope;
 import javax.inject.Inject;
 
 import food.xinyuan.seller.app.api.service.ShopService;
-import food.xinyuan.seller.app.api.service.UserService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
-import food.xinyuan.seller.mvp.contract.MainContract;
+import food.xinyuan.seller.mvp.contract.HomeContract;
 import io.reactivex.Observable;
 
 
 @ActivityScope
-public class MainModel extends BaseModel implements MainContract.Model {
+public class HomeModel extends BaseModel implements HomeContract.Model {
     private Gson mGson;
     private Application mApplication;
 
     @Inject
-    public MainModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
+    public HomeModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
         super(repositoryManager);
         this.mGson = gson;
         this.mApplication = application;
@@ -37,6 +36,13 @@ public class MainModel extends BaseModel implements MainContract.Model {
         this.mGson = null;
         this.mApplication = null;
     }
+    @Override
+    public Observable<HttpResponseData<ShopStatistics>> getShopStatistics() {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).getShopStatistics();
+    }
 
-
+    @Override
+    public Observable<HttpResponseData<ShopDetail>> getShopDetail() {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).getShopDetail();
+    }
 }

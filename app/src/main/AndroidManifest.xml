@@ -29,18 +29,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".mvp.ui.activity.LoginActivity"
+        <activity
+            android:name=".mvp.ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <!-- arms配置 -->
         <meta-data
             android:name="food.xinyuan.seller.app.GlobalConfiguration"
             android:value="ConfigModule" />
 
-
+        <activity android:name=".mvp.ui.fragment.HomeFragment"></activity>
     </application>
 
 </manifest>

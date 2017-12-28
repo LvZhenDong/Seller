@@ -9,7 +9,7 @@ import android.os.Environment;
 
 public class ConstantUtil {
 
-    public static final String IMAGE = "http://cdn.test.distribution.gongxiangdiancan.com";
+    public static final String IMAGE = "http://uploads.test.gongxiangdiancan.com";
 
     /**
      * 订单状态
