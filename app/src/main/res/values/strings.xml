@@ -9,4 +9,6 @@
     <string name="emptyVerCode">请输入验证码</string>
     <string name="errorPhone">手机号码格式不正确，请检查</string>
     <string name="printer_setting">打印设置</string>
+    <string name="setting">设置</string>
+    <string name="all_goods">全部商品</string>
 </resources>

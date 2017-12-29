@@ -73,16 +73,17 @@ public class SettingFragment extends AbstractMyBaseFragment<SettingPresenter> im
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        tvHeaderCenter.setText("设置");
+        tvHeaderCenter.setText(R.string.setting);
         CommonUtils.setBack(this, ivHeaderLeft);
-    }
 
-    @Override
-    public void setData(Object data) {
         LoginResponse loginResponse= DataUtils.getUser(getActivity());
         if(!DataUtils.isEmpty(loginResponse) && !DataUtils.isEmpty(loginResponse.getSeller())){
             tvAccount.setText(loginResponse.getSeller().getSellerName());
         }
+    }
+
+    @Override
+    public void setData(Object data) {
 
     }
 
