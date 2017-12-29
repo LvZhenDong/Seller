@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 
-import food.xinyuan.seller.R;
-
 import java.util.Map;
 import java.util.Set;
+
+import food.xinyuan.seller.R;
 
 
 /**

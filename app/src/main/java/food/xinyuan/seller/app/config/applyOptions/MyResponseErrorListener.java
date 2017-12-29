@@ -3,9 +3,8 @@ package food.xinyuan.seller.app.config.applyOptions;
 import android.content.Context;
 
 import com.jess.arms.utils.ArmsUtils;
+
 import food.xinyuan.seller.app.utils.ConstantUtil;
-
-
 import me.jessyan.rxerrorhandler.handler.listener.ResponseErrorListener;
 import retrofit2.HttpException;
 import timber.log.Timber;

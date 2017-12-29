@@ -1,7 +1,7 @@
 package food.xinyuan.seller.mvp.contract;
 
-import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
+import com.jess.arms.mvp.IView;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
 package food.xinyuan.seller.app.utils;
 
-import food.xinyuan.seller.app.data.bean.common.DateDifference;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import food.xinyuan.seller.app.data.bean.common.DateDifference;
 
 
 /**

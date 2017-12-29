@@ -15,7 +15,6 @@ import com.jess.arms.di.component.AppComponent;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.Printer;

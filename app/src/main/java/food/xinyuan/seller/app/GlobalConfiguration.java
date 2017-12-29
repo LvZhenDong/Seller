@@ -8,15 +8,16 @@ import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.di.module.GlobalConfigModule;
 import com.jess.arms.integration.ConfigModule;
 import com.jess.arms.utils.DataHelper;
+
+import java.io.File;
+import java.util.List;
+
 import food.xinyuan.seller.app.config.MyActivityLifecycle;
 import food.xinyuan.seller.app.config.MyApplicationLifecycles;
 import food.xinyuan.seller.app.config.applyOptions.MyGlobalHttpHandler;
 import food.xinyuan.seller.app.config.applyOptions.MyGsonConfiguration;
 import food.xinyuan.seller.app.config.applyOptions.MyResponseErrorListener;
 import food.xinyuan.seller.app.config.applyOptions.MyRetrofitConfiguration;
-
-import java.io.File;
-import java.util.List;
 
 
 /**

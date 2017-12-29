@@ -21,9 +21,10 @@ public class HeaderInterceptor implements Interceptor {
         Request original = chain.request();
         String token = MySharePreferencesManager.getInstance().getString("token", "");
         Request.Builder builder = original.newBuilder();
-        if (!TextUtils.isEmpty(token)){
+        if (!TextUtils.isEmpty(token)){     //添加token
             builder.addHeader("token",token);
         }
+        builder.addHeader("Domain-Name","main");
         return chain.proceed(builder.build());
     }
 }

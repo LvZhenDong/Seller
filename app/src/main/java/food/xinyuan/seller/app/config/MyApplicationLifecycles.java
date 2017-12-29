@@ -11,15 +11,15 @@ import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.di.component.AppComponent;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
+
+import butterknife.ButterKnife;
 import food.xinyuan.seller.BuildConfig;
+import food.xinyuan.seller.app.api.Api;
 import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.ImagePickerLoader;
 import food.xinyuan.seller.app.utils.MySharePreferencesManager;
 import food.xinyuan.seller.app.utils.PrefUtils;
 import food.xinyuan.seller.app.utils.ScreenAdaptation;
-
-import butterknife.ButterKnife;
-import food.xinyuan.seller.app.api.Api;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import me.yokeyword.fragmentation.Fragmentation;
 import me.yokeyword.fragmentation.helper.ExceptionHandler;

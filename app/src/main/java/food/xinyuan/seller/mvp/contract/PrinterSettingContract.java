@@ -1,14 +1,13 @@
 package food.xinyuan.seller.mvp.contract;
 
-import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
+import com.jess.arms.mvp.IView;
 
 import java.util.List;
 
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Printer;
-import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import io.reactivex.Observable;
 
 

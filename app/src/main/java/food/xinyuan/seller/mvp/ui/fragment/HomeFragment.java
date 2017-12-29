@@ -1,49 +1,38 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.http.imageloader.glide.ImageConfigImpl;
-import com.jess.arms.utils.ArmsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
+import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.MainItem;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
-import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.DataUtils;
+import food.xinyuan.seller.app.utils.ImageLoaderUtils;
 import food.xinyuan.seller.di.component.DaggerHomeComponent;
 import food.xinyuan.seller.di.module.HomeModule;
 import food.xinyuan.seller.mvp.contract.HomeContract;
 import food.xinyuan.seller.mvp.presenter.HomePresenter;
-
-import food.xinyuan.seller.R;
-
-
-import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
 public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implements HomeContract.View {
@@ -52,7 +41,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
     @BindView(R.id.tv_status_bind)
     TextView tvStatusBind;
     @BindView(R.id.iv_head)
-    CircleImageView ivHead;
+    ImageView ivHead;
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
     @BindView(R.id.tv_check_info)
@@ -221,17 +210,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
 
     @Override
     public void getShopDetailSuc(ShopDetail shopDetail) {
-        Log.i("kklv", ConstantUtil.IMAGE + shopDetail.getShopFaceUrl());
-        mAppComponent.imageLoader().loadImage(mAppComponent.appManager().getTopActivity() == null
-                        ? mAppComponent.application() : mAppComponent.appManager().getTopActivity(),
-                ImageConfigImpl
-                        .builder()
-                        .url(ConstantUtil.IMAGE + shopDetail.getShopFaceUrl())
-                        .transformation(new CircleCrop())
-                        .placeholder((int) R.drawable.ic_launcher_background)
-                        .errorPic((int) R.drawable.ic_launcher_background)
-                        .imageView(ivHead)
-                        .build());
+        ImageLoaderUtils.loadCirImg(mAppComponent,shopDetail.getShopFaceUrl(),ivHead);
     }
 
     @OnClick({R.id.tv_status_shop, R.id.tv_status_bind, R.id.tv_check_info})

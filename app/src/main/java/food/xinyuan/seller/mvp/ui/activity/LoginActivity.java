@@ -2,9 +2,7 @@ package food.xinyuan.seller.mvp.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -22,8 +20,6 @@ import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.ARouterPaths;
 import food.xinyuan.seller.app.base.AbstractMyBaseActivity;
 import food.xinyuan.seller.app.utils.CommonUtils;
-import food.xinyuan.seller.app.utils.ConstantUtil;
-import food.xinyuan.seller.app.utils.SystemBarHelper;
 import food.xinyuan.seller.di.component.DaggerLoginComponent;
 import food.xinyuan.seller.di.module.LoginModule;
 import food.xinyuan.seller.mvp.contract.LoginContract;
@@ -76,12 +72,7 @@ public class LoginActivity extends AbstractMyBaseActivity<LoginPresenter> implem
         mDialog = new MaterialDialog.Builder(this).content(R.string.logging).
                 progress(true, 0).build();
 
-        cbTreaty.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                tvLogin.setEnabled(b);
-            }
-        });
+        cbTreaty.setOnCheckedChangeListener((compoundButton, b) -> tvLogin.setEnabled(b));
 
         initCountDown();
     }
@@ -213,7 +204,6 @@ public class LoginActivity extends AbstractMyBaseActivity<LoginPresenter> implem
         if(mDialog != null){
             mDialog.dismiss();
         }
-        mDialog.dismiss();
         if (mDisposable != null) {
             mDisposable.dispose();
         }

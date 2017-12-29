@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
-import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -14,8 +13,6 @@ import com.jess.arms.utils.RxLifecycleUtils;
 
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.ARouterPaths;
 import food.xinyuan.seller.app.base.AbstractMyBaseActivity;

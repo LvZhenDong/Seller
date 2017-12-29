@@ -1,15 +1,13 @@
 package food.xinyuan.seller.mvp.contract;
 
-import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 
-import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
+import com.jess.arms.mvp.IView;
 
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 
 
 public interface LoginContract {

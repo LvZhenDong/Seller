@@ -5,7 +5,6 @@ import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -18,7 +17,6 @@ public interface UserService {
     /**
      * 登录
      */
-    @Headers({"Domain-Name: main"})
     @POST("/seller/seller/loginByCode")
     Observable<HttpResponseData<LoginResponse>> login(@Body RequestBody json);
 }

@@ -4,7 +4,6 @@ import com.jess.arms.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
-
 import food.xinyuan.seller.mvp.contract.HomeContract;
 import food.xinyuan.seller.mvp.model.HomeModel;
 

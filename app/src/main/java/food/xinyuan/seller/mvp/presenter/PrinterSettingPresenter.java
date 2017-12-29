@@ -2,28 +2,19 @@ package food.xinyuan.seller.mvp.presenter;
 
 import android.app.Application;
 
-import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
-import com.jess.arms.utils.RxLifecycleUtils;
-
-import food.xinyuan.seller.app.data.bean.HttpResponseData;
-import food.xinyuan.seller.app.data.bean.common.ListResponse;
-import food.xinyuan.seller.app.data.bean.response.Printer;
-import food.xinyuan.seller.app.data.bean.response.ShopDetail;
-import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
+import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
+import food.xinyuan.seller.app.data.bean.common.ListResponse;
+import food.xinyuan.seller.app.data.bean.response.Printer;
 import food.xinyuan.seller.mvp.contract.PrinterSettingContract;
+import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
-import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
 
 @ActivityScope
@@ -55,26 +46,7 @@ public class PrinterSettingPresenter extends BasePresenter<PrinterSettingContrac
 
     public void getPrinters(){
         mModel.getPrinters()
-                .subscribeOn(Schedulers.io())
-                .retryWhen(new RetryWithDelay(3, 2))
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .doOnSubscribe(disposable -> {
-                    mRootView.showLoading();
-                })
-                .doFinally(() -> {
-                    mRootView.hideLoading();
-                })
-                .map(new Function<HttpResponseData<ListResponse<Printer>>, ListResponse<Printer>>() {
-                    @Override
-                    public ListResponse<Printer> apply(HttpResponseData<ListResponse<Printer>> responseData) throws Exception {
-                        if (responseData.isStatus()) {
-                            return responseData.getData();
-                        } else {
-                            throw new RuntimeException(responseData.getMessage());
-                        }
-                    }
-                })
+                .compose(TransFactory.commonTrans(mRootView))
                 .subscribe(new ErrorHandleSubscriber<ListResponse<Printer>>(mErrorHandler) {
                     @Override
                     public void onNext(ListResponse<Printer> data) {

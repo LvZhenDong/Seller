@@ -9,15 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.Goods;
@@ -29,8 +25,6 @@ import food.xinyuan.seller.mvp.contract.AllGoodsContract;
 import food.xinyuan.seller.mvp.presenter.AllGoodsPresenter;
 import food.xinyuan.seller.mvp.ui.adapter.GoodsAdapter;
 import q.rorbin.verticaltablayout.VerticalTabLayout;
-import q.rorbin.verticaltablayout.adapter.TabAdapter;
-import q.rorbin.verticaltablayout.widget.ITabView;
 import q.rorbin.verticaltablayout.widget.QTabView;
 import q.rorbin.verticaltablayout.widget.TabView;
 
@@ -44,10 +38,10 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
     TextView tvHeaderCenter;
     @BindView(R.id.rv_goods)
     RecyclerView rvGoods;
-
     @BindView(R.id.tl_goods_category)
     VerticalTabLayout tlGoodsCategory;
 
+    AppComponent mAppComponent;
     GoodsAdapter mAdapter;
 
     public static AllGoodsFragment newInstance() {
@@ -57,6 +51,7 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
 
     @Override
     public void setupFragmentComponent(AppComponent appComponent) {
+        mAppComponent = appComponent;
         DaggerAllGoodsComponent //如找不到该类,请编译一下项目
                 .builder()
                 .appComponent(appComponent)
@@ -76,7 +71,7 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
         CommonUtils.setBack(this, ivHeaderLeft);
 
         rvGoods.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter=new GoodsAdapter(R.layout.item_goods);
+        mAdapter = new GoodsAdapter(R.layout.item_goods, mAppComponent);
         rvGoods.setAdapter(mAdapter);
 
         mPresenter.getInitData();

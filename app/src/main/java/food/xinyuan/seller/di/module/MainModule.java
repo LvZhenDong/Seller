@@ -1,11 +1,11 @@
 package food.xinyuan.seller.di.module;
 
 import com.jess.arms.di.scope.ActivityScope;
-import food.xinyuan.seller.mvp.contract.MainContract;
-import food.xinyuan.seller.mvp.model.MainModel;
 
 import dagger.Module;
 import dagger.Provides;
+import food.xinyuan.seller.mvp.contract.MainContract;
+import food.xinyuan.seller.mvp.model.MainModel;
 
 
 @Module

@@ -7,23 +7,20 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
-import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
 
 import javax.inject.Inject;
 
 import food.xinyuan.seller.R;
+import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.request.LoginRequest;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.MySharePreferencesManager;
-import food.xinyuan.seller.app.utils.PrefUtils;
 import food.xinyuan.seller.mvp.contract.LoginContract;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.internal.util.ConnectConsumer;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
@@ -93,29 +90,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
         } else if (!DataUtils.checkMobile(phone)) {
             mRootView.showSnackbarMsg(R.string.errorPhone, ConstantUtil.SNACK_WARING);
         } else {
+            mRootView.hideKeyboard();
             LoginRequest loginRequest = new LoginRequest(phone, verCode);
             mModel.login(new Gson().toJson(loginRequest))
-                    .subscribeOn(Schedulers.io())
-                    .retryWhen(new RetryWithDelay(3, 2))
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                    .doOnSubscribe(disposable -> {
-                        mRootView.hideKeyboard();
-                        mRootView.showLoading();
-                    })
-                    .doFinally(() -> {
-                        mRootView.hideLoading();
-                    })
-                    .map(new Function<HttpResponseData<LoginResponse>, LoginResponse>() {
-                        @Override
-                        public LoginResponse apply(HttpResponseData<LoginResponse> responseData) throws Exception {
-                            if (responseData.isStatus()) {
-                                return responseData.getData();
-                            } else {
-                                throw new RuntimeException(responseData.getMessage());
-                            }
-                        }
-                    })
+                    .compose(TransFactory.commonTrans(mRootView))
                     .subscribe(new ErrorHandleSubscriber<LoginResponse>(mErrorHandler) {
                         @Override
                         public void onNext(LoginResponse data) {

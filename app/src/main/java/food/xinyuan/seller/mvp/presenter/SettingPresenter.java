@@ -2,16 +2,14 @@ package food.xinyuan.seller.mvp.presenter;
 
 import android.app.Application;
 
-import com.jess.arms.integration.AppManager;
-import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
-
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
 import food.xinyuan.seller.mvp.contract.SettingContract;
+import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
 

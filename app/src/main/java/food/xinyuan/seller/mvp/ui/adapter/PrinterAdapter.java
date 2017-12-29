@@ -1,16 +1,12 @@
 package food.xinyuan.seller.mvp.ui.adapter;
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import java.util.List;
-
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.data.bean.response.Printer;
-import food.xinyuan.seller.app.utils.DataUtils;
 
 /**
  * <p>

@@ -2,25 +2,24 @@ package food.xinyuan.seller.mvp.presenter;
 
 import android.app.Application;
 
-import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
+
+import javax.inject.Inject;
 
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
+import food.xinyuan.seller.mvp.contract.HomeContract;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
-
-import javax.inject.Inject;
-
-import food.xinyuan.seller.mvp.contract.HomeContract;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
@@ -98,6 +97,7 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                         }
                     }
                 })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ErrorHandleSubscriber<ShopDetail>(mErrorHandler) {
                     @Override
                     public void onNext(ShopDetail data) {

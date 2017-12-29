@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
-import food.xinyuan.seller.app.data.bean.response.SellerInfo;
 
 /**
  * Created by f-x on 2017/12/12  09:36

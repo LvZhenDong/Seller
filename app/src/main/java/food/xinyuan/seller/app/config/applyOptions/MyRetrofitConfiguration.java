@@ -3,11 +3,10 @@ package food.xinyuan.seller.app.config.applyOptions;
 import android.content.Context;
 
 import com.jess.arms.di.module.ClientModule;
+
 import food.xinyuan.seller.BuildConfig;
 import food.xinyuan.seller.app.config.applyOptions.intercept.HeaderInterceptor;
 import food.xinyuan.seller.app.config.applyOptions.intercept.LoggingInterceptor;
-
-
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

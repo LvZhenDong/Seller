@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Interceptor;
 import com.alibaba.android.arouter.facade.callback.InterceptorCallback;
 import com.alibaba.android.arouter.facade.template.IInterceptor;
 import com.alibaba.android.arouter.launcher.ARouter;
+
 import food.xinyuan.seller.app.ARouterPaths;
 import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.DataUtils;

@@ -24,6 +24,7 @@ import android.widget.ImageView;
 
 import com.jess.arms.utils.ArmsUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.mvp.ui.activity.MainActivity;

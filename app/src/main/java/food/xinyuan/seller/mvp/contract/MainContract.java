@@ -1,12 +1,7 @@
 package food.xinyuan.seller.mvp.contract;
 
-import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
-
-import food.xinyuan.seller.app.data.bean.HttpResponseData;
-import food.xinyuan.seller.app.data.bean.response.ShopDetail;
-import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
-import io.reactivex.Observable;
+import com.jess.arms.mvp.IView;
 
 
 public interface MainContract {
