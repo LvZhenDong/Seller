@@ -93,7 +93,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/height_item</item>
         <item name="android:background">@drawable/bg_white_selector</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
     </style>
 
     <style name="TvItem" parent="RlItem">
@@ -125,6 +128,20 @@
         <item name="android:layout_height">2px</item>
         <item name="android:background">@color/colorLine</item>
     </style>
+
+    <style name="TvEditGoods">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:textSize">@dimen/tv_light</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 
 
 

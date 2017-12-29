@@ -14,6 +14,7 @@ import com.jess.arms.di.component.AppComponent;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.Goods;
@@ -43,6 +44,8 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
 
     AppComponent mAppComponent;
     GoodsAdapter mAdapter;
+    @BindView(R.id.tv_add_goods)
+    TextView tvAddGoods;
 
     public static AllGoodsFragment newInstance() {
         AllGoodsFragment fragment = new AllGoodsFragment();
@@ -76,11 +79,6 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
 
         mPresenter.getInitData();
 
-
-    }
-
-    private void initTabLayout() {
-
     }
 
     @Override
@@ -102,7 +100,7 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
     @Override
     public void getGoodsCategorySuc(List<GoodsCategory> data) {
         int textColor = getResources().getColor(R.color.tv_name);
-        for (GoodsCategory item : data) {
+        for (GoodsCategory item : data) {   //初始化竖直TabLayout
             QTabView view = new QTabView(getActivity());
             view.setTitle(new TabView.TabTitle.Builder()
                     .setContent(item.getGoodsCategoryName())
@@ -129,5 +127,10 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
     @Override
     public void getGoodsSuc(List<Goods> data) {
         mAdapter.setNewData(data);
+    }
+
+    @OnClick(R.id.tv_add_goods)
+    public void onViewClicked() {
+        start(AddGoodsFragment.newInstance());
     }
 }

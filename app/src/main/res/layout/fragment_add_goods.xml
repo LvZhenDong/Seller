@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_header_tv_tv" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_hor">
+
+        <TextView
+            style="@style/TvItemTitle"
+            android:text="商品图片" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/img_default" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/RlItem"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/TvItemTitle"
+            android:text="商品名称" />
+
+        <EditText
+            style="@style/TvItemHint"
+            android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:hint="请输入商品名称"
+            android:textColor="@color/tv_name" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/tv_goods_category"
+        style="@style/RlItem"
+        android:layout_marginTop="@dimen/margin_small">
+
+        <TextView
+            style="@style/TvItemTitle"
+            android:text="商品分类" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/fragmentation_ic_right"
+            android:textSize="@dimen/tv_Normal" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/tv_goods_spec"
+        style="@style/RlItem"
+        android:layout_marginTop="@dimen/margin_small">
+
+        <TextView
+            style="@style/TvItemTitle"
+            android:text="商品规格" />
+
+    </RelativeLayout>
+</LinearLayout>

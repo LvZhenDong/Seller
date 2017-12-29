@@ -2,32 +2,32 @@ package food.xinyuan.seller.mvp.presenter;
 
 import android.app.Application;
 
-import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
+import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
-
-import javax.inject.Inject;
+import com.jess.arms.http.imageloader.ImageLoader;
 
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
-import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
 import food.xinyuan.seller.app.utils.DataUtils;
-import food.xinyuan.seller.mvp.contract.AllGoodsContract;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+
+import javax.inject.Inject;
+
+import food.xinyuan.seller.mvp.contract.GoodsCategoryContract;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 @ActivityScope
-public class AllGoodsPresenter extends BasePresenter<AllGoodsContract.Model, AllGoodsContract.View> {
+public class GoodsCategoryPresenter extends BasePresenter<GoodsCategoryContract.Model, GoodsCategoryContract.View> {
     private RxErrorHandler mErrorHandler;
     private Application mApplication;
     private ImageLoader mImageLoader;
     private AppManager mAppManager;
 
     @Inject
-    public AllGoodsPresenter(AllGoodsContract.Model model, AllGoodsContract.View rootView
+    public GoodsCategoryPresenter(GoodsCategoryContract.Model model, GoodsCategoryContract.View rootView
             , RxErrorHandler handler, Application application
             , ImageLoader imageLoader, AppManager appManager) {
         super(model, rootView);
@@ -53,20 +53,6 @@ public class AllGoodsPresenter extends BasePresenter<AllGoodsContract.Model, All
                     @Override
                     public void onNext(ListResponse<GoodsCategory> data) {
                         mRootView.getGoodsCategorySuc(data.getList());
-                        if(!DataUtils.isEmpty(data) && !DataUtils.isEmpty(data.getList())){
-                            getGoodsList(data.getList().get(0).getGoodsCategoryId());
-                        }
-                    }
-                });
-    }
-
-    public void getGoodsList(int categoryId) {
-        mModel.getGoodsList(categoryId + "")
-                .compose(TransFactory.commonTrans(mRootView))
-                .subscribe(new ErrorHandleSubscriber<ListResponse<Goods>>(mErrorHandler) {
-                    @Override
-                    public void onNext(ListResponse<Goods> data) {
-                        mRootView.getGoodsSuc(data.getList());
                     }
                 });
     }

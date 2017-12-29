@@ -40,7 +40,6 @@
             android:name="food.xinyuan.seller.app.GlobalConfiguration"
             android:value="ConfigModule" />
 
-        <activity android:name=".mvp.ui.fragment.HomeFragment"></activity>
     </application>
 
 </manifest>

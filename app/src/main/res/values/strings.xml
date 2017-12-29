@@ -11,4 +11,6 @@
     <string name="printer_setting">打印设置</string>
     <string name="setting">设置</string>
     <string name="all_goods">全部商品</string>
+    <string name="add_goods">添加商品</string>
+    <string name="goods_category">商品分类</string>
 </resources>

@@ -152,7 +152,8 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
-                    case 0: //全部商品
+                    //全部商品
+                    case 0:
                         start(AllGoodsFragment.newInstance());
                         break;
                     case 1:
@@ -173,7 +174,8 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                     case 6:
 
                         break;
-                    case 7: //设置
+                    //设置
+                    case 7:
                         start(SettingFragment.newInstance());
                         break;
                     case 8:
