@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,7 +21,6 @@ import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
-import food.xinyuan.seller.app.data.event.GoodsCategoryEvent;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.ConstantUtil;
 
@@ -53,8 +51,16 @@ public class GoodsSpecFragment extends AbstractMyBaseFragment {
     @BindView(R.id.tv_ensure)
     TextView tvEnsure;
 
+    AddGoods.AddSpecsBean mSpec;
+
     public static GoodsSpecFragment newInstance() {
         GoodsSpecFragment fragment = new GoodsSpecFragment();
+        return fragment;
+    }
+
+    public static GoodsSpecFragment newInstance(AddGoods.AddSpecsBean bean) {
+        GoodsSpecFragment fragment = new GoodsSpecFragment();
+        fragment.mSpec = bean;
         return fragment;
     }
 
@@ -70,16 +76,29 @@ public class GoodsSpecFragment extends AbstractMyBaseFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        tvHeaderCenter.setText("添加规格");
+        if (mSpec != null) {
+            tvHeaderCenter.setText("修改规格");
+            setDataIfUpdate();
+        } else {
+            tvHeaderCenter.setText("添加规格");
+        }
+
         CommonUtils.setBack(this, ivHeaderLeft);
 
-        swInventory.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                tvInventoryHint.setText(isChecked ? "无限" : "有限");
-                rlInventory.setVisibility(isChecked ? View.GONE : View.VISIBLE);
-            }
+        swInventory.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            tvInventoryHint.setText(isChecked ? "无限" : "有限");
+            rlInventory.setVisibility(isChecked ? View.GONE : View.VISIBLE);
         });
+
+
+    }
+
+    private void setDataIfUpdate() {
+        etName.setText(mSpec.getGoodsSpecificationName());
+        etPrice.setText(mSpec.getGoodsSpecificationPrice() + "");
+        swInventory.setChecked(mSpec.isInfiniteInventory());
+        etBoxCount.setText(mSpec.getBoxesNumber() + "");
+        etBoxPrice.setText(mSpec.getBoxesMoney() + "");
     }
 
     @Override
@@ -104,11 +123,26 @@ public class GoodsSpecFragment extends AbstractMyBaseFragment {
             ArmsUtils.snackbarText("请输入餐盒数量", ConstantUtil.SNACK_WARING);
         } else if (TextUtils.isEmpty(boxPrice)) {
             ArmsUtils.snackbarText("请输入餐盒价格", ConstantUtil.SNACK_WARING);
+        } else if (mSpec != null) {
+            //修改
+            mSpec.setGoodsSpecificationName(name);
+            mSpec.setGoodsSpecificationPrice(new Double(price));
+            mSpec.setInfiniteInventory(swInventory.isChecked());
+            mSpec.setStock(swInventory.isChecked() ? 0 : new Integer(inventory));
+            mSpec.setBoxesNumber(new Integer(boxCount));
+            mSpec.setBoxesMoney(new Double(boxPrice));
+            EventBus.getDefault().post(mSpec);
+            pop();
         } else {
-            EventBus.getDefault().post(new AddGoods.AddSpecsBean(swInventory.isChecked(), new Double(boxPrice),
-                    new Integer(boxCount), name, new Double(price), swInventory.isChecked()?0: new Integer(inventory)));
+            //添加
+            EventBus.getDefault().post(new AddGoods.AddSpecsBean(swInventory.isChecked(),
+                    new Double(boxPrice),
+                    new Integer(boxCount), name, new Double(price), swInventory.isChecked() ?
+                    0 :
+                    new Integer(inventory)));
             pop();
         }
+
 
     }
 }

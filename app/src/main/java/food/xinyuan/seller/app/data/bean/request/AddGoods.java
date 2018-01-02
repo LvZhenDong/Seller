@@ -3,6 +3,8 @@ package food.xinyuan.seller.app.data.bean.request;
 import java.util.ArrayList;
 import java.util.List;
 
+import food.xinyuan.seller.app.utils.DataUtils;
+
 /**
  * <p>
  * Description：添加商品
@@ -118,13 +120,45 @@ public class AddGoods {
     }
 
     public static class GoodsPropertysBean {
+        private boolean isUpdate;   //是修改的规格，还是添加的规格
+        private int updatePos;
+
+        public int getUpdatePos() {
+            return updatePos;
+        }
+
+        public void setUpdatePos(int updatePos) {
+            this.updatePos = updatePos;
+        }
+
+        public boolean isUpdate() {
+            return isUpdate;
+        }
+
+        public void setUpdate(boolean update) {
+            isUpdate = update;
+        }
         public GoodsPropertysBean(String goodsPropertyName, List<String> strings) {
             this.goodsPropertyName = goodsPropertyName;
-            goodsPropertyValueList=new ArrayList<>();
-            for (String str:strings
-                 ) {
-                goodsPropertyValueList.add(new GoodsPropertyValueListBean(str));
+            this.goodsPropertyValueList=getPropertyStrings(strings);
+        }
+
+        private List<GoodsPropertyValueListBean> getPropertyStrings(List<String> strings){
+            List<GoodsPropertyValueListBean> list=new ArrayList<>();
+            for (String str:strings) {
+                list.add(new GoodsPropertyValueListBean(str));
             }
+            return list;
+        }
+
+        public List<String> getStrings(){
+            List<String> list=new ArrayList<>();
+            if(!DataUtils.isEmpty(goodsPropertyValueList)){
+                for (GoodsPropertyValueListBean item:goodsPropertyValueList) {
+                    list.add(item.getValue());
+                }
+            }
+            return list;
         }
 
         /**
@@ -157,8 +191,8 @@ public class AddGoods {
             return goodsPropertyValueList;
         }
 
-        public void setGoodsPropertyValueList(List<GoodsPropertyValueListBean> goodsPropertyValueList) {
-            this.goodsPropertyValueList = goodsPropertyValueList;
+        public void setGoodsPropertyValueList(List<String> strings) {
+            this.goodsPropertyValueList = getPropertyStrings(strings);
         }
 
         public static class GoodsPropertyValueListBean {
@@ -183,6 +217,25 @@ public class AddGoods {
     }
 
     public static class AddSpecsBean {
+        private boolean isUpdate;   //是修改的规格，还是添加的规格
+        private int updatePos;
+
+        public int getUpdatePos() {
+            return updatePos;
+        }
+
+        public void setUpdatePos(int updatePos) {
+            this.updatePos = updatePos;
+        }
+
+        public boolean isUpdate() {
+            return isUpdate;
+        }
+
+        public void setUpdate(boolean update) {
+            isUpdate = update;
+        }
+
         public AddSpecsBean(boolean infiniteInventory, double boxesMoney, int boxesNumber, String goodsSpecificationName, double goodsSpecificationPrice, int stock) {
             this.infiniteInventory = infiniteInventory;
             this.boxesMoney = boxesMoney;

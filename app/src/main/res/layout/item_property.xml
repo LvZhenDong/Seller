@@ -1,27 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_tips"
+        android:background="@color/bg_btn_tint_green"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/tv_name"/>
+
+        <TextView
+            android:id="@+id/tv_del"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="删除"
+            android:textColor="@color/tv_red"/>
+
+        <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/tv_del"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="修改"
+            android:textColor="@color/colorPrimary"/>
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_property"
+        android:id="@+id/tv_property_name"
+        style="@style/TvTips"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_margin="5dp"
-        android:background="@color/bg_white"
-        android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="sfasdf"
-        android:textColor="@color/tv_name" />
+        android:text="属性名称："/>
 
+    <View style="@style/XYLine"/>
 
-    <ImageView
-        android:id="@+id/iv_close"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginLeft="-10dp"
-        android:layout_toRightOf="@id/tv_property"
-        android:src="@drawable/ic_close"/>
-</RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

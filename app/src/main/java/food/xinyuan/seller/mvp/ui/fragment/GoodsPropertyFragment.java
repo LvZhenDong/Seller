@@ -1,12 +1,8 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
 
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.annotation.IntRange;
-import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
-import com.beloo.widget.chipslayoutmanager.gravity.IChildGravityResolver;
-import com.beloo.widget.chipslayoutmanager.layouter.breaker.IRowBreaker;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
@@ -30,13 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
-import food.xinyuan.seller.app.data.event.GoodsCategoryEvent;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.DataUtils;
@@ -62,10 +53,18 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
     @BindView(R.id.tv_ensure)
     TextView tvEnsure;
 
+    AddGoods.GoodsPropertysBean mProperty;
     BaseQuickAdapter<String, BaseViewHolder> mAdapter;
 
     public static GoodsPropertyFragment newInstance() {
         GoodsPropertyFragment fragment = new GoodsPropertyFragment();
+        return fragment;
+    }
+
+    public static GoodsPropertyFragment newInstance(AddGoods.GoodsPropertysBean bean) {
+
+        GoodsPropertyFragment fragment = new GoodsPropertyFragment();
+        fragment.mProperty = bean;
         return fragment;
     }
 
@@ -81,11 +80,9 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        tvHeaderCenter.setText("添加规格");
         CommonUtils.setBack(this, ivHeaderLeft);
 
-
-        mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_property) {
+        mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_property_lable) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
                 helper.setText(R.id.tv_property, item);
@@ -105,6 +102,19 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
                 .build();
         rvProperty.setLayoutManager(chipsLayoutManager);
         rvProperty.setAdapter(mAdapter);
+
+        if (mProperty != null) {
+            tvHeaderCenter.setText("修改属性");
+            setDataIfUpdate();
+        } else {
+            tvHeaderCenter.setText("添加属性");
+        }
+    }
+
+    private void setDataIfUpdate(){
+        etName.setText(mProperty.getGoodsPropertyName());
+        mList=mProperty.getStrings();
+        mAdapter.setNewData(mList);
     }
 
     @Override
@@ -119,11 +129,11 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
         switch (view.getId()) {
             case R.id.tv_add:
                 String property = etProperty.getText().toString().trim();
-                if(mList.size() >= 4){
+                if (mList.size() >= 4) {
                     ArmsUtils.snackbarText("属性值最多4项", ConstantUtil.SNACK_WARING);
                     return;
                 }
-                if (mList.contains(property)){
+                if (mList.contains(property)) {
                     ArmsUtils.snackbarText("该属性值已存在", ConstantUtil.SNACK_WARING);
                     return;
                 }
@@ -134,17 +144,22 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
                 }
                 break;
             case R.id.tv_ensure:
-                if(TextUtils.isEmpty(etName.getText().toString().trim())){
+                if (TextUtils.isEmpty(etName.getText().toString().trim())) {
                     ArmsUtils.snackbarText("请输入属性名称", ConstantUtil.SNACK_WARING);
-                    return;
-                }
-                if(DataUtils.isEmpty(mList)){
+                }else if (DataUtils.isEmpty(mList)) {
                     ArmsUtils.snackbarText("请输入属性值", ConstantUtil.SNACK_WARING);
-                    return;
+                }else if(mProperty != null){
+                    mProperty.setGoodsPropertyName(etName.getText().toString().trim());
+                    mProperty.setGoodsPropertyValueList(mList);
+                    EventBus.getDefault().post(mProperty);
+                    pop();
+
+                }else{
+                    EventBus.getDefault().post(new AddGoods.GoodsPropertysBean(etName.getText()
+                            .toString().trim(),
+                            mList));
+                    pop();
                 }
-                EventBus.getDefault().post(new AddGoods.GoodsPropertysBean(etName.getText().toString().trim(),
-                        mList));
-                pop();
                 break;
         }
     }

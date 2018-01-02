@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
@@ -83,11 +85,13 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     TextView tvSave;
     @BindView(R.id.rv_spec)
     RecyclerView rvSpec;
+    @BindView(R.id.rv_property)
+    RecyclerView rvProperty;
 
     AppComponent mAppComponent;
     MaterialDialog mDialog;
-    BaseQuickAdapter<AddGoods.AddSpecsBean,BaseViewHolder> mSpecAdapter;
-    List<AddGoods.AddSpecsBean> mSpecList=new ArrayList<>();
+    BaseQuickAdapter<AddGoods.AddSpecsBean, BaseViewHolder> mSpecAdapter;
+    BaseQuickAdapter<AddGoods.GoodsPropertysBean,BaseViewHolder> mPropertyAdapter;
 
     public static AddGoodsFragment newInstance() {
         AddGoodsFragment fragment = new AddGoodsFragment();
@@ -119,16 +123,91 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
         mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
                 progress(true, 0).build();
 
-        mSpecAdapter=new BaseQuickAdapter(R.layout.item_spec) {
+        initRvProperty();
+        initRvSpec();
+
+    }
+
+
+
+    private void initRvProperty(){
+
+        mPropertyAdapter =new BaseQuickAdapter<AddGoods.GoodsPropertysBean, BaseViewHolder>(R
+                .layout.item_property) {
             @Override
-            protected void convert(BaseViewHolder helper, Object item) {
+            protected void convert(BaseViewHolder helper, AddGoods.GoodsPropertysBean item) {
+                int pos = mGoodsPropertysBeans.indexOf(item);
+                helper.setText(R.id.tv_title, "属性" + (pos + 1));
+                helper.setText(R.id.tv_property_name,"属性名称："+item.getGoodsPropertyName());
+                //删除
+                helper.getView(R.id.tv_del).setOnClickListener(v -> {
+                    mGoodsPropertysBeans.remove(item);
+                    mPropertyAdapter.notifyDataSetChanged();
+                });
+                //修改
+                helper.getView(R.id.tv_update).setOnClickListener(v -> {
+                    item.setUpdate(true);
+                    item.setUpdatePos(pos);
+                    start(GoodsPropertyFragment.newInstance(item));
+                });
+
+                RecyclerView rvLabel=helper.getView(R.id.rv_property);
+                BaseQuickAdapter<String,BaseViewHolder> adapter=new BaseQuickAdapter<String,
+                        BaseViewHolder>(R.layout.item_property_lable) {
+                    @Override
+                    protected void convert(BaseViewHolder helper, String item) {
+                        helper.setText(R.id.tv_property,item);
+                        helper.setVisible(R.id.iv_close,false);
+                    }
+                };
+                ChipsLayoutManager chipsLayoutManager = ChipsLayoutManager.newBuilder(getActivity())
+                        .setChildGravity(Gravity.TOP)
+                        .setScrollingEnabled(true)
+                        .setMaxViewsInRow(4)
+                        .setGravityResolver(position -> Gravity.CENTER)
+                        .build();
+                adapter.setNewData(item.getStrings());
+                rvLabel.setLayoutManager(chipsLayoutManager);
+                rvLabel.setAdapter(adapter);
+            }
+        };
+        mPropertyAdapter.setNewData(mGoodsPropertysBeans);
+
+        rvProperty.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvProperty.setAdapter(mPropertyAdapter);
+    }
+
+    private void initRvSpec(){
+        mSpecAdapter = new BaseQuickAdapter<AddGoods.AddSpecsBean, BaseViewHolder>(R.layout
+                .item_spec) {
+            @Override
+            protected void convert(BaseViewHolder helper, AddGoods.AddSpecsBean item) {
+                int position = mSpecs.indexOf(item);
+                helper.setText(R.id.tv_title, "规格" + (position + 1));
+                helper.setText(R.id.tv_spec_name, "规格名称：" + item.getGoodsSpecificationName());
+                helper.setText(R.id.tv_spec_price, "价格：" + item.getGoodsSpecificationPrice());
+                helper.setText(R.id.tv_spec_inventory, "库存：" + (item.isInfiniteInventory()
+                        ? "无限" : item.getStock()));
+                helper.setText(R.id.tv_box_count, "餐盒数量：" + item.getBoxesNumber());
+                helper.setText(R.id.tv_box_price, "餐盒价格：" + item.getBoxesMoney());
+
+                //删除
+                helper.getView(R.id.tv_del).setOnClickListener(v -> {
+                    mSpecs.remove(item);
+                    mSpecAdapter.notifyDataSetChanged();
+                });
+                //修改
+                helper.getView(R.id.tv_update).setOnClickListener(v -> {
+                    item.setUpdate(true);
+                    item.setUpdatePos(position);
+                    start(GoodsSpecFragment.newInstance(item));
+                });
 
             }
         };
-        mSpecAdapter.setNewData(mSpecList);
+        mSpecAdapter.setNewData(mSpecs);
         rvSpec.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvSpec.setAdapter(mSpecAdapter);
-
     }
 
     @Override
@@ -174,7 +253,8 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
                 startActivityForResult(imgIntent, REQUEST_IMAGE_PICKER);
                 break;
             case R.id.tv_save:
-                mPresenter.addGoods(etName.getText().toString().trim(), mImgUrl, etBrief.getText().toString().trim(), rbOn.isChecked(),
+                mPresenter.addGoods(etName.getText().toString().trim(), mImgUrl, etBrief.getText
+                                ().toString().trim(), rbOn.isChecked(),
                         mCategoryList, mGoodsPropertysBeans, mSpecs);
                 break;
             default:
@@ -194,32 +274,42 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
             String category = "";
             for (GoodsCategory item : event.getList()) {
                 mCategoryList.add(item.getGoodsCategoryId());
-                category = category + (TextUtils.isEmpty(category) ? "" : "、") + item.getGoodsCategoryName();
+                category = category + (TextUtils.isEmpty(category) ? "" : "、") + item
+                        .getGoodsCategoryName();
             }
             tvGoodsCategory.setText(category);
         }
     }
 
     /**
-     * 添加属性
+     * 添加或者修改属性
      *
      * @param bean
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAddProperty(AddGoods.GoodsPropertysBean bean) {
-        mGoodsPropertysBeans.add(bean);
+        if(bean.isUpdate()){
+            mGoodsPropertysBeans.set(bean.getUpdatePos(),bean);
+        }else {
+            mGoodsPropertysBeans.add(bean);
+        }
+        mPropertyAdapter.notifyDataSetChanged();
     }
 
     /**
-     * 添加规格
+     * 添加或者修改规格
      *
      * @param bean
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAddSpec(AddGoods.AddSpecsBean bean) {
-        mSpecs.add(bean);
-        mSpecList.add(bean);
+        if(bean.isUpdate()){
+            mSpecs.set(bean.getUpdatePos(),bean);
+        }else {
+            mSpecs.add(bean);
+        }
         mSpecAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -237,9 +327,9 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
 
     String mImgStr;
     String mImgUrl;
-    List<Integer> mCategoryList=new ArrayList<>();
-    List<AddGoods.GoodsPropertysBean> mGoodsPropertysBeans=new ArrayList<>();
-    List<AddGoods.AddSpecsBean> mSpecs=new ArrayList<>();
+    List<Integer> mCategoryList = new ArrayList<>();
+    List<AddGoods.GoodsPropertysBean> mGoodsPropertysBeans = new ArrayList<>();
+    List<AddGoods.AddSpecsBean> mSpecs = new ArrayList<>();
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
