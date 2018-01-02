@@ -2,13 +2,19 @@ package food.xinyuan.seller.app.api.service;
 
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
+import food.xinyuan.seller.app.data.bean.request.AddGoods;
 import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
+import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.data.bean.response.Printer;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -46,10 +52,17 @@ public interface ShopService {
     @GET("/seller/goodsCategory")
     Observable<HttpResponseData<ListResponse<GoodsCategory>>> getGoodsCategory();
 
-
     /**
      * 获取商品列表
      */
     @GET("/seller/goods")
     Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(@Query("goodsClassId") String id);
+
+    /**
+     * 上传商品
+     * @param json
+     * @return
+     */
+    @PUT("/seller/goods")
+    Observable<HttpResponseData<AddGoods>> addGoods(@Body RequestBody json);
 }

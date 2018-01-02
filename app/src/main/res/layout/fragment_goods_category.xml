@@ -3,14 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_white"
     android:orientation="vertical">
 
     <include layout="@layout/view_header_tv_tv" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="20dp"
         android:id="@+id/rv_choose_goods_category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_ensure"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_item"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="确认"
+        android:textColor="@color/white" />
 
 </LinearLayout>

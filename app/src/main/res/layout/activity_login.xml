@@ -28,6 +28,7 @@
         android:layout_marginTop="15dp">
 
         <EditText
+            android:text="15828064744"
             android:id="@+id/et_phone"
             style="@style/EtStroke"
             android:hint="请输入手机号"
@@ -56,6 +57,7 @@
         android:layout_marginTop="15dp">
 
         <EditText
+            android:text="9344"
             android:id="@+id/et_ver_code"
             style="@style/EtStroke"
             android:hint="请输入验证码"

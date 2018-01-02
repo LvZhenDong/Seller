@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/RlItem">
+    style="@style/RlItem"
+    android:paddingBottom="0dp">
 
     <TextView
-        android:id="@+id/tv_goods_category"
+        android:id="@+id/rl_goods_category"
         style="@style/TvItemTitle"
         android:layout_centerVertical="true" />
+
+    <CheckBox
+        android:layout_centerVertical="true"
+        android:clickable="false"
+        android:id="@+id/cb_goods_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:button="@drawable/ic_check_selector" />
 
     <View
         style="@style/XYLine"

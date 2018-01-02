@@ -50,7 +50,7 @@
 
         <TextView
             style="@style/TvEditGoods"
-            android:background="@drawable/bg_green_radius_5dp"
+            android:background="@drawable/bg_deep_green_radius_5dp"
             android:text="编辑" />
 
         <TextView

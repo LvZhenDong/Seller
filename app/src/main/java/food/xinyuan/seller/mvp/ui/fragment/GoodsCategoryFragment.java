@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,14 +15,17 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
+import food.xinyuan.seller.app.data.event.GoodsCategoryEvent;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.di.component.DaggerGoodsCategoryComponent;
 import food.xinyuan.seller.di.module.GoodsCategoryModule;
@@ -38,9 +42,14 @@ public class GoodsCategoryFragment extends AbstractMyBaseFragment<GoodsCategoryP
     TextView tvHeaderCenter;
     @BindView(R.id.rv_choose_goods_category)
     RecyclerView rvChooseGoodsCategory;
+    @BindView(R.id.tv_ensure)
+    TextView tvEnsure;
 
+    private final static int MAX_CATEGORY = 5;
     MaterialDialog mDialog;
     BaseQuickAdapter<GoodsCategory, BaseViewHolder> mAdapter;
+
+    List<GoodsCategory> mList;
 
     public static GoodsCategoryFragment newInstance() {
         GoodsCategoryFragment fragment = new GoodsCategoryFragment();
@@ -73,9 +82,19 @@ public class GoodsCategoryFragment extends AbstractMyBaseFragment<GoodsCategoryP
         mAdapter = new BaseQuickAdapter<GoodsCategory, BaseViewHolder>(R.layout.item_choose_goods_category) {
             @Override
             protected void convert(BaseViewHolder helper, GoodsCategory item) {
-                helper.setText(R.id.tv_goods_category, item.getGoodsCategoryName());
+                helper.setText(R.id.rl_goods_category, item.getGoodsCategoryName());
+                CheckBox checkBox = helper.getView(R.id.cb_goods_category);
+                checkBox.setButtonDrawable(isMax() ? R.drawable.ic_check_disable_selector : R.drawable.ic_check_selector);
+                checkBox.setChecked(item.isChecked());
             }
         };
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            GoodsCategory item = mList.get(position);
+            if (!isMax() || item.isChecked()) {
+                item.setChecked(!item.isChecked());
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         rvChooseGoodsCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvChooseGoodsCategory.setAdapter(mAdapter);
 
@@ -104,6 +123,40 @@ public class GoodsCategoryFragment extends AbstractMyBaseFragment<GoodsCategoryP
 
     @Override
     public void getGoodsCategorySuc(List<GoodsCategory> data) {
+        mList = data;
         mAdapter.setNewData(data);
+    }
+
+    private boolean isMax() {
+        int count = 0;
+        for (GoodsCategory item : mList) {
+            if (item.isChecked()) {
+                count++;
+            }
+        }
+        return count >= MAX_CATEGORY;
+
+    }
+
+    @OnClick(R.id.tv_ensure)
+    public void onViewClicked() {
+
+        EventBus.getDefault().post(new GoodsCategoryEvent(getData()));
+        pop();
+    }
+
+    private List<GoodsCategory> getData() {
+        if (mList == null) {
+            return null;
+        } else {
+            List<GoodsCategory> list = new ArrayList<>();
+            for (GoodsCategory item : mList) {
+                if (item.isChecked()) {
+                    list.add(item);
+                }
+            }
+            return list;
+        }
+
     }
 }

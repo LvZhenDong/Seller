@@ -8,69 +8,194 @@
 
     <include layout="@layout/view_header_tv_tv" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/margin_hor">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-        <TextView
-            style="@style/TvItemTitle"
-            android:text="商品图片" />
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/img_default" />
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/RlItem"
-        android:layout_marginTop="@dimen/margin_small"
-        android:background="@color/white"
-        android:gravity="center_vertical">
-
-        <TextView
-            style="@style/TvItemTitle"
-            android:text="商品名称" />
-
-        <EditText
-            style="@style/TvItemHint"
-            android:layout_marginLeft="20dp"
-            android:background="@null"
-            android:hint="请输入商品名称"
-            android:textColor="@color/tv_name" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/tv_goods_category"
-        style="@style/RlItem"
-        android:layout_marginTop="@dimen/margin_small">
-
-        <TextView
-            style="@style/TvItemTitle"
-            android:text="商品分类" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:drawableRight="@drawable/fragmentation_ic_right"
-            android:textSize="@dimen/tv_Normal" />
-    </RelativeLayout>
+            android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/tv_goods_spec"
-        style="@style/RlItem"
-        android:layout_marginTop="@dimen/margin_small">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_hor">
 
-        <TextView
-            style="@style/TvItemTitle"
-            android:text="商品规格" />
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="商品图片" />
 
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/iv_add_img"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/img_default" />
+            </LinearLayout>
+
+            <RelativeLayout
+                style="@style/RlItem"
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="商品名称" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/EtItemHint"
+                    android:hint="请输入商品名称" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_goods_category"
+                style="@style/RlItem"
+                android:layout_marginTop="@dimen/margin_small">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="商品分类" />
+
+                <TextView
+
+                    android:id="@+id/tv_goods_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/fragmentation_ic_right"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/tv_Normal" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/tv_goods_spec"
+                style="@style/RlItem"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small">
+
+                <TextView
+                    android:id="@+id/tv_spec_tips"
+                    style="@style/TvItemTitle"
+                    android:layout_height="@dimen/height_item"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="false"
+                    android:gravity="center_vertical"
+                    android:text="商品规格" />
+
+                <TextView
+                    style="@style/TvItemHint"
+                    android:layout_height="@dimen/height_item"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="false"
+                    android:gravity="center_vertical"
+                    android:text="添加规格"
+                    android:textColor="@color/colorPrimary" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_spec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_spec_tips" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_goods_property"
+                style="@style/RlItem"
+                android:layout_marginTop="@dimen/margin_small">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="商品属性" />
+
+                <TextView
+                    style="@style/TvItemHint"
+                    android:text="添加属性"
+                    android:textColor="@color/colorPrimary" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/RlItem"
+                android:layout_marginTop="@dimen/margin_small">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="商品状态" />
+
+                <RadioGroup
+                    android:id="@+id/rg_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/rb_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="下架" />
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/rb_on"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上架" />
+                </RadioGroup>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_goods_brief"
+                style="@style/RlItem"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small">
+
+                <TextView
+                    android:id="@+id/tv_tips"
+                    style="@style/TvItemTitle"
+                    android:text="商品简介" />
+
+                <EditText
+                    android:id="@+id/et_brief"
+                    style="@style/EtItemHint"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/tv_tips"
+                    android:background="@null"
+                    android:gravity="left"
+                    android:hint="最多255字"
+                    android:maxLength="255"
+                    android:minHeight="100dp"
+                    android:padding="5dp"
+                    android:singleLine="false"
+                    android:textColor="@color/tv_name" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_item"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_btn_green_selector"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/white" />
+
 </LinearLayout>

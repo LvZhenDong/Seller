@@ -1,5 +1,7 @@
 package food.xinyuan.seller.app.data.bean.response;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * Description：
@@ -8,7 +10,7 @@ package food.xinyuan.seller.app.data.bean.response;
  * @author lzd
  * @CreateDate 2017/12/29
  */
-public class GoodsCategory {
+public class GoodsCategory implements Serializable {
 
     /**
      * goodsCategoryId : 2107
@@ -19,6 +21,8 @@ public class GoodsCategory {
     private int goodsCategoryId;
     private String goodsCategoryName;
     private int sortOrder;
+    //是否被选择
+    private boolean checked;
 
     public int getGoodsCategoryId() {
         return goodsCategoryId;
@@ -42,5 +46,13 @@ public class GoodsCategory {
 
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

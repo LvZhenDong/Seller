@@ -53,6 +53,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     //Butterknife 插件,很多人因为没加这个而报错,切记!!!
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
@@ -76,4 +77,9 @@ dependencies {
     //    AES加密
     compile 'com.scottyab:aes-crypto:0.0.4'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile 'org.greenrobot:eventbus:3.1.1'
+    //switch button
+    compile 'com.kyleduo.switchbutton:library:2.0.0'
+    //标签
+    compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
 }

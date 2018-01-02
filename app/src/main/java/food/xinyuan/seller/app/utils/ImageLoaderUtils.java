@@ -19,6 +19,27 @@ import food.xinyuan.seller.R;
 public class ImageLoaderUtils {
 
     /**
+     * 加载本地图片
+     *
+     * @param appComponent
+     * @param url
+     * @param imageView
+     */
+    public static void loadFileImg(AppComponent appComponent, String url, ImageView imageView) {
+        L.i(url);
+        appComponent
+                .imageLoader()
+                .loadImage(appComponent.application(),
+                        ImageConfigImpl
+                                .builder()
+                                .url(url)
+                                .placeholder(R.drawable.img_default)
+                                .errorPic(R.drawable.img_default)
+                                .imageView(imageView)
+                                .build());
+    }
+
+    /**
      * 加载图片
      *
      * @param appComponent
