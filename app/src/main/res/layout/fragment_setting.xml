@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/rl_account"
         style="@style/RlItem"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="@dimen/margin_top">
 
         <TextView
             style="@style/TvItemTitle"

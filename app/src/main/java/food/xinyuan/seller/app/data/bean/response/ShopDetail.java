@@ -89,14 +89,23 @@ public class ShopDetail {
     private String shopType;
     private String distributionType;
     private int fee;
-    private int minDeliveryPrice;
+    private double minDeliveryPrice;
     private int distributionScope;
     private boolean canDrawInvoice;
+    private boolean automaticAcceptOrder;
     private int topper;
     private long addTime;
     private boolean collectioned;
     private List<CarouselBean> carousel;
     private List<ShopActiveBean> shopActive;
+
+    public boolean isAutomaticAcceptOrder() {
+        return automaticAcceptOrder;
+    }
+
+    public void setAutomaticAcceptOrder(boolean automaticAcceptOrder) {
+        this.automaticAcceptOrder = automaticAcceptOrder;
+    }
 
     public int getShopId() {
         return shopId;
@@ -362,11 +371,11 @@ public class ShopDetail {
         this.fee = fee;
     }
 
-    public int getMinDeliveryPrice() {
+    public double getMinDeliveryPrice() {
         return minDeliveryPrice;
     }
 
-    public void setMinDeliveryPrice(int minDeliveryPrice) {
+    public void setMinDeliveryPrice(double minDeliveryPrice) {
         this.minDeliveryPrice = minDeliveryPrice;
     }
 

@@ -78,19 +78,19 @@ public class GoodsListFragment extends AbstractMyBaseFragment<GoodsListPresenter
             @Override
             public void onSoldOut(int goodsId) {
                 DialogUtils.commonChooseDialog(getActivity(), "确定下架该商品?",
-                        () -> mPresenter.soldOutGoods(goodsId)).show();
+                        (dialog, which) -> mPresenter.soldOutGoods(goodsId)).show();
             }
 
             @Override
             public void onPutAway(int goodsId) {
                 DialogUtils.commonChooseDialog(getActivity(), "确定上架该商品?",
-                        () -> mPresenter.putawayGoods(goodsId)).show();
+                        (dialog, which) -> mPresenter.putawayGoods(goodsId)).show();
             }
 
             @Override
             public void onDel(int goodsId) {
                 DialogUtils.commonChooseDialog(getActivity(), "确定删除该商品?",
-                        () -> mPresenter.delGoods(goodsId)).show();
+                        (dialog, which) -> mPresenter.delGoods(goodsId)).show();
             }
         });
     }

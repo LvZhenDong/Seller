@@ -43,6 +43,50 @@ public interface ShopService {
     Observable<HttpResponseData<ShopDetail>> getShopDetail();
 
     /**
+     * 歇业
+     * @return
+     */
+    @DELETE("/seller/shopDetail/operatingState")
+    Observable<HttpResponseData> delOperating();
+
+    /**
+     * 营业
+     * @return
+     */
+    @PUT("/seller/shopDetail/operatingState")
+    Observable<HttpResponseData> putOperating();
+
+    /**
+     * 更改联系电话
+     * @param phone
+     * @return
+     */
+    @PUT("/seller/shopDetail/takeOutPhone/{takeOutPhone}")
+    Observable<HttpResponseData> changeShopPhone(@Path("takeOutPhone") String phone);
+
+    /**
+     * 更改最低配送价格
+     * @param price
+     * @return
+     */
+    @PUT("/seller/shopDetail/updateMinDeliveryPrice/{minDeliveryPrice}")
+    Observable<HttpResponseData> changeMinDeliveryPrice(@Path("minDeliveryPrice") String price);
+
+    /**
+     * 手动接单
+     * @return
+     */
+    @DELETE("/seller/shopDetail/automaticAcceptOrder")
+    Observable<HttpResponseData> delAutoOrder();
+
+    /**
+     * 自动接单
+     * @return
+     */
+    @PUT("/seller/shopDetail/automaticAcceptOrder")
+    Observable<HttpResponseData> putAutoOrder();
+
+    /**
      * 获取打印机列表
      */
     @GET("/seller/printer")

@@ -14,7 +14,7 @@
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_top"
         android:layout_weight="1"
         android:background="@color/white"
         android:orientation="vertical">
@@ -62,6 +62,7 @@
             <TextView
                 android:id="@+id/tv_inventory_hint"
                 style="@style/TvItemHint"
+                android:textColor="@color/tv_name"
                 android:text="无限" />
 
             <com.kyleduo.switchbutton.SwitchButton

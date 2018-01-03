@@ -223,6 +223,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
             case R.id.tv_status_bind:
                 break;
             case R.id.tv_check_info:
+                start(ShopInfoFragment.newInstance());
                 break;
         }
     }

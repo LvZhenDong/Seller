@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_header_tv_tv" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                style="@style/RlItem"
+                android:layout_marginTop="@dimen/margin_top"
+                android:background="@color/white">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="营业状态" />
+
+                <TextView
+                    android:id="@+id/tv_operating"
+                    style="@style/TvItemHint"
+                    android:layout_alignParentRight="false"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/sb_operating"
+                    android:text="营业中"
+                    android:textColor="@color/tv_name" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/sb_operating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/RlItem"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:height="35dp"
+                    android:text="门店基本信息" />
+
+                <View style="@style/XYLine" />
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:layout_marginTop="5dp"
+                    android:text="门店名称"
+                    android:textColor="@color/tv_hint" />
+
+                <TextView
+                    android:id="@+id/tv_shop_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="鑫源共享"
+                    android:textColor="@color/tv_name"
+                    android:textSize="@dimen/tv_light" />
+
+                <View style="@style/XYLine" />
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:layout_marginTop="5dp"
+                    android:text="门店地址"
+                    android:textColor="@color/tv_hint" />
+
+                <TextView
+                    android:id="@+id/tv_shop_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="鑫源共享"
+                    android:textColor="@color/tv_name"
+                    android:textSize="@dimen/tv_light" />
+
+                <View style="@style/XYLine" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/RlItem"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:height="35dp"
+                    android:text="营业设置" />
+
+                <View style="@style/XYLine" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_shop_bus_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_selector">
+
+                    <TextView
+                        android:id="@+id/tv_shop_bus_time_tips"
+                        style="@style/TvItemTitle"
+                        android:layout_centerVertical="false"
+                        android:paddingTop="5dp"
+                        android:text="营业时间"
+                        android:textColor="@color/tv_hint" />
+
+                    <TextView
+                        android:id="@+id/tv_shop_bus_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_shop_bus_time_tips"
+                        android:paddingBottom="5dp"
+                        android:text="鑫源共享"
+                        android:textColor="@color/tv_name"
+                        android:textSize="@dimen/tv_light" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height_item"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableRight="@drawable/fragmentation_ic_right" />
+                </RelativeLayout>
+
+                <View style="@style/XYLine" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_shop_bus_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_selector">
+
+                    <TextView
+                        android:id="@+id/tv_shop_bus_phone_tips"
+                        style="@style/TvItemTitle"
+                        android:layout_centerVertical="false"
+                        android:paddingTop="5dp"
+                        android:text="联系电话"
+                        android:textColor="@color/tv_hint" />
+
+                    <TextView
+                        android:id="@+id/tv_shop_bus_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_shop_bus_phone_tips"
+                        android:paddingBottom="5dp"
+                        android:text="鑫源共享"
+                        android:textColor="@color/tv_name"
+                        android:textSize="@dimen/tv_light" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableRight="@drawable/fragmentation_ic_right" />
+                </RelativeLayout>
+
+
+                <View style="@style/XYLine" />
+            </LinearLayout>
+
+            <RelativeLayout
+                style="@style/RlItem"
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="接单设置" />
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/sb_accept_order_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:checked="true" />
+                <TextView
+                    android:id="@+id/tv_accept_order_type"
+                    style="@style/TvItemHint"
+                    android:text="自动"
+                    android:layout_alignParentRight="false"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/sb_accept_order_type"
+                    android:textColor="@color/tv_name" />
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_min_delivery_price"
+                style="@style/RlItem"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="最低配送金额" />
+
+                <TextView
+                    android:id="@+id/tv_min_delivery_price"
+                    style="@style/TvItem"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawablePadding="@dimen/drawable_padding_text"
+                    android:paddingRight="0dp" />
+            </RelativeLayout>
+
+            <View style="@style/XYLine" />
+
+            <RelativeLayout
+                style="@style/RlItem"
+                android:background="@color/white">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="是否允许开票" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/sb_draw_invoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:checked="true" />
+
+                <TextView
+                    android:id="@+id/tv_draw_invoice"
+                    style="@style/TvItemHint"
+                    android:text="是"
+                    android:layout_alignParentRight="false"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/sb_draw_invoice"
+                    android:textColor="@color/tv_name" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

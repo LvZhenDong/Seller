@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="@dimen/drawable_padding_text"
                     android:drawableRight="@drawable/fragmentation_ic_right"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/tv_Normal"/>
