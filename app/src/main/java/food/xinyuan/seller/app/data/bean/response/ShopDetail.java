@@ -2,6 +2,8 @@ package food.xinyuan.seller.app.data.bean.response;
 
 import java.util.List;
 
+import food.xinyuan.seller.app.utils.XDateUtils;
+
 /**
  * <p>
  * Description：
@@ -228,7 +230,7 @@ public class ShopDetail {
     }
 
     public String getBusBeginTime() {
-        return busBeginTime;
+        return XDateUtils.date2String(XDateUtils.string2Date(busBeginTime,"HH:mm"),"HH:mm");
     }
 
     public void setBusBeginTime(String busBeginTime) {
@@ -236,7 +238,7 @@ public class ShopDetail {
     }
 
     public String getBusEndTime() {
-        return busEndTime;
+        return XDateUtils.date2String(XDateUtils.string2Date(busEndTime,"HH:mm"),"HH:mm");
     }
 
     public void setBusEndTime(String busEndTime) {

@@ -35,7 +35,8 @@ import food.xinyuan.seller.mvp.contract.HomeContract;
 import food.xinyuan.seller.mvp.presenter.HomePresenter;
 
 
-public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implements HomeContract.View {
+public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implements HomeContract
+        .View {
     @BindView(R.id.tv_status_shop)
     TextView tvStatusShop;
     @BindView(R.id.tv_status_bind)
@@ -165,8 +166,9 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                     case 3:
 
                         break;
+                    //门店信息
                     case 4:
-
+                        start(ShopInfoFragment.newInstance());
                         break;
                     case 5:
 
@@ -212,7 +214,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
 
     @Override
     public void getShopDetailSuc(ShopDetail shopDetail) {
-        ImageLoaderUtils.loadCirImg(mAppComponent,shopDetail.getShopFaceUrl(),ivHead);
+        ImageLoaderUtils.loadCirImg(mAppComponent, shopDetail.getShopFaceUrl(), ivHead);
     }
 
     @OnClick({R.id.tv_status_shop, R.id.tv_status_bind, R.id.tv_check_info})

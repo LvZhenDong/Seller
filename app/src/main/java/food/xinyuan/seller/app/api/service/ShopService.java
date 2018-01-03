@@ -5,7 +5,6 @@ import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
 import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
-import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.data.bean.response.Printer;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
@@ -44,6 +43,7 @@ public interface ShopService {
 
     /**
      * 歇业
+     *
      * @return
      */
     @DELETE("/seller/shopDetail/operatingState")
@@ -51,6 +51,7 @@ public interface ShopService {
 
     /**
      * 营业
+     *
      * @return
      */
     @PUT("/seller/shopDetail/operatingState")
@@ -58,6 +59,7 @@ public interface ShopService {
 
     /**
      * 更改联系电话
+     *
      * @param phone
      * @return
      */
@@ -66,6 +68,7 @@ public interface ShopService {
 
     /**
      * 更改最低配送价格
+     *
      * @param price
      * @return
      */
@@ -74,6 +77,7 @@ public interface ShopService {
 
     /**
      * 手动接单
+     *
      * @return
      */
     @DELETE("/seller/shopDetail/automaticAcceptOrder")
@@ -81,10 +85,30 @@ public interface ShopService {
 
     /**
      * 自动接单
+     *
      * @return
      */
     @PUT("/seller/shopDetail/automaticAcceptOrder")
     Observable<HttpResponseData> putAutoOrder();
+
+    /**
+     * 不允许开发票
+     *
+     * @return
+     */
+    @DELETE("/seller/shop/drawInvoice")
+    Observable<HttpResponseData> delDrawInvoice();
+
+    /**
+     * 允许开发票
+     *
+     * @return
+     */
+    @PUT("/seller/shop/drawInvoice")
+    Observable<HttpResponseData> putDrawInvoice();
+
+    @PUT("/seller/shopDetail/busTime")
+    Observable<HttpResponseData> changeBusTime(@Body RequestBody json);
 
     /**
      * 获取打印机列表
@@ -102,10 +126,12 @@ public interface ShopService {
      * 获取商品列表
      */
     @GET("/seller/goods")
-    Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(@Query("goodsClassId") String id);
+    Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(@Query("goodsClassId") String
+                                                                           id);
 
     /**
      * 上传商品
+     *
      * @param json
      * @return
      */
@@ -114,6 +140,7 @@ public interface ShopService {
 
     /**
      * 获取商品详情
+     *
      * @param json
      * @return
      */
@@ -122,6 +149,7 @@ public interface ShopService {
 
     /**
      * 下架商品
+     *
      * @param json
      * @return
      */
@@ -130,6 +158,7 @@ public interface ShopService {
 
     /**
      * 上架商品
+     *
      * @param json
      * @return
      */
@@ -138,6 +167,7 @@ public interface ShopService {
 
     /**
      * 删除商品
+     *
      * @return
      */
     @DELETE("/seller/goods/{goodsId}")
