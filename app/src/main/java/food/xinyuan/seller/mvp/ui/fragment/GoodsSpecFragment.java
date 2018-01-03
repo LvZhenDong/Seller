@@ -143,6 +143,5 @@ public class GoodsSpecFragment extends AbstractMyBaseFragment {
             pop();
         }
 
-
     }
 }

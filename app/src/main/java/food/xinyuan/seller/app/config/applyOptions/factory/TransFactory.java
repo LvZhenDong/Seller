@@ -46,4 +46,34 @@ public class TransFactory {
                 });
 
     }
+
+
+    /**
+     * 适用于返回值无data的普通单个请求
+     * @param rootView
+     * @return
+     */
+    public static ObservableTransformer<HttpResponseData,Boolean> commonTransNoData(IView rootView) {
+        return upstream -> upstream
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3, 2))
+                .compose(RxLifecycleUtils.bindToLifecycle(rootView))
+                .doOnSubscribe(disposable -> {
+                    rootView.showLoading();
+                })
+                .doFinally(() -> {
+                    rootView.hideLoading();
+                })
+                .map(responseData -> {
+                    if (responseData.isStatus()) {
+                        return true;
+                    } else {
+                        throw new RuntimeException(responseData.getMessage());
+                    }
+                });
+
+    }
+
+
 }

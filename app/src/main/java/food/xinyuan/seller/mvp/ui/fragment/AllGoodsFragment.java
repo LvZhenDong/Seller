@@ -1,6 +1,7 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,8 +39,8 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
     ImageView ivHeaderLeft;
     @BindView(R.id.tv_header_center)
     TextView tvHeaderCenter;
-    @BindView(R.id.rv_goods)
-    RecyclerView rvGoods;
+    //    @BindView(R.id.rv_goods)
+//    RecyclerView rvGoods;
     @BindView(R.id.tl_goods_category)
     VerticalTabLayout tlGoodsCategory;
 
@@ -73,10 +75,6 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
         tvHeaderCenter.setText(R.string.all_goods);
         CommonUtils.setBack(this, ivHeaderLeft);
 
-        rvGoods.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new GoodsAdapter(R.layout.item_goods, mAppComponent);
-        rvGoods.setAdapter(mAdapter);
-
         mPresenter.getInitData();
 
     }
@@ -108,6 +106,7 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
                     .setTextSize(12)
                     .build());
             tlGoodsCategory.addTab(view);
+            fragments.add(GoodsListFragment.newInstance(item.getGoodsCategoryId()));
         }
 
         tlGoodsCategory.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
@@ -121,12 +120,15 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
 
             }
         });
+        tlGoodsCategory.setupWithFragment(getFragmentManager(), R.id.fl_fragment, fragments);
 
     }
 
+    List<Fragment> fragments=new ArrayList<>();
+
     @Override
     public void getGoodsSuc(List<Goods> data) {
-        mAdapter.setNewData(data);
+//        mAdapter.setNewData(data);
     }
 
     @OnClick(R.id.tv_add_goods)

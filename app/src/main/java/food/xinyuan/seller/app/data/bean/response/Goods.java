@@ -1,6 +1,10 @@
 package food.xinyuan.seller.app.data.bean.response;
 
+import android.text.TextUtils;
+
 import java.util.List;
+
+import food.xinyuan.seller.app.utils.ConstantUtil;
 
 /**
  * <p>
@@ -33,13 +37,13 @@ public class Goods {
     private int goodsId;
     private int shopId;
     private String goodsName;
-    private int goodsPrice;
+    private double goodsPrice;
     private long goodsAddTime;
     private String goodsStatus;
     private String goodsContent;
     private String goodsImgUrl;
     private int goodsSales;
-    private int goodsRateApprise;
+    private double goodsRateApprise;
     private String shopName;
     private boolean showSpecSelecter;
     private String goodsClassNames;
@@ -70,11 +74,11 @@ public class Goods {
         this.goodsName = goodsName;
     }
 
-    public int getGoodsPrice() {
+    public double getGoodsPrice() {
         return goodsPrice;
     }
 
-    public void setGoodsPrice(int goodsPrice) {
+    public void setGoodsPrice(double goodsPrice) {
         this.goodsPrice = goodsPrice;
     }
 
@@ -88,6 +92,10 @@ public class Goods {
 
     public String getGoodsStatus() {
         return goodsStatus;
+    }
+
+    public boolean isPutAway(){
+        return TextUtils.equals(ConstantUtil.PUTAWAY,getGoodsStatus());
     }
 
     public void setGoodsStatus(String goodsStatus) {
@@ -118,11 +126,11 @@ public class Goods {
         this.goodsSales = goodsSales;
     }
 
-    public int getGoodsRateApprise() {
+    public double getGoodsRateApprise() {
         return goodsRateApprise;
     }
 
-    public void setGoodsRateApprise(int goodsRateApprise) {
+    public void setGoodsRateApprise(double goodsRateApprise) {
         this.goodsRateApprise = goodsRateApprise;
     }
 
@@ -180,10 +188,10 @@ public class Goods {
         private int goodsSpecificationId;
         private int goodsId;
         private String goodsSpecificationName;
-        private int goodsSpecificationPrice;
+        private double goodsSpecificationPrice;
         private boolean infiniteInventory;
         private int boxesNumber;
-        private int boxesMoney;
+        private double boxesMoney;
 
         public int getGoodsSpecificationId() {
             return goodsSpecificationId;
@@ -209,11 +217,11 @@ public class Goods {
             this.goodsSpecificationName = goodsSpecificationName;
         }
 
-        public int getGoodsSpecificationPrice() {
+        public double getGoodsSpecificationPrice() {
             return goodsSpecificationPrice;
         }
 
-        public void setGoodsSpecificationPrice(int goodsSpecificationPrice) {
+        public void setGoodsSpecificationPrice(double goodsSpecificationPrice) {
             this.goodsSpecificationPrice = goodsSpecificationPrice;
         }
 
@@ -233,11 +241,11 @@ public class Goods {
             this.boxesNumber = boxesNumber;
         }
 
-        public int getBoxesMoney() {
+        public double getBoxesMoney() {
             return boxesMoney;
         }
 
-        public void setBoxesMoney(int boxesMoney) {
+        public void setBoxesMoney(double boxesMoney) {
             this.boxesMoney = boxesMoney;
         }
     }

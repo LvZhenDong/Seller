@@ -340,6 +340,7 @@ public abstract class AbstractMyBaseFragment<P extends IPresenter> extends BaseF
     }
 
     public void pop() {
+        hideSoftInput();
         mDelegate.pop();
     }
 

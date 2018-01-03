@@ -39,9 +39,11 @@ import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
+import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
 import food.xinyuan.seller.app.data.event.GoodsCategoryEvent;
 import food.xinyuan.seller.app.utils.CommonUtils;
+import food.xinyuan.seller.app.utils.DialogUtils;
 import food.xinyuan.seller.app.utils.ImageLoaderUtils;
 import food.xinyuan.seller.app.utils.L;
 import food.xinyuan.seller.di.component.DaggerAddGoodsComponent;
@@ -90,6 +92,15 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
 
     AppComponent mAppComponent;
     MaterialDialog mDialog;
+
+    Goods mGoods;
+    //选择的本地图片地址
+    String mImgStr;
+    //上传网络图片后的地址
+    String mImgUrl;
+    List<Integer> mCategoryList = new ArrayList<>();
+    List<AddGoods.GoodsPropertysBean> mGoodsPropertysBeans = new ArrayList<>();
+    List<AddGoods.AddSpecsBean> mSpecs = new ArrayList<>();
     BaseQuickAdapter<AddGoods.AddSpecsBean, BaseViewHolder> mSpecAdapter;
     BaseQuickAdapter<AddGoods.GoodsPropertysBean,BaseViewHolder> mPropertyAdapter;
 
@@ -97,6 +108,14 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
         AddGoodsFragment fragment = new AddGoodsFragment();
         return fragment;
     }
+
+    public static AddGoodsFragment newInstance(Goods goods){
+        AddGoodsFragment fragment = new AddGoodsFragment();
+        fragment.mGoods=goods;
+        return fragment;
+    }
+
+
 
     @Override
     public void setupFragmentComponent(AppComponent appComponent) {
@@ -117,7 +136,6 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     @Override
     public void initData(Bundle savedInstanceState) {
         tvHeaderCenter.setText(R.string.add_goods);
-        CommonUtils.setBack(this, ivHeaderLeft);
 
         rbOn.setChecked(true);
         mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
@@ -125,9 +143,12 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
 
         initRvProperty();
         initRvSpec();
-
+        if(mGoods != null)setDataIfEdit();
     }
 
+    private void setDataIfEdit(){
+        //  TODO 编辑商品
+    }
 
 
     private void initRvProperty(){
@@ -231,7 +252,7 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     }
 
     @OnClick({R.id.rl_goods_category, R.id.tv_goods_spec, R.id.iv_add_img, R.id.rl_goods_property,
-            R.id.tv_save})
+            R.id.tv_save,R.id.iv_header_left})
     public void onViewClicked(View view) {
         CommonUtils.hideSoftInput(getActivity());
         switch (view.getId()) {
@@ -257,9 +278,23 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
                                 ().toString().trim(), rbOn.isChecked(),
                         mCategoryList, mGoodsPropertysBeans, mSpecs);
                 break;
+            case R.id.iv_header_left:
+                back();
+                break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        back();
+        return true;
+    }
+
+    private void back(){
+        DialogUtils.commonChooseDialog(getActivity(), "返回将导致编辑的数据清空，请谨慎操作",
+                () -> pop()).show();
     }
 
     /**
@@ -324,12 +359,6 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-
-    String mImgStr;
-    String mImgUrl;
-    List<Integer> mCategoryList = new ArrayList<>();
-    List<AddGoods.GoodsPropertysBean> mGoodsPropertysBeans = new ArrayList<>();
-    List<AddGoods.AddSpecsBean> mSpecs = new ArrayList<>();
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

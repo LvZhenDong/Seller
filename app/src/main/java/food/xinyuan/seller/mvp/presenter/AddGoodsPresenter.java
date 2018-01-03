@@ -7,6 +7,7 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.utils.ArmsUtils;
 
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class AddGoodsPresenter extends BasePresenter<AddGoodsContract.Model, Add
                     .subscribe(new ErrorHandleSubscriber<AddGoods>(mErrorHandler) {
                         @Override
                         public void onNext(AddGoods addGoods) {
-                            mRootView.showSnackbarMsg("上传商品成功",ConstantUtil.SNACK_NORMAL);
+                            ArmsUtils.makeText(mAppManager.getCurrentActivity(),"上传商品成功");
                             mRootView.addGoodsSuc();
                         }
                     });

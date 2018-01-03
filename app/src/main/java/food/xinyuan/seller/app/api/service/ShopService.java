@@ -12,9 +12,11 @@ import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -65,4 +67,37 @@ public interface ShopService {
      */
     @PUT("/seller/goods")
     Observable<HttpResponseData<AddGoods>> addGoods(@Body RequestBody json);
+
+    /**
+     * 获取商品详情
+     * @param json
+     * @return
+     */
+    @GET("/seller/goods")
+    Observable<HttpResponseData<Goods>> getGoods(@Body RequestBody json);
+
+    /**
+     * 下架商品
+     * @param json
+     * @return
+     */
+    @POST("/seller/goods/soldOut")
+    Observable<HttpResponseData> soldOutGoods(@Body RequestBody json);
+
+    /**
+     * 上架商品
+     * @param json
+     * @return
+     */
+    @POST("/seller/goods/putaway")
+    Observable<HttpResponseData> putawayGoods(@Body RequestBody json);
+
+    /**
+     * 删除商品
+     * @return
+     */
+    @DELETE("/seller/goods/{goodsId}")
+    Observable<HttpResponseData> deleteGoods(@Path("goodsId") String goodsId);
+
+
 }

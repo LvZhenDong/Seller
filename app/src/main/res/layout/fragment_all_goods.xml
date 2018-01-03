@@ -27,8 +27,8 @@
             app:tab_height="@dimen/height_item"
             app:tab_mode="scrollable" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_goods"
+        <FrameLayout
+            android:id="@+id/fl_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin_small"
