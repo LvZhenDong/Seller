@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white">
+
+    <include layout="@layout/view_header_tv_tv" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:id="@+id/rv_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:paddingRight="0dp"
+        android:paddingLeft="0dp"
+        style="@style/RlItem">
+
+        <TextView
+            android:id="@+id/tv_add"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_width="100dp"
+            android:text="添加"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_btn_green_selector"
+            android:layout_height="match_parent" />
+
+        <EditText
+            android:id="@+id/et_add"
+            android:paddingLeft="@dimen/padding_hor"
+            android:paddingRight="@dimen/padding_hor"
+            android:singleLine="true"
+            android:textSize="@dimen/tv_Regular"
+            android:hint="分类名称，最多8个汉字"
+            android:maxLength="8"
+            android:background="@null"
+            android:layout_toLeftOf="@id/tv_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -61,6 +61,9 @@
     <dimen name="margin_hor_20">20dp</dimen>
     <dimen name="margin_small">5dp</dimen>
     <dimen name="margin_top">15dp</dimen>
+    <dimen name="margin_top_normal">10dp</dimen>
+
+    <dimen name="padding_hor">10dp</dimen>
 
     <dimen name="drawable_padding_text">5dp</dimen>
 

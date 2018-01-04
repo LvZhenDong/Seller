@@ -173,8 +173,9 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                     case 5:
 
                         break;
+                    //商品分类
                     case 6:
-
+                        start(GoodsCategoryManageFragment.newInstance());
                         break;
                     //设置
                     case 7:

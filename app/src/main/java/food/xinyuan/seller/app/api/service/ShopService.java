@@ -138,6 +138,22 @@ public interface ShopService {
     Observable<HttpResponseData<ListResponse<GoodsCategory>>> getGoodsCategory();
 
     /**
+     * 添加商品类型
+     * @param json
+     * @return
+     */
+    @PUT("/seller/goodsCategory")
+    Observable<HttpResponseData<GoodsCategory>> addGoodsCategory(@Body RequestBody json);
+
+    /**
+     * 删除商品类型
+     * @param id
+     * @return
+     */
+    @DELETE("/seller/goodsCategory/{goodsCategoryId}")
+    Observable<HttpResponseData> delGoodsCategory(@Path("goodsCategoryId") String id);
+
+    /**
      * 获取商品列表
      */
     @GET("/seller/goods")

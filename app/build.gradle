@@ -82,4 +82,6 @@ dependencies {
     compile 'com.kyleduo.switchbutton:library:2.0.0'
     //标签
     compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+    //侧滑layout
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
 }

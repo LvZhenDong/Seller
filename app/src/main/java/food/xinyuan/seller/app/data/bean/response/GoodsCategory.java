@@ -12,6 +12,10 @@ import java.io.Serializable;
  */
 public class GoodsCategory implements Serializable {
 
+    public GoodsCategory(String goodsCategoryName) {
+        this.goodsCategoryName = goodsCategoryName;
+    }
+
     /**
      * goodsCategoryId : 2107
      * goodsCategoryName : 小吃
