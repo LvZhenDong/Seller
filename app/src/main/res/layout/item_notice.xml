@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/white"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+    <TextView
+        android:id="@+id/tv_del"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:background="@color/tv_red"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tv_Blod" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_hor_normal"
+            android:src="@drawable/ic_notice" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_hor"
+            android:layout_toRightOf="@id/iv_notice"
+            android:gravity="center_vertical"
+            android:text="删除"
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_Normal" />
+
+        <TextView
+            android:textColor="@color/tv_hint"
+            android:textSize="@dimen/tv_light"
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/tv_title"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:textColor="@color/tv_hint"
+            android:textSize="@dimen/tv_light"
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_title"
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="3dp" />
+    </RelativeLayout>
+
+</com.daimajia.swipe.SwipeLayout>

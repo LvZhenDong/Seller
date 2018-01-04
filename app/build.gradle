@@ -84,4 +84,5 @@ dependencies {
     compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
     //侧滑layout
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-5'
 }

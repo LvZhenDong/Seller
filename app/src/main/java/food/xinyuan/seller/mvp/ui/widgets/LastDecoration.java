@@ -15,18 +15,18 @@ import android.view.View;
  * @author lzd
  * @CreateDate 2018/1/4
  */
-public class RvItemDecoration extends RecyclerView.ItemDecoration  {
+public class LastDecoration extends RecyclerView.ItemDecoration  {
     private static final int HORIZONTAL = LinearLayoutManager.HORIZONTAL;//水平方向
     private static final int VERTICAL = LinearLayoutManager.VERTICAL;//垂直方向
     private int orientation;//方向
     private final int decoration;//边距大小 px
 
-    public RvItemDecoration(@LinearLayoutCompat.OrientationMode int orientation, int decoration) {
+    public LastDecoration(@LinearLayoutCompat.OrientationMode int orientation, int decoration) {
         this.orientation = orientation;
         this.decoration = decoration;
     }
 
-    public RvItemDecoration(@LinearLayoutCompat.OrientationMode int orientation) {
+    public LastDecoration(@LinearLayoutCompat.OrientationMode int orientation) {
         this.orientation = orientation;
         this.decoration = 5;
     }
@@ -40,7 +40,6 @@ public class RvItemDecoration extends RecyclerView.ItemDecoration  {
         if (current == -1) return;//holder出现异常时，可能为-1
         if (layoutManager instanceof LinearLayoutManager && !(layoutManager instanceof GridLayoutManager)) {//LinearLayoutManager
             if (orientation == LinearLayoutManager.VERTICAL) {//垂直
-                outRect.set(0, 0, 0, decoration);
                 if (current == lastPosition) {//判断是否为最后一个item
                     outRect.set(0, 0, 0, 0);
                 } else {

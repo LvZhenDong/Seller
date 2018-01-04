@@ -20,9 +20,7 @@ import com.jess.arms.di.component.AppComponent;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
@@ -32,7 +30,7 @@ import food.xinyuan.seller.di.component.DaggerGoodsCategoryManageComponent;
 import food.xinyuan.seller.di.module.GoodsCategoryManageModule;
 import food.xinyuan.seller.mvp.contract.GoodsCategoryManageContract;
 import food.xinyuan.seller.mvp.presenter.GoodsCategoryManagePresenter;
-import food.xinyuan.seller.mvp.ui.widgets.RvItemDecoration;
+import food.xinyuan.seller.mvp.ui.widgets.LastDecoration;
 
 
 public class GoodsCategoryManageFragment extends AbstractMyBaseFragment<GoodsCategoryManagePresenter> implements GoodsCategoryManageContract.View {
@@ -102,7 +100,7 @@ public class GoodsCategoryManageFragment extends AbstractMyBaseFragment<GoodsCat
             }).show();
         });
         rvCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvCategory.addItemDecoration(new RvItemDecoration(LinearLayoutManager.VERTICAL));
+        rvCategory.addItemDecoration(new LastDecoration(LinearLayoutManager.VERTICAL));
         rvCategory.setAdapter(mAdapter);
     }
 
