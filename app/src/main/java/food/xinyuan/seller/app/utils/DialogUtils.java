@@ -1,9 +1,11 @@
 package food.xinyuan.seller.app.utils;
 
 import android.content.Context;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -21,7 +23,14 @@ import food.xinyuan.seller.R;
  */
 public class DialogUtils {
 
-    public static MaterialDialog commonChooseDialog(Context context, String content, MaterialDialog.SingleButtonCallback callback){
+    /**
+     * 确认dialog
+     * @param context
+     * @param content
+     * @param callback
+     * @return
+     */
+    public static MaterialDialog commonChooseDialog(Context context, String content, MaterialDialog.SingleButtonCallback callback) {
         return new MaterialDialog.Builder(context)
                 .title("提示")
                 .content(content)
@@ -32,7 +41,16 @@ public class DialogUtils {
                 .onPositive(callback).build();
     }
 
-    public static MaterialDialog inputDialog(Context context, String title, String hint,int inputType, MaterialDialog.InputCallback callback){
+    /**
+     * 输入dialog
+     * @param context
+     * @param title
+     * @param hint
+     * @param inputType
+     * @param callback
+     * @return
+     */
+    public static MaterialDialog inputDialog(Context context, String title, String hint, int inputType, MaterialDialog.InputCallback callback) {
         return new MaterialDialog.Builder(context)
                 .title(title)
                 .inputType(inputType)
@@ -41,5 +59,18 @@ public class DialogUtils {
                 .negativeColor(context.getResources().getColor(R.color.tv_red))
                 .positiveColor(context.getResources().getColor(R.color.colorPrimary))
                 .input(hint, "", callback).build();
+    }
+
+    /**
+     * 单选dialog
+     * @param context
+     * @param arrayRes
+     * @param callback
+     * @return
+     */
+    public static MaterialDialog singleChoiceDialog(Context context, @ArrayRes int arrayRes,int selected, MaterialDialog.ListCallbackSingleChoice callback) {
+        return new MaterialDialog.Builder(context)
+                .items(arrayRes)
+                .itemsCallbackSingleChoice(selected, callback).build();
     }
 }

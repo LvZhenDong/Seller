@@ -2,30 +2,32 @@ package food.xinyuan.seller.mvp.presenter;
 
 import android.app.Application;
 
-import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
+import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
-
-import javax.inject.Inject;
+import com.jess.arms.http.imageloader.ImageLoader;
 
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
-import food.xinyuan.seller.app.data.bean.response.Printer;
-import food.xinyuan.seller.mvp.contract.PrinterSettingContract;
+import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
+import food.xinyuan.seller.app.utils.RequestUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+
+import javax.inject.Inject;
+
+import food.xinyuan.seller.mvp.contract.GoodsCategoryManageContract;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 @ActivityScope
-public class PrinterSettingPresenter extends BasePresenter<PrinterSettingContract.Model, PrinterSettingContract.View> {
+public class GoodsCategoryManagePresenter extends BasePresenter<GoodsCategoryManageContract.Model, GoodsCategoryManageContract.View> {
     private RxErrorHandler mErrorHandler;
     private Application mApplication;
     private ImageLoader mImageLoader;
     private AppManager mAppManager;
 
     @Inject
-    public PrinterSettingPresenter(PrinterSettingContract.Model model, PrinterSettingContract.View rootView
+    public GoodsCategoryManagePresenter(GoodsCategoryManageContract.Model model, GoodsCategoryManageContract.View rootView
             , RxErrorHandler handler, Application application
             , ImageLoader imageLoader, AppManager appManager) {
         super(model, rootView);
@@ -44,36 +46,38 @@ public class PrinterSettingPresenter extends BasePresenter<PrinterSettingContrac
         this.mApplication = null;
     }
 
-    public void getPrinters(){
-        mModel.getPrinters()
+    public void getGoodsCategory() {
+        mModel.getGoodsCategory()
                 .compose(TransFactory.commonTrans(mRootView))
-                .subscribe(new ErrorHandleSubscriber<ListResponse<Printer>>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<ListResponse<GoodsCategory>>(mErrorHandler) {
                     @Override
-                    public void onNext(ListResponse<Printer> data) {
-                        mRootView.getPrintersSuc(data.getList());
+                    public void onNext(ListResponse<GoodsCategory> data) {
+                        mRootView.getGoodsCategorySuc(data.getList());
                     }
                 });
     }
 
-    public void refreshPrinters(){
-        mModel.getPrinters()
-                .compose(TransFactory.noLoadingTrans(mRootView))
-                .subscribe(new ErrorHandleSubscriber<ListResponse<Printer>>(mErrorHandler) {
+    public void addGoodsCategory(String name){
+        mModel.addGoodsCategory(RequestUtils.getRequestBody(new GoodsCategory(name)))
+                .compose(TransFactory.commonTrans(mRootView))
+                .subscribe(new ErrorHandleSubscriber<GoodsCategory>(mErrorHandler) {
                     @Override
-                    public void onNext(ListResponse<Printer> data) {
-                        mRootView.getPrintersSuc(data.getList());
+                    public void onNext(GoodsCategory goodsCategory) {
+                        getGoodsCategory();
+                        mRootView.addGoodsCategorySuc();
                     }
                 });
     }
 
-    public void delPrinter(String printerId,int pos){
-        mModel.delPrinter(printerId)
+    public void delGoodsCategory(String id,int pos){
+        mModel.delGoodsCategory(id)
                 .compose(TransFactory.commonTransNoData(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
                     @Override
                     public void onNext(Boolean aBoolean) {
-                        mRootView.delPrinterSuc(pos);
+                        mRootView.delGoodsCategorySuc(pos);
                     }
                 });
     }
+
 }

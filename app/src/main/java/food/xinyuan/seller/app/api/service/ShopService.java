@@ -117,10 +117,41 @@ public interface ShopService {
     Observable<HttpResponseData<ListResponse<Printer>>> getPrinters();
 
     /**
+     * 删除打印机
+     * @param printerId
+     * @return
+     */
+    @DELETE("/seller/printer/{printerId}")
+    Observable<HttpResponseData> delPrinter(@Path("printerId") String printerId);
+
+    /**
+     * 添加打印机
+     * @param json
+     * @return
+     */
+    @PUT("/seller/printer")
+    Observable<HttpResponseData<Printer>> addPrinter(@Body RequestBody json);
+    /**
      * 获取商品类型
      */
     @GET("/seller/goodsCategory")
     Observable<HttpResponseData<ListResponse<GoodsCategory>>> getGoodsCategory();
+
+    /**
+     * 添加商品类型
+     * @param json
+     * @return
+     */
+    @PUT("/seller/goodsCategory")
+    Observable<HttpResponseData<GoodsCategory>> addGoodsCategory(@Body RequestBody json);
+
+    /**
+     * 删除商品类型
+     * @param id
+     * @return
+     */
+    @DELETE("/seller/goodsCategory/{goodsCategoryId}")
+    Observable<HttpResponseData> delGoodsCategory(@Path("goodsCategoryId") String id);
 
     /**
      * 获取商品列表

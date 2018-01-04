@@ -47,6 +47,28 @@ public class TransFactory {
 
     }
 
+    /**
+     * 适用于不显示loading的普通单个请求
+     * @param rootView
+     * @param <T>
+     * @return
+     */
+    public static <T> ObservableTransformer<HttpResponseData<T>, T> noLoadingTrans(IView rootView) {
+        return (ObservableTransformer<HttpResponseData<T>, T>) upstream -> upstream
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3, 2))
+                .compose(RxLifecycleUtils.bindToLifecycle(rootView))
+                .map(responseData -> {
+                    if (responseData.isStatus()) {
+                        return responseData.getData();
+                    } else {
+                        throw new RuntimeException(responseData.getMessage());
+                    }
+                });
+
+    }
+
 
     /**
      * 适用于返回值无data的普通单个请求

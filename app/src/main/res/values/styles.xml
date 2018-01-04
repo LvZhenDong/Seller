@@ -156,6 +156,32 @@
         <item name="android:paddingLeft">10dp</item>
     </style>
 
+    <style name="TvSpinner">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">@dimen/height_tips</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:background">@drawable/bg_white_stroke_radius_5dp</item>
+        <item name="android:drawableRight">@drawable/ic_arrow_down</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textColor">@color/tv_name</item>
+        <item name="android:textSize">@dimen/tv_Blod</item>
+    </style>
+
+    <style name="EtPrinter">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/height_tips</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:background">@drawable/bg_white_stroke_radius_5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/tv_Blod</item>
+    </style>
+
+
+
 
 
 

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white">
+
+    <include layout="@layout/view_header_tv_tv" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:layout_height="@dimen/height_item_normal"
+                android:text="设备名称" />
+
+            <EditText
+                android:id="@+id/et_device_name"
+                style="@style/EtPrinter"
+                android:hint="请输入设备名称" />
+        </LinearLayout>
+
+        <View style="@style/XYLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:layout_height="@dimen/height_item_normal"
+                android:text="设备类型" />
+
+            <TextView
+                android:id="@+id/tv_type"
+                style="@style/TvSpinner"
+                android:text="易联云K4" />
+        </LinearLayout>
+
+        <View style="@style/XYLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:layout_height="@dimen/height_item_normal"
+                android:text="设备编号" />
+
+            <EditText
+                android:id="@+id/et_device_id"
+                style="@style/EtPrinter"
+                android:hint="请输入设备编号" />
+        </LinearLayout>
+
+        <View style="@style/XYLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:layout_height="@dimen/height_item_normal"
+                android:text="设备密钥" />
+
+            <EditText
+                android:id="@+id/et_key"
+                style="@style/EtPrinter"
+                android:hint="请输入设备密钥" />
+        </LinearLayout>
+
+        <View style="@style/XYLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:layout_height="@dimen/height_item_normal"
+                android:text="纸张规则" />
+
+            <TextView
+                android:id="@+id/tv_page_type"
+                style="@style/TvSpinner"
+                android:text="58mm" />
+        </LinearLayout>
+
+        <View style="@style/XYLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:layout_height="@dimen/height_item_normal"
+                android:text="打印数量" />
+
+            <TextView
+                android:id="@+id/tv_copies"
+                style="@style/TvSpinner"
+                android:text="1" />
+        </LinearLayout>
+
+        <View style="@style/XYLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:layout_height="@dimen/height_item_normal"
+                android:text="设备备注" />
+
+            <EditText
+                android:id="@+id/et_remark"
+                style="@style/EtPrinter"
+                android:hint="单行输入" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_item"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_btn_green_selector"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/white"/>
+</RelativeLayout>

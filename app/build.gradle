@@ -83,4 +83,8 @@ dependencies {
     //标签
     compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
     compile 'com.contrarywind:Android-PickerView:3.2.7'
+    //侧滑layout
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-5'
+
 }

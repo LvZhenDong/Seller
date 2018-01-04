@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:background="@color/white"
     android:orientation="vertical">
@@ -18,8 +18,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="设备名称"
-            android:textSize="@dimen/tv_light"
-            android:textColor="@color/tv_name" />
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_light" />
 
         <TextView
             android:id="@+id/tv_device_name"
@@ -29,8 +29,8 @@
             android:layout_toRightOf="@id/tv_name"
             android:gravity="center"
             android:text="设备设备"
-            android:textSize="@dimen/tv_light"
-            android:textColor="@color/tv_name" />
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_light" />
 
         <TextView
             android:id="@+id/tv_device_name_hint"
@@ -39,11 +39,44 @@
             android:layout_alignParentRight="true"
             android:gravity="center"
             android:text="易联云"
-            android:textSize="@dimen/tv_light"
-            android:textColor="@color/tv_hint" />
+            android:textColor="@color/tv_hint"
+            android:textSize="@dimen/tv_light" />
     </RelativeLayout>
 
     <View style="@style/XYLine" />
+
+    <RelativeLayout
+        android:id="@+id/rl_remark"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="@dimen/margin_hor"
+        android:paddingRight="@dimen/margin_hor">
+
+        <TextView
+            android:id="@+id/tv_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="设备备注"
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_light" />
+
+        <TextView
+            android:id="@+id/tv_device_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_hor"
+            android:layout_toRightOf="@id/tv_remark"
+            android:gravity="center"
+            android:text="设备设备"
+            android:textColor="@color/tv_hint"
+            android:textSize="@dimen/tv_light" />
+
+        <View
+            style="@style/XYLine"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -57,8 +90,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="设备状态"
-            android:textSize="@dimen/tv_light"
-            android:textColor="@color/tv_name" />
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_light" />
 
         <TextView
             android:id="@+id/tv_device_status"
@@ -67,23 +100,24 @@
             android:layout_marginLeft="@dimen/margin_hor"
             android:layout_toRightOf="@id/tv_status"
             android:gravity="center"
-            android:textSize="@dimen/tv_light"
             android:text="58mm/1份"
-            android:textColor="@color/tv_name" />
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_light" />
 
         <TextView
+            android:id="@+id/tv_del_printer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:textSize="@dimen/tv_light"
             android:background="@drawable/bg_btn_red_selector"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="删除设备"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/tv_light" />
 
     </RelativeLayout>
 </LinearLayout>
