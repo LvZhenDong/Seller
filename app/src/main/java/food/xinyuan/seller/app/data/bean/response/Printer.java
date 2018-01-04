@@ -12,6 +12,18 @@ import android.text.TextUtils;
  */
 public class Printer {
 
+    //PRINTER_TYPE表示APP上显示的内容，PRINTER_TYPE_FLAG表示和服务器之间传输时的字段
+    public final static String PRINTER_TYPE1 = "易联云K4";
+    public final static String PRINTER_TYPE1_FLAG = "CLOUD_YILIANYUN_K4";
+    public final static String PRINTER_TYPE2 = "USB";
+    public final static String PRINTER_TYPE2_FLAG = "USB";
+
+    //PRINTER_PAGE_TYPE表示APP上显示的内容，PRINTER_PAGE_TYPE_FLAG表示和服务器之间传输时的字段
+    public final static String PRINTER_PAGE_TYPE1 = "58mm";
+    public final static String PRINTER_PAGE_TYPE1_FLAG = "MM58";
+    public final static String PRINTER_PAGE_TYPE2 = "80mm";
+    public final static String PRINTER_PAGE_TYPE2_FLAG = "MM80";
+
     /**
      * printerId : 1
      * shopId : 61
@@ -35,9 +47,9 @@ public class Printer {
     private String deviceRemark;
     private int copies;
 
-    public Printer(String name,String deviceId, String deviceSecretKey, String printerType,
+    public Printer(String name, String deviceId, String deviceSecretKey, String printerType,
                    String printerPageType, String deviceRemark, int copies) {
-        this.deviceName=name;
+        this.deviceName = name;
         this.deviceId = deviceId;
         this.deviceSecretKey = deviceSecretKey;
         setPrinterType(printerType);
@@ -94,39 +106,40 @@ public class Printer {
         this.deviceSecretKey = deviceSecretKey;
     }
 
+    //对printerType作次转换，因为APP上显示的内容和传输到服务器的值不一样
     public String getPrinterType() {
-        String type="";
-        if (TextUtils.equals("CLOUD_YILIANYUN_K4", printerType)) {
-            type = "易联云K4";
-        } else if (TextUtils.equals("USB", printerType)) {
-            type = "USB";
+        String type = "";
+        if (TextUtils.equals(PRINTER_TYPE1_FLAG, printerType)) {
+            type = PRINTER_TYPE1;
+        } else if (TextUtils.equals(PRINTER_TYPE2_FLAG, printerType)) {
+            type = PRINTER_TYPE2;
         }
         return type;
     }
 
     public void setPrinterType(String printerType) {
-        if (TextUtils.equals("易联云K4", printerType)) {
-            this.printerType = "CLOUD_YILIANYUN_K4";
-            } else if (TextUtils.equals("USB", printerType)) {
-            this.printerType = "USB";
+        if (TextUtils.equals(PRINTER_TYPE1, printerType)) {
+            this.printerType = PRINTER_TYPE1_FLAG;
+        } else if (TextUtils.equals(PRINTER_TYPE2, printerType)) {
+            this.printerType = PRINTER_TYPE2_FLAG;
         }
     }
 
     public String getPrinterPageType() {
-        String pageType="";
-        if (TextUtils.equals("MM80", printerPageType)) {
-            pageType = "80mm";
-        } else if (TextUtils.equals("MM58", printerPageType)) {
-            pageType = "58mm";
+        String pageType = "";
+        if (TextUtils.equals(PRINTER_PAGE_TYPE2_FLAG, printerPageType)) {
+            pageType = PRINTER_PAGE_TYPE2;
+        } else if (TextUtils.equals(PRINTER_PAGE_TYPE1_FLAG, printerPageType)) {
+            pageType = PRINTER_PAGE_TYPE1;
         }
         return pageType;
     }
 
     public void setPrinterPageType(String pageType) {
-        if (TextUtils.equals("80mm", pageType)) {
-            this.printerPageType = "MM80";
-        } else if (TextUtils.equals("58mm", pageType)) {
-            this.printerPageType = "MM58";
+        if (TextUtils.equals(PRINTER_PAGE_TYPE2, pageType)) {
+            this.printerPageType = PRINTER_PAGE_TYPE2_FLAG;
+        } else if (TextUtils.equals(PRINTER_PAGE_TYPE1, pageType)) {
+            this.printerPageType = PRINTER_PAGE_TYPE1_FLAG;
         }
 
     }

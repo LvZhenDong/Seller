@@ -15,21 +15,23 @@ import com.jess.arms.utils.ArmsUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.event.EventConstant;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.DialogUtils;
-import food.xinyuan.seller.app.utils.L;
 import food.xinyuan.seller.di.component.DaggerAddPrinterComponent;
 import food.xinyuan.seller.di.module.AddPrinterModule;
 import food.xinyuan.seller.mvp.contract.AddPrinterContract;
 import food.xinyuan.seller.mvp.presenter.AddPrinterPresenter;
 
-
+/**
+ * 添加打印机
+ *
+ * @author LvZhenDong
+ *         created on 2018/1/4 21:00
+ */
 public class AddPrinterFragment extends AbstractMyBaseFragment<AddPrinterPresenter>
         implements AddPrinterContract.View {
 
@@ -110,6 +112,7 @@ public class AddPrinterFragment extends AbstractMyBaseFragment<AddPrinterPresent
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //FIXME 选择易联云的时候会提示 msg=不支持k1,k2,k3机型
+            //选择设备类型
             case R.id.tv_type:
                 DialogUtils.singleChoiceDialog(getActivity(), R.array.printer_types, mTypeSelected,
                         (dialog, itemView, which, text) -> {
@@ -118,6 +121,7 @@ public class AddPrinterFragment extends AbstractMyBaseFragment<AddPrinterPresent
                             return true;
                         }).show();
                 break;
+            //选择纸张规则
             case R.id.tv_page_type:
                 DialogUtils.singleChoiceDialog(getActivity(), R.array.printer_page_types, mPageTypeSelected,
                         (dialog, itemView, which, text) -> {
@@ -126,14 +130,17 @@ public class AddPrinterFragment extends AbstractMyBaseFragment<AddPrinterPresent
                             return true;
                         }).show();
                 break;
+            //选择打印数量
             case R.id.tv_copies:
-                DialogUtils.singleChoiceDialog(getActivity(), R.array.printer_copies, mCopiesSelected,
+                DialogUtils.singleChoiceDialog(getActivity(), R.array.printer_copies,
+                        mCopiesSelected,
                         (dialog, itemView, which, text) -> {
                             tvCopies.setText(text);
                             mCopiesSelected = which;
                             return true;
                         }).show();
                 break;
+            //保存
             case R.id.tv_save:
                 mPresenter.addPrinter(etName.getText().toString().trim(),
                         etDeviceId.getText().toString().trim(), etKey.getText().toString().trim(),

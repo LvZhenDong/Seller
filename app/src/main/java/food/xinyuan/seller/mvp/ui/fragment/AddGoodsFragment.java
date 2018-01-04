@@ -6,7 +6,6 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
@@ -50,6 +48,8 @@ import food.xinyuan.seller.di.component.DaggerAddGoodsComponent;
 import food.xinyuan.seller.di.module.AddGoodsModule;
 import food.xinyuan.seller.mvp.contract.AddGoodsContract;
 import food.xinyuan.seller.mvp.presenter.AddGoodsPresenter;
+import food.xinyuan.seller.mvp.ui.adapter.GoodsPropertyAdapter;
+import food.xinyuan.seller.mvp.ui.adapter.GoodsSpecAdapter;
 
 
 public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
@@ -102,20 +102,24 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     List<AddGoods.GoodsPropertysBean> mGoodsPropertysBeans = new ArrayList<>();
     List<AddGoods.AddSpecsBean> mSpecs = new ArrayList<>();
     BaseQuickAdapter<AddGoods.AddSpecsBean, BaseViewHolder> mSpecAdapter;
-    BaseQuickAdapter<AddGoods.GoodsPropertysBean,BaseViewHolder> mPropertyAdapter;
+    BaseQuickAdapter<AddGoods.GoodsPropertysBean, BaseViewHolder> mPropertyAdapter;
 
+    /**
+     * 添加商品
+     */
     public static AddGoodsFragment newInstance() {
         AddGoodsFragment fragment = new AddGoodsFragment();
         return fragment;
     }
 
-    public static AddGoodsFragment newInstance(Goods goods){
+    /**
+     * 编辑商品
+     */
+    public static AddGoodsFragment newInstance(Goods goods) {
         AddGoodsFragment fragment = new AddGoodsFragment();
-        fragment.mGoods=goods;
+        fragment.mGoods = goods;
         return fragment;
     }
-
-
 
     @Override
     public void setupFragmentComponent(AppComponent appComponent) {
@@ -143,90 +147,59 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
 
         initRvProperty();
         initRvSpec();
-        if(mGoods != null)setDataIfEdit();
+        if (mGoods != null) setDataIfEdit();
     }
 
-    private void setDataIfEdit(){
+    private void setDataIfEdit() {
         //  TODO 编辑商品
     }
 
-
-    private void initRvProperty(){
-
-        mPropertyAdapter =new BaseQuickAdapter<AddGoods.GoodsPropertysBean, BaseViewHolder>(R
-                .layout.item_property) {
-            @Override
-            protected void convert(BaseViewHolder helper, AddGoods.GoodsPropertysBean item) {
-                int pos = mGoodsPropertysBeans.indexOf(item);
-                helper.setText(R.id.tv_title, "属性" + (pos + 1));
-                helper.setText(R.id.tv_property_name,"属性名称："+item.getGoodsPropertyName());
+    /**
+     * 初始化属性adapter
+     */
+    private void initRvProperty() {
+        mPropertyAdapter = new GoodsPropertyAdapter(R.layout.item_property);
+        mPropertyAdapter.setNewData(mGoodsPropertysBeans);
+        mPropertyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            AddGoods.GoodsPropertysBean item = mPropertyAdapter.getItem(position);
+            switch (view.getId()) {
                 //删除
-                helper.getView(R.id.tv_del).setOnClickListener(v -> {
+                case R.id.tv_del:
                     mGoodsPropertysBeans.remove(item);
                     mPropertyAdapter.notifyDataSetChanged();
-                });
+                    break;
                 //修改
-                helper.getView(R.id.tv_update).setOnClickListener(v -> {
+                case R.id.tv_update:
                     item.setUpdate(true);
-                    item.setUpdatePos(pos);
+                    item.setUpdatePos(position);
                     start(GoodsPropertyFragment.newInstance(item));
-                });
-
-                RecyclerView rvLabel=helper.getView(R.id.rv_property);
-                BaseQuickAdapter<String,BaseViewHolder> adapter=new BaseQuickAdapter<String,
-                        BaseViewHolder>(R.layout.item_property_lable) {
-                    @Override
-                    protected void convert(BaseViewHolder helper, String item) {
-                        helper.setText(R.id.tv_property,item);
-                        helper.setVisible(R.id.iv_close,false);
-                    }
-                };
-                ChipsLayoutManager chipsLayoutManager = ChipsLayoutManager.newBuilder(getActivity())
-                        .setChildGravity(Gravity.TOP)
-                        .setScrollingEnabled(true)
-                        .setMaxViewsInRow(4)
-                        .setGravityResolver(position -> Gravity.CENTER)
-                        .build();
-                adapter.setNewData(item.getStrings());
-                rvLabel.setLayoutManager(chipsLayoutManager);
-                rvLabel.setAdapter(adapter);
+                    break;
             }
-        };
-        mPropertyAdapter.setNewData(mGoodsPropertysBeans);
-
+        });
         rvProperty.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvProperty.setAdapter(mPropertyAdapter);
     }
 
-    private void initRvSpec(){
-        mSpecAdapter = new BaseQuickAdapter<AddGoods.AddSpecsBean, BaseViewHolder>(R.layout
-                .item_spec) {
-            @Override
-            protected void convert(BaseViewHolder helper, AddGoods.AddSpecsBean item) {
-                int position = mSpecs.indexOf(item);
-                helper.setText(R.id.tv_title, "规格" + (position + 1));
-                helper.setText(R.id.tv_spec_name, "规格名称：" + item.getGoodsSpecificationName());
-                helper.setText(R.id.tv_spec_price, "价格：" + item.getGoodsSpecificationPrice());
-                helper.setText(R.id.tv_spec_inventory, "库存：" + (item.isInfiniteInventory()
-                        ? "无限" : item.getStock()));
-                helper.setText(R.id.tv_box_count, "餐盒数量：" + item.getBoxesNumber());
-                helper.setText(R.id.tv_box_price, "餐盒价格：" + item.getBoxesMoney());
-
-                //删除
-                helper.getView(R.id.tv_del).setOnClickListener(v -> {
+    /**
+     * 初始化规格adapter
+     */
+    private void initRvSpec() {
+        mSpecAdapter = new GoodsSpecAdapter(R.layout.item_spec);
+        mSpecAdapter.setNewData(mSpecs);
+        mSpecAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            AddGoods.AddSpecsBean item = mSpecAdapter.getItem(position);
+            switch (view.getId()) {
+                case R.id.tv_del:
                     mSpecs.remove(item);
                     mSpecAdapter.notifyDataSetChanged();
-                });
-                //修改
-                helper.getView(R.id.tv_update).setOnClickListener(v -> {
+                    break;
+                case R.id.tv_update:
                     item.setUpdate(true);
                     item.setUpdatePos(position);
                     start(GoodsSpecFragment.newInstance(item));
-                });
-
+                    break;
             }
-        };
-        mSpecAdapter.setNewData(mSpecs);
+        });
         rvSpec.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvSpec.setAdapter(mSpecAdapter);
     }
@@ -239,20 +212,18 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
 
     @Override
     public void showLoading() {
-        if (mDialog != null) {
+        if (mDialog != null)
             mDialog.show();
-        }
     }
 
     @Override
     public void hideLoading() {
-        if (mDialog != null) {
+        if (mDialog != null)
             mDialog.dismiss();
-        }
     }
 
     @OnClick({R.id.rl_goods_category, R.id.tv_goods_spec, R.id.iv_add_img, R.id.rl_goods_property,
-            R.id.tv_save,R.id.iv_header_left})
+            R.id.tv_save, R.id.iv_header_left})
     public void onViewClicked(View view) {
         CommonUtils.hideSoftInput(getActivity());
         switch (view.getId()) {
@@ -292,7 +263,7 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
         return true;
     }
 
-    private void back(){
+    private void back() {
         DialogUtils.commonChooseDialog(getActivity(), "返回将导致编辑的数据清空，请谨慎操作",
                 (dialog, which) -> AddGoodsFragment.this.pop()).show();
     }
@@ -323,9 +294,9 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAddProperty(AddGoods.GoodsPropertysBean bean) {
-        if(bean.isUpdate()){
-            mGoodsPropertysBeans.set(bean.getUpdatePos(),bean);
-        }else {
+        if (bean.isUpdate()) {
+            mGoodsPropertysBeans.set(bean.getUpdatePos(), bean);
+        } else {
             mGoodsPropertysBeans.add(bean);
         }
         mPropertyAdapter.notifyDataSetChanged();
@@ -338,9 +309,9 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAddSpec(AddGoods.AddSpecsBean bean) {
-        if(bean.isUpdate()){
-            mSpecs.set(bean.getUpdatePos(),bean);
-        }else {
+        if (bean.isUpdate()) {
+            mSpecs.set(bean.getUpdatePos(), bean);
+        } else {
             mSpecs.add(bean);
         }
         mSpecAdapter.notifyDataSetChanged();

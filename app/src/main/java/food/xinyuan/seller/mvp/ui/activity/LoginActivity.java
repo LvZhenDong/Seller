@@ -80,16 +80,14 @@ public class LoginActivity extends AbstractMyBaseActivity<LoginPresenter> implem
 
     @Override
     public void showLoading() {
-        if (mDialog != null) {
+        if (mDialog != null)
             mDialog.show();
-        }
     }
 
     @Override
     public void hideLoading() {
-        if (mDialog != null) {
+        if (mDialog != null)
             mDialog.dismiss();
-        }
     }
 
     @OnClick({R.id.tv_send_ver_code, R.id.tv_treaty, R.id.tv_login, R.id.tv_help})

@@ -60,31 +60,35 @@ dependencies {
     //依赖插件, annotationProcessor 是 AndroidStudio 自带并用来替换 APT
     implementation project(':arms')
     implementation rootProject.ext.dependencies["retrofit-url-manager"]
-
     compile 'com.alibaba:arouter-api:1.2.1.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
-
     compile 'me.yokeyword:fragmentation:1.1.9'
     compile 'me.yokeyword:fragmentation-core:1.1.9'
     compile 'com.lzy.widget:imagepicker:0.6.1'
     compile 'com.android.support:multidex:1.0.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    //TabLayout
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     //竖直TabLayout
     compile 'q.rorbin:VerticalTabLayout:1.2.5'
+    //Dialog
     compile 'com.afollestad.material-dialogs:core:0.9.4.2'
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
-    //    AES加密
+    //AES加密
     compile 'com.scottyab:aes-crypto:0.0.4'
+    //recylerview Adapter
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    //eventBus
     compile 'org.greenrobot:eventbus:3.1.1'
     //switch button
     compile 'com.kyleduo.switchbutton:library:2.0.0'
     //标签
     compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+    //选择器
     compile 'com.contrarywind:Android-PickerView:3.2.7'
     //侧滑layout
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    //下拉刷新layout
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-5'
 
 }
