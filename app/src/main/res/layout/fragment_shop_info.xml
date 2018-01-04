@@ -254,6 +254,24 @@
                     android:textColor="@color/tv_name" />
 
             </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/RlItem"
+                android:layout_marginTop="@dimen/margin_top"
+                android:background="@color/white">
+
+                <TextView
+                    style="@style/TvItemTitle"
+                    android:text="营业类型" />
+
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:text="类型"
+                    style="@style/TvItemHint"
+                    android:textColor="@color/tv_name"/>
+
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

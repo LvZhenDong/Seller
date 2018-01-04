@@ -62,6 +62,16 @@ public class ShopInfoModel extends BaseModel implements ShopInfoContract.Model {
     }
 
     @Override
+    public Observable<HttpResponseData> delDrawInvoice() {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).delDrawInvoice();
+    }
+
+    @Override
+    public Observable<HttpResponseData> putDrawInvoice() {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).putDrawInvoice();
+    }
+
+    @Override
     public Observable<HttpResponseData> changePhone(String phone) {
         return mRepositoryManager.obtainRetrofitService(ShopService.class).changeShopPhone(phone);
     }

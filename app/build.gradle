@@ -82,4 +82,5 @@ dependencies {
     compile 'com.kyleduo.switchbutton:library:2.0.0'
     //标签
     compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+    compile 'com.contrarywind:Android-PickerView:3.2.7'
 }

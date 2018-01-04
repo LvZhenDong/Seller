@@ -1,9 +1,8 @@
 package food.xinyuan.seller.mvp.contract;
 
-import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
+import com.jess.arms.mvp.IView;
 
-import food.xinyuan.seller.app.api.service.ShopService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import io.reactivex.Observable;
@@ -22,6 +21,10 @@ public interface ShopInfoContract {
 
         void changeAutoOrderFail(boolean checked);
 
+        void changeDrawInvoiceSuc(boolean checked);
+
+        void changeDrawInvoiceFail(boolean checked);
+
         void changePhoneSuc(String phone);
 
         void changeMinDeliveryPriceSuc(String price);
@@ -39,6 +42,10 @@ public interface ShopInfoContract {
         Observable<HttpResponseData> delAutoOrder();
 
         Observable<HttpResponseData> putAutoOrder();
+
+        Observable<HttpResponseData> delDrawInvoice();
+
+        Observable<HttpResponseData> putDrawInvoice();
 
         Observable<HttpResponseData> changePhone(String phone);
 

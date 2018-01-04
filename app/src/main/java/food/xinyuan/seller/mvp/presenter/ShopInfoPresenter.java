@@ -2,18 +2,17 @@ package food.xinyuan.seller.mvp.presenter;
 
 import android.app.Application;
 
-import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
-
-import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
-import food.xinyuan.seller.app.data.bean.response.ShopDetail;
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
+import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
+import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.mvp.contract.ShopInfoContract;
+import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
@@ -129,6 +128,48 @@ public class ShopInfoPresenter extends BasePresenter<ShopInfoContract.Model, Sho
                         super.onError(t);
                         //修改状态失败，将switchButton改为点击之前的样子
                         mRootView.changeAutoOrderFail(false);
+                    }
+                });
+    }
+
+    /**
+     * 允许开发票
+     */
+    public void putDrawInvoice(){
+        mModel.putDrawInvoice()
+                .compose(TransFactory.commonTransNoData(mRootView))
+                .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        mRootView.changeDrawInvoiceSuc(true);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        //修改状态失败，将switchButton改为点击之前的样子
+                        mRootView.changeDrawInvoiceFail(false);
+                    }
+                });
+    }
+
+    /**
+     * 不允许开发票
+     */
+    public void delDrawInvoice(){
+        mModel.delDrawInvoice()
+                .compose(TransFactory.commonTransNoData(mRootView))
+                .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        mRootView.changeDrawInvoiceSuc(false);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        //修改状态失败，将switchButton改为点击之前的样子
+                        mRootView.changeDrawInvoiceFail(true);
                     }
                 });
     }

@@ -10,6 +10,8 @@ import android.view.animation.Animation;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.mvp.IPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import me.yokeyword.fragmentation.ExtraTransaction;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragmentDelegate;

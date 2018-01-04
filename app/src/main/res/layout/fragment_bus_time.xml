@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_white"
+                android:orientation="vertical">
+
+    <include layout="@layout/view_header_tv_tv" />
+
+    <LinearLayout
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/rl_bus_start_time"
+            style="@style/RlItem"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="营业开始时间" />
+
+            <TextView
+                android:id="@+id/tv_bus_start_time"
+                style="@style/TvItem"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="@dimen/drawable_padding_text"
+                android:paddingRight="0dp" />
+        </RelativeLayout>
+
+        <View style="@style/XYLine"/>
+        <RelativeLayout
+            android:id="@+id/rl_bus_end_time"
+            style="@style/RlItem">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="营业结束时间" />
+
+            <TextView
+                android:id="@+id/tv_bus_end_time"
+                style="@style/TvItem"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="@dimen/drawable_padding_text"
+                android:paddingRight="0dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_item"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_btn_green_selector"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/white" />
+
+</RelativeLayout>
