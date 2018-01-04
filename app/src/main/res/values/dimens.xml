@@ -65,5 +65,6 @@
     <dimen name="drawable_padding_text">5dp</dimen>
 
     <dimen name="height_item">45dp</dimen>
+    <dimen name="height_item_normal">40dp</dimen>
     <dimen name="height_tips">35dp</dimen>
 </resources>

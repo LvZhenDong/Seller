@@ -25,6 +25,12 @@ public interface CommService {
     @POST("/commons/phoneCode/{phone}")
     Observable<HttpResponseData<String>> getCode(@Path("phone") String phone);
 
+    /**
+     * 上传文件
+     * @param path
+     * @param photo
+     * @return
+     */
     @Multipart
     @POST("/commons/upload/{path}")
     Observable<HttpResponseData<UploadFile>> uploadFile(@Path("path")String path,

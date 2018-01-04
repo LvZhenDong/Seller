@@ -1,5 +1,7 @@
 package food.xinyuan.seller.app.data.bean.response;
 
+import android.text.TextUtils;
+
 /**
  * <p>
  * Description：
@@ -30,7 +32,27 @@ public class Printer {
     private String printerType;
     private String printerPageType;
     private String printerStatus;
+    private String deviceRemark;
     private int copies;
+
+    public Printer(String name,String deviceId, String deviceSecretKey, String printerType,
+                   String printerPageType, String deviceRemark, int copies) {
+        this.deviceName=name;
+        this.deviceId = deviceId;
+        this.deviceSecretKey = deviceSecretKey;
+        setPrinterType(printerType);
+        setPrinterPageType(printerPageType);
+        this.deviceRemark = deviceRemark;
+        this.copies = copies;
+    }
+
+    public String getDeviceRemark() {
+        return deviceRemark;
+    }
+
+    public void setDeviceRemark(String deviceRemark) {
+        this.deviceRemark = deviceRemark;
+    }
 
     public int getPrinterId() {
         return printerId;
@@ -73,19 +95,40 @@ public class Printer {
     }
 
     public String getPrinterType() {
-        return printerType;
+        String type="";
+        if (TextUtils.equals("CLOUD_YILIANYUN_K4", printerType)) {
+            type = "易联云K4";
+        } else if (TextUtils.equals("USB", printerType)) {
+            type = "USB";
+        }
+        return type;
     }
 
     public void setPrinterType(String printerType) {
-        this.printerType = printerType;
+        if (TextUtils.equals("易联云K4", printerType)) {
+            this.printerType = "CLOUD_YILIANYUN_K4";
+            } else if (TextUtils.equals("USB", printerType)) {
+            this.printerType = "USB";
+        }
     }
 
     public String getPrinterPageType() {
-        return printerPageType;
+        String pageType="";
+        if (TextUtils.equals("MM80", printerPageType)) {
+            pageType = "80mm";
+        } else if (TextUtils.equals("MM58", printerPageType)) {
+            pageType = "58mm";
+        }
+        return pageType;
     }
 
-    public void setPrinterPageType(String printerPageType) {
-        this.printerPageType = printerPageType;
+    public void setPrinterPageType(String pageType) {
+        if (TextUtils.equals("80mm", pageType)) {
+            this.printerPageType = "MM80";
+        } else if (TextUtils.equals("58mm", pageType)) {
+            this.printerPageType = "MM58";
+        }
+
     }
 
     public String getPrinterStatus() {

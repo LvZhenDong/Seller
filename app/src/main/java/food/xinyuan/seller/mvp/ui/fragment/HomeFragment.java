@@ -183,8 +183,9 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                     case 8:
 
                         break;
+                    //打印机
                     case 9:
-
+                        start(PrinterSettingFragment.newInstance());
                         break;
                     case 10:
 

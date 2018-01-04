@@ -54,4 +54,26 @@ public class PrinterSettingPresenter extends BasePresenter<PrinterSettingContrac
                     }
                 });
     }
+
+    public void refreshPrinters(){
+        mModel.getPrinters()
+                .compose(TransFactory.noLoadingTrans(mRootView))
+                .subscribe(new ErrorHandleSubscriber<ListResponse<Printer>>(mErrorHandler) {
+                    @Override
+                    public void onNext(ListResponse<Printer> data) {
+                        mRootView.getPrintersSuc(data.getList());
+                    }
+                });
+    }
+
+    public void delPrinter(String printerId,int pos){
+        mModel.delPrinter(printerId)
+                .compose(TransFactory.commonTransNoData(mRootView))
+                .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        mRootView.delPrinterSuc(pos);
+                    }
+                });
+    }
 }
