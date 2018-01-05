@@ -189,8 +189,9 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                     case 9:
                         start(PrinterSettingFragment.newInstance());
                         break;
+                    //红包
                     case 10:
-
+                        start(CouponFragment.newInstance());
                         break;
                     case 11:
 

@@ -3,6 +3,7 @@ package food.xinyuan.seller.app.api.service;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
+import food.xinyuan.seller.app.data.bean.response.Coupon;
 import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
 import food.xinyuan.seller.app.data.bean.response.Printer;
@@ -204,6 +205,22 @@ public interface ShopService {
      */
     @DELETE("/seller/goods/{goodsId}")
     Observable<HttpResponseData> deleteGoods(@Path("goodsId") String goodsId);
+
+    /**
+     * 获取红包list
+     * @param pageSize
+     * @return
+     */
+    @GET("/seller/coupon")
+    Observable<HttpResponseData<ListResponse<Coupon>>> getCouponList(@Query("pageSize") int pageSize);
+
+    /**
+     * 删除红包
+     * @param id
+     * @return
+     */
+    @DELETE("/seller/coupon/{couponId}")
+    Observable<HttpResponseData> delCoupon(@Path("couponId") int id);
 
 
 }

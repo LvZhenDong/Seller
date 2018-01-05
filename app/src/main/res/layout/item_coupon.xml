@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/white"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+    <TextView
+        android:id="@+id/tv_del"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:background="@color/tv_red"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tv_Blod" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_money"
+            android:layout_width="100dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_coupon" />
+
+            <View
+                android:id="@+id/view_center"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/view_center"
+                android:layout_centerHorizontal="true"
+                android:text="99"
+                android:textColor="@color/tv_red"
+                android:textSize="@dimen/tv_Big" />
+
+            <TextView
+                android:id="@+id/tv_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_center"
+                android:layout_centerHorizontal="true"
+                android:text="满55元可用"
+                android:textColor="@color/tv_hint"
+                android:textSize="@dimen/tv_light" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/rl_money">
+
+            <View
+                android:id="@+id/view_center_right"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/view_center_right" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_center_right"
+                android:textSize="@dimen/tv_light" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</com.daimajia.swipe.SwipeLayout>

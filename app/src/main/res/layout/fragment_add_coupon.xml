@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white">
+
+    <include layout="@layout/view_header_tv_tv" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout style="@style/RlItem">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="红包名称" />
+
+            <EditText
+                android:id="@+id/et_name"
+                style="@style/EtItemHint"
+                android:hint="红包名称，最多10个字符" />
+
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+
+
+        <RelativeLayout style="@style/RlItem">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="自动领取" />
+
+
+            <TextView
+                android:id="@+id/tv_inventory_hint"
+                style="@style/TvItemHint"
+                android:text="允许"
+                android:textColor="@color/tv_name" />
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sw_inventory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/tv_inventory_hint"
+                android:checked="true" />
+
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+
+        <RelativeLayout style="@style/RlItem">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="金额类型" />
+
+
+            <TextView
+                android:id="@+id/tv_random_hint"
+                style="@style/TvItemHint"
+                android:text="固定"
+                android:textColor="@color/tv_name" />
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/tv_random_hint"
+                android:checked="true" />
+
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/RlItem">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="红包金额" />
+
+            <EditText
+                android:id="@+id/et_price"
+                style="@style/EtItemHint"
+                android:hint="红包金额"
+                android:inputType="numberDecimal" />
+
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/RlItem">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="开始时间" />
+
+            <TextView
+                style="@style/TvItem"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="@dimen/drawable_padding_text"
+                android:paddingRight="0dp" />
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/RlItem">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="结束时间" />
+
+            <TextView
+                style="@style/TvItem"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="@dimen/drawable_padding_text"
+                android:paddingRight="0dp" />
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_inventory"
+            style="@style/RlItem"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="库存数量" />
+
+            <EditText
+                android:id="@+id/et_inventory"
+                style="@style/EtItemHint"
+                android:hint="请输入库存数量"
+                android:inputType="number" />
+
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/RlItem">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="最大领取量" />
+
+            <EditText
+                android:id="@+id/et_box_count"
+                style="@style/EtItemHint"
+                android:hint="留空为不限制"
+                android:inputType="number" />
+
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/RlItem">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="最低消费额度" />
+
+            <EditText
+                android:id="@+id/et_box_price"
+                style="@style/EtItemHint"
+                android:hint="最低消费额度"
+                android:inputType="numberDecimal" />
+
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_item"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_btn_green_selector"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/white" />
+</RelativeLayout>

@@ -43,6 +43,8 @@ public class Notice {
             return R.drawable.ic_order_cancel;
         else if (TextUtils.equals(contentType, ConstantUtil.ORDER_STATUS_CREATE))
             return R.drawable.ic_order_create;
+        else if(TextUtils.equals(contentType,ConstantUtil.ORDER_STATUS_FINISHED))
+            return R.drawable.ic_order_finished;
         else
             return R.drawable.ic_notice;
     }
