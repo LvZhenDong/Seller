@@ -31,6 +31,7 @@ public class GoodsAdapter extends BaseQuickAdapter<Goods, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Goods item) {
+        int pos = mData.indexOf(item);
         helper.setText(R.id.tv_name, item.getGoodsName());
         helper.setText(R.id.tv_quantity, "月售" + item.getGoodsSales() + "份");
         helper.setText(R.id.tv_price, "¥" + item.getGoodsPrice());
@@ -48,13 +49,13 @@ public class GoodsAdapter extends BaseQuickAdapter<Goods, BaseViewHolder> {
                     break;
                 case R.id.tv_status_goods:
                     //是“上架”状态，执行“下架”操作
-                    if(item.isPutAway())
-                        mListener.onSoldOut(item.getGoodsId());
+                    if (item.isPutAway())
+                        mListener.onSoldOut(item, pos);
                     else
-                        mListener.onPutAway(item.getGoodsId());
+                        mListener.onPutAway(item, pos);
                     break;
                 case R.id.tv_del_goods:
-                    mListener.onDel(item.getGoodsId());
+                    mListener.onDel(item.getGoodsId(), pos);
                     break;
             }
         };
@@ -74,10 +75,10 @@ public class GoodsAdapter extends BaseQuickAdapter<Goods, BaseViewHolder> {
     public interface OnGoodsClickListener {
         void onEdit(Goods goods);
 
-        void onSoldOut(int goodsId);
+        void onSoldOut(Goods item, int pos);
 
-        void onPutAway(int goodsId);
+        void onPutAway(Goods item, int pos);
 
-        void onDel(int goodsId);
+        void onDel(int goodsId, int pos);
     }
 }

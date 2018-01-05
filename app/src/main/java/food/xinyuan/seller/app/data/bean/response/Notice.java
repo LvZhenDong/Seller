@@ -1,5 +1,10 @@
 package food.xinyuan.seller.app.data.bean.response;
 
+import android.support.annotation.DrawableRes;
+import android.text.TextUtils;
+
+import food.xinyuan.seller.R;
+import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.XDateUtils;
 
 /**
@@ -27,6 +32,20 @@ public class Notice {
     private long createTime;
     private String contentType;
     private boolean read;
+
+    /**
+     * 获取该订单状态对应的图片
+     *
+     * @return
+     */
+    public @DrawableRes int getStatusResId() {
+        if (TextUtils.equals(contentType, ConstantUtil.ORDER_STATUS_CANCEL))
+            return R.drawable.ic_order_cancel;
+        else if (TextUtils.equals(contentType, ConstantUtil.ORDER_STATUS_CREATE))
+            return R.drawable.ic_order_create;
+        else
+            return R.drawable.ic_notice;
+    }
 
     public int getNoticeId() {
         return noticeId;
@@ -56,8 +75,8 @@ public class Notice {
         return createTime;
     }
 
-    public String getCreateTimeStr(){
-        return XDateUtils.millis2String(createTime,"MM-dd HH:mm");
+    public String getCreateTimeStr() {
+        return XDateUtils.millis2String(createTime, "MM-dd HH:mm");
     }
 
     public void setCreateTime(long createTime) {

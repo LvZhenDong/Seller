@@ -10,7 +10,9 @@ import com.jess.arms.mvp.BaseModel;
 import javax.inject.Inject;
 
 import food.xinyuan.seller.app.api.service.ShopService;
+import food.xinyuan.seller.app.api.service.UserService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
+import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import food.xinyuan.seller.mvp.contract.HomeContract;
@@ -43,5 +45,10 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     @Override
     public Observable<HttpResponseData<ShopDetail>> getShopDetail() {
         return mRepositoryManager.obtainRetrofitService(ShopService.class).getShopDetail();
+    }
+
+    @Override
+    public Observable<HttpResponseData<LoginResponse>> refreshToken() {
+        return mRepositoryManager.obtainRetrofitService(UserService.class).refreshToken();
     }
 }

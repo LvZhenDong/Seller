@@ -51,7 +51,7 @@ public class SplashActivity extends AbstractMyBaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
                     if (CommonUtils.isAvailable(getApplicationContext())) {
-                        ARouter.getInstance().build(ARouterPaths.LOGIN).navigation();
+                        ARouter.getInstance().build(ARouterPaths.MAIN).navigation();
                         finish();
                     } else {
                         new AlertDialog.Builder(this)

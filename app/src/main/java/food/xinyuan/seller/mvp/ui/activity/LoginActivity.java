@@ -138,6 +138,7 @@ public class LoginActivity extends AbstractMyBaseActivity<LoginPresenter> implem
 
     @Override
     public void loginSuc() {
+        ArmsUtils.makeText(this,"登录成功");
         ARouter.getInstance().build(ARouterPaths.MAIN).navigation();
         finish();
     }

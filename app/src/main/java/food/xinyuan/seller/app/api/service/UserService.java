@@ -5,6 +5,7 @@ import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -19,4 +20,11 @@ public interface UserService {
      */
     @POST("/seller/seller/loginByCode")
     Observable<HttpResponseData<LoginResponse>> login(@Body RequestBody json);
+
+    /**
+     * 刷新token
+     * @return
+     */
+    @GET("/seller/seller/refreshToken")
+    Observable<HttpResponseData<LoginResponse>> refreshToken();
 }

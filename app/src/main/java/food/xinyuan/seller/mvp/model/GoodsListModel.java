@@ -39,8 +39,8 @@ public class GoodsListModel extends BaseModel implements GoodsListContract.Model
     }
 
     @Override
-    public Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(String id) {
-        return mRepositoryManager.obtainRetrofitService(ShopService.class).getGoodsList(id);
+    public Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(String id,int pageId) {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).getGoodsList(id,pageId);
     }
 
     @Override

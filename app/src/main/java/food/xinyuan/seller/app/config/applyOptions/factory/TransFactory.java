@@ -20,7 +20,7 @@ import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 public class TransFactory {
 
     /**
-     * 适用于普通单个请求
+     * 适用于普通单个请求，也可以用于多个请求的第一步，即doOnNext之前
      * @param rootView
      * @param <T>
      * @return
@@ -94,6 +94,24 @@ public class TransFactory {
                         throw new RuntimeException(responseData.getMessage());
                     }
                 });
+
+    }
+
+    /**
+     * 多个请求的第2步，即subscribe之前
+     * @param <T>
+     * @return
+     */
+    public static <T> ObservableTransformer<HttpResponseData<T>, T> transStepTwo() {
+        return (ObservableTransformer<HttpResponseData<T>, T>) upstream -> upstream
+                .map(responseData -> {
+                    if (responseData.isStatus()) {
+                        return responseData.getData();
+                    } else {
+                        throw new RuntimeException(responseData.getMessage());
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread());
 
     }
 

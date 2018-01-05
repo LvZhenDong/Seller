@@ -11,6 +11,7 @@ import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Goods;
+import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.RequestUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
@@ -48,50 +49,84 @@ public class GoodsListPresenter extends BasePresenter<GoodsListContract.Model, G
     }
 
     int groupId;
+    private int mPageId = 1;
 
-    public void getGoodsList(int categoryId) {
+    public void refreshGoods(int categoryId){
         groupId=categoryId;
-        mModel.getGoodsList(categoryId + "")
-                .compose(TransFactory.commonTrans(mRootView))
+        mPageId=1;
+        mModel.getGoodsList(categoryId + "",mPageId)
+                .compose(TransFactory.noLoadingTrans(mRootView))
+                .doFinally(() -> {
+                    mRootView.stopLoading();
+                })
                 .subscribe(new ErrorHandleSubscriber<ListResponse<Goods>>(mErrorHandler) {
                     @Override
                     public void onNext(ListResponse<Goods> data) {
-                        mRootView.getGoodsSuc(data.getList());
+                        //没有数据
+                        if(DataUtils.isEmpty(data.getList())){
+                            mRootView.noData();
+                        }else {
+                            mPageId++; //加载成功后pageNum加1方便下次加载下一页
+                            mRootView.getGoodsSuc(data.getList());
+                        }
                     }
                 });
     }
 
-    public void soldOutGoods(int goodsId){
-        Integer[] array={goodsId};
+    public void loadMoreGoods(int categoryId){
+        mModel.getGoodsList(categoryId+"",mPageId)
+                .compose(TransFactory.noLoadingTrans(mRootView))
+                .doFinally(() -> {
+                    mRootView.stopLoading();
+                })
+                .subscribe(new ErrorHandleSubscriber<ListResponse<Goods>>(mErrorHandler) {
+                    @Override
+                    public void onNext(ListResponse<Goods> data) {
+                        //没有更多数据了
+                        if(DataUtils.isEmpty(data.getList())){
+                            mRootView.noMoreData();
+                        }else {
+                            mPageId++; //加载成功后pageNum加1方便下次加载下一页
+                            mRootView.loadMoreSuc(data.getList());
+                        }
+                    }
+                });
+
+    }
+
+    public void soldOutGoods(Goods item,int pos){
+        Integer[] array={item.getGoodsId()};
         mModel.soldOutGoods(RequestUtils.getRequestBody(array))
                 .compose(TransFactory.commonTransNoData(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
                     @Override
                     public void onNext(Boolean aBoolean) {
-                        getGoodsList(groupId);
+                        item.setPutAway(false);
+                        mRootView.soldOutGoodsSuc(pos);
                     }
                 });
     }
 
-    public void putawayGoods(int goodsId){
-        Integer[] array={goodsId};
+    public void putawayGoods(Goods item,int pos){
+        Integer[] array={item.getGoodsId()};
         mModel.putawayGoods(RequestUtils.getRequestBody(array))
                 .compose(TransFactory.commonTransNoData(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
                     @Override
                     public void onNext(Boolean aBoolean) {
-                        getGoodsList(groupId);
+                        item.setPutAway(true);
+                        mRootView.putAwaySuc(pos);
                     }
                 });
     }
 
-    public void delGoods(int goodsId){
+    public void delGoods(int goodsId,int pos){
         mModel.deleteGoods(goodsId+"")
                 .compose(TransFactory.commonTransNoData(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
                     @Override
                     public void onNext(Boolean aBoolean) {
-                        getGoodsList(groupId);
+                        mRootView.delSuc(pos);
                     }
                 });
     }

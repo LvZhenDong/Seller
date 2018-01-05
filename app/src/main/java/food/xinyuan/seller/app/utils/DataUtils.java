@@ -22,6 +22,7 @@ import food.xinyuan.seller.app.data.bean.response.LoginResponse;
  */
 
 public class DataUtils {
+
     /**
      * 檢查Token
      *

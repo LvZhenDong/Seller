@@ -93,7 +93,6 @@ public class AddPrinterFragment extends AbstractMyBaseFragment<AddPrinterPresent
 
     }
 
-
     @Override
     public void showLoading() {
         if (mDialog != null)

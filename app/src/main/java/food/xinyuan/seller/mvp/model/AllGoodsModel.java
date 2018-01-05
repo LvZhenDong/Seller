@@ -37,11 +37,7 @@ public class AllGoodsModel extends BaseModel implements AllGoodsContract.Model {
 
     @Override
     public Observable<HttpResponseData<ListResponse<GoodsCategory>>> getGoodsCategory() {
-        return mRepositoryManager.obtainRetrofitService(ShopService.class).getGoodsCategory();
-    }
-
-    @Override
-    public Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(String id) {
-        return mRepositoryManager.obtainRetrofitService(ShopService.class).getGoodsList(id);
+        //由于商品类型数量一般较少，所以这里一次加载所有的类型，不做分页
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).getGoodsCategory(Integer.MAX_VALUE);
     }
 }

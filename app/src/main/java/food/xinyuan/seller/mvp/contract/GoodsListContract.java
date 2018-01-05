@@ -18,12 +18,24 @@ public interface GoodsListContract {
     interface View extends IView {
         void getGoodsSuc(List<Goods> data);
 
-        void soldOutGoodsSuc();
+        void loadMoreSuc(List<Goods> data);
+
+        void noMoreData();
+
+        void noData();
+
+        void stopLoading();
+
+        void soldOutGoodsSuc(int pos);
+
+        void delSuc(int pos);
+
+        void putAwaySuc(int pos);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
     interface Model extends IModel {
-        Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(String id);
+        Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(String id,int pageId);
 
         Observable<HttpResponseData> soldOutGoods(@Body RequestBody json);
 

@@ -97,11 +97,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
                     .subscribe(new ErrorHandleSubscriber<LoginResponse>(mErrorHandler) {
                         @Override
                         public void onNext(LoginResponse data) {
-                            //TODO user以及token处理
                             MySharePreferencesManager.getInstance().putString("token", data.getJwt());
                             DataUtils.setToken(mApplication.getApplicationContext(), data.getJwt());
                             DataUtils.setUser(mApplication.getApplicationContext(),data);
-                            mRootView.showSnackbarMsg("登录成功", ConstantUtil.SNACK_NORMAL);
                             mRootView.loginSuc();
                         }
                     });

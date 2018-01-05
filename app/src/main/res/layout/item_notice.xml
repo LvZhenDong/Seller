@@ -27,8 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_hor_normal"
-            android:src="@drawable/ic_notice" />
+            android:layout_marginLeft="@dimen/margin_hor_normal" />
 
         <TextView
             android:layout_marginTop="5dp"

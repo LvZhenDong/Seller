@@ -37,6 +37,10 @@ public class ConstantUtil {
     public static final String PUTAWAY = "PUTAWAY"; //上架
     public static final String SOLD_OUT = "SOLD_OUT";   //下架
 
+    //通知状态
+    public static final String ORDER_STATUS_CANCEL="ORDER_CANCELLATION";
+    public static final String ORDER_STATUS_CREATE="ORDER_CREATE";
+
     /**
      * APP文件及缓存路径
      */

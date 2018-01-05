@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jess.arms.di.component.AppComponent;
 
 import java.util.ArrayList;
@@ -39,8 +40,6 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
     ImageView ivHeaderLeft;
     @BindView(R.id.tv_header_center)
     TextView tvHeaderCenter;
-    //    @BindView(R.id.rv_goods)
-//    RecyclerView rvGoods;
     @BindView(R.id.tl_goods_category)
     VerticalTabLayout tlGoodsCategory;
 
@@ -48,6 +47,8 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
     GoodsAdapter mAdapter;
     @BindView(R.id.tv_add_goods)
     TextView tvAddGoods;
+
+    MaterialDialog mDialog;
 
     public static AllGoodsFragment newInstance() {
         AllGoodsFragment fragment = new AllGoodsFragment();
@@ -75,6 +76,9 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
         tvHeaderCenter.setText(R.string.all_goods);
         CommonUtils.setBack(this, ivHeaderLeft);
 
+        mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
+                progress(true, 0).build();
+
         mPresenter.getInitData();
 
     }
@@ -84,15 +88,16 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
 
     }
 
-
     @Override
     public void showLoading() {
-
+        if (mDialog != null)
+            mDialog.show();
     }
 
     @Override
     public void hideLoading() {
-
+        if (mDialog != null)
+            mDialog.dismiss();
     }
 
     @Override
@@ -109,27 +114,10 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
             fragments.add(GoodsListFragment.newInstance(item.getGoodsCategoryId()));
         }
 
-        tlGoodsCategory.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabView tab, int position) {
-                mPresenter.getGoodsList(data.get(position).getGoodsCategoryId());
-            }
-
-            @Override
-            public void onTabReselected(TabView tab, int position) {
-
-            }
-        });
         tlGoodsCategory.setupWithFragment(getFragmentManager(), R.id.fl_fragment, fragments);
-
     }
 
     List<Fragment> fragments=new ArrayList<>();
-
-    @Override
-    public void getGoodsSuc(List<Goods> data) {
-//        mAdapter.setNewData(data);
-    }
 
     @OnClick(R.id.tv_add_goods)
     public void onViewClicked() {

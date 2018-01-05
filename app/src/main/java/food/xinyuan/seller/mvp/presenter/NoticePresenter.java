@@ -63,7 +63,6 @@ public class NoticePresenter extends BasePresenter<NoticeContract.Model, NoticeC
                             mPageId++; //加载成功后pageNum加1方便下次加载下一页
                             mRootView.loadMoreSuc(noticeListResponse.getList());
                         }
-
                     }
                 });
     }
@@ -78,13 +77,12 @@ public class NoticePresenter extends BasePresenter<NoticeContract.Model, NoticeC
                 .subscribe(new ErrorHandleSubscriber<ListResponse<Notice>>(mErrorHandler) {
                     @Override
                     public void onNext(ListResponse<Notice> noticeListResponse) {
-                        if(DataUtils.isEmpty(noticeListResponse.getList())){    //没有更多数据了
+                        if(DataUtils.isEmpty(noticeListResponse.getList())){    //没有数据
                             mRootView.noData();
                         }else {
                             mPageId++; //加载成功后pageNum加1方便下次加载下一页
                             mRootView.getNoticesSuc(noticeListResponse.getList());
                         }
-
                     }
                 });
     }

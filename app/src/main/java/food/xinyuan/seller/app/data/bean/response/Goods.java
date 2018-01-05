@@ -98,6 +98,10 @@ public class Goods {
         return TextUtils.equals(ConstantUtil.PUTAWAY,getGoodsStatus());
     }
 
+    public void setPutAway(boolean isPutAway){
+        setGoodsStatus(isPutAway?ConstantUtil.PUTAWAY:ConstantUtil.SOLD_OUT);
+    }
+
     public void setGoodsStatus(String goodsStatus) {
         this.goodsStatus = goodsStatus;
     }

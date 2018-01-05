@@ -38,7 +38,8 @@ public class PrinterSettingModel extends BaseModel implements PrinterSettingCont
 
     @Override
     public Observable<HttpResponseData<ListResponse<Printer>>> getPrinters() {
-        return mRepositoryManager.obtainRetrofitService(ShopService.class).getPrinters();
+        //由于打印机数量一般较少，所以这里一次加载所有的设备，不做分页
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).getPrinters(Integer.MAX_VALUE);
     }
 
     @Override

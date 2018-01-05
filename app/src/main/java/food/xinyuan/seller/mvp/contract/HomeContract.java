@@ -4,6 +4,7 @@ import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
 
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
+import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import io.reactivex.Observable;
@@ -14,6 +15,8 @@ public interface HomeContract {
     interface View extends IView {
         void getShopStatisticsSuc(ShopStatistics shopStatistics);
 
+//        void refreshTokenSuc();
+
         void getShopDetailSuc(ShopDetail shopDetail);
     }
 
@@ -22,5 +25,7 @@ public interface HomeContract {
         Observable<HttpResponseData<ShopStatistics>> getShopStatistics();
 
         Observable<HttpResponseData<ShopDetail>> getShopDetail();
+
+        Observable<HttpResponseData<LoginResponse>> refreshToken();
     }
 }

@@ -35,7 +35,9 @@ import food.xinyuan.seller.mvp.presenter.NoticePresenter;
 import food.xinyuan.seller.mvp.ui.widgets.LastDecoration;
 import food.xinyuan.seller.mvp.ui.widgets.NormalDecoration;
 
-
+/**
+ * 通知中心
+ */
 public class NoticeFragment extends AbstractMyBaseFragment<NoticePresenter> implements NoticeContract.View {
     @BindView(R.id.iv_header_left)
     ImageView ivHeaderLeft;
@@ -93,6 +95,8 @@ public class NoticeFragment extends AbstractMyBaseFragment<NoticePresenter> impl
                 helper.setText(R.id.tv_title, item.getTitle());
                 helper.setText(R.id.tv_time,item.getCreateTimeStr());
                 helper.setText(R.id.tv_content,item.getContent());
+                helper.setBackgroundRes(R.id.iv_notice,item.getStatusResId());
+
                 helper.addOnClickListener(R.id.tv_del);
             }
         };

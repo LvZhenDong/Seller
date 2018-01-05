@@ -114,7 +114,7 @@ public interface ShopService {
      * 获取打印机列表
      */
     @GET("/seller/printer")
-    Observable<HttpResponseData<ListResponse<Printer>>> getPrinters();
+    Observable<HttpResponseData<ListResponse<Printer>>> getPrinters(@Query("pageSize") int pageSize);
 
     /**
      * 删除打印机
@@ -135,7 +135,7 @@ public interface ShopService {
      * 获取商品类型
      */
     @GET("/seller/goodsCategory")
-    Observable<HttpResponseData<ListResponse<GoodsCategory>>> getGoodsCategory();
+    Observable<HttpResponseData<ListResponse<GoodsCategory>>> getGoodsCategory(@Query("pageSize") int pageSize);
 
     /**
      * 添加商品类型
@@ -158,7 +158,8 @@ public interface ShopService {
      */
     @GET("/seller/goods")
     Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(@Query("goodsClassId") String
-                                                                           id);
+                                                                           id,
+                                                                   @Query("pageId") int pageId);
 
     /**
      * 上传商品

@@ -47,27 +47,13 @@ public class AllGoodsPresenter extends BasePresenter<AllGoodsContract.Model, All
     }
 
     public void getInitData() {
-        //TODO 当有2个请求时dialog的处理
+
         mModel.getGoodsCategory()
                 .compose(TransFactory.commonTrans(mRootView))
                 .subscribe(new ErrorHandleSubscriber<ListResponse<GoodsCategory>>(mErrorHandler) {
                     @Override
                     public void onNext(ListResponse<GoodsCategory> data) {
                         mRootView.getGoodsCategorySuc(data.getList());
-                        if(!DataUtils.isEmpty(data) && !DataUtils.isEmpty(data.getList())){
-
-                        }
-                    }
-                });
-    }
-
-    public void getGoodsList(int categoryId) {
-        mModel.getGoodsList(categoryId + "")
-                .compose(TransFactory.commonTrans(mRootView))
-                .subscribe(new ErrorHandleSubscriber<ListResponse<Goods>>(mErrorHandler) {
-                    @Override
-                    public void onNext(ListResponse<Goods> data) {
-                        mRootView.getGoodsSuc(data.getList());
                     }
                 });
     }

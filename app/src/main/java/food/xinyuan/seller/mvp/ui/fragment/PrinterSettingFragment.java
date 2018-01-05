@@ -81,6 +81,7 @@ public class PrinterSettingFragment extends AbstractMyBaseFragment<PrinterSettin
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        //toolbar设置
         tvHeaderCenter.setText(R.string.printer_setting);
         CommonUtils.setBack(this, ivHeaderLeft);
         tvHeaderRight.setVisibility(View.VISIBLE);
@@ -89,7 +90,6 @@ public class PrinterSettingFragment extends AbstractMyBaseFragment<PrinterSettin
 
         mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
                 progress(true, 0).build();
-
 
         mAdapter = new PrinterAdapter(R.layout.item_printer);
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
