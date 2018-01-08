@@ -157,8 +157,9 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                     case 0:
                         start(AllGoodsFragment.newInstance());
                         break;
+                    //订单
                     case 1:
-
+                        start(OrderFragment.newInstance());
                         break;
                     case 2:
 

@@ -31,7 +31,7 @@ public class GoodsAdapter extends BaseQuickAdapter<Goods, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Goods item) {
-        int pos = mData.indexOf(item);
+        int pos = helper.getLayoutPosition();
         helper.setText(R.id.tv_name, item.getGoodsName());
         helper.setText(R.id.tv_quantity, "月售" + item.getGoodsSales() + "份");
         helper.setText(R.id.tv_price, "¥" + item.getGoodsPrice());

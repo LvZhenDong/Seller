@@ -19,7 +19,7 @@ public class GoodsSpecAdapter extends BaseQuickAdapter<AddGoods.AddSpecsBean, Ba
 
     @Override
     protected void convert(BaseViewHolder helper, AddGoods.AddSpecsBean item) {
-        int position = mData.indexOf(item);
+        int position =  helper.getLayoutPosition();
         helper.setText(R.id.tv_title, "规格" + (position + 1));
         helper.setText(R.id.tv_spec_name, "规格名称：" + item.getGoodsSpecificationName());
         helper.setText(R.id.tv_spec_price, "价格：" + item.getGoodsSpecificationPrice());

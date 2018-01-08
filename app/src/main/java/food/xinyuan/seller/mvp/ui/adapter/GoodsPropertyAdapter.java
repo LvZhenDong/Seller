@@ -25,7 +25,7 @@ public class GoodsPropertyAdapter extends BaseQuickAdapter<AddGoods.GoodsPropert
 
     @Override
     protected void convert(BaseViewHolder helper, AddGoods.GoodsPropertysBean item) {
-        int pos = mData.indexOf(item);
+        int pos = helper.getLayoutPosition();
         helper.setText(R.id.tv_title, "属性" + (pos + 1));
         helper.setText(R.id.tv_property_name,"属性名称："+item.getGoodsPropertyName());
         //删除
