@@ -10,7 +10,12 @@ import com.jess.arms.di.scope.ActivityScope;
 
 import javax.inject.Inject;
 
+import food.xinyuan.seller.app.api.service.ShopService;
+import food.xinyuan.seller.app.data.bean.HttpResponseData;
+import food.xinyuan.seller.app.data.bean.response.Coupon;
+import food.xinyuan.seller.app.utils.RequestUtils;
 import food.xinyuan.seller.mvp.contract.AddCouponContract;
+import io.reactivex.Observable;
 
 
 @ActivityScope
@@ -32,4 +37,9 @@ public class AddCouponModel extends BaseModel implements AddCouponContract.Model
         this.mApplication = null;
     }
 
+    @Override
+    public Observable<HttpResponseData<Coupon>> addCoupon(Coupon coupon) {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class)
+                .addCoupon(RequestUtils.getRequestBody(coupon));
+    }
 }

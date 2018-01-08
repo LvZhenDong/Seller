@@ -36,15 +36,40 @@ public class Coupon {
     private String couponMoneyType;
     private String couponName;
     private long endTime;
-    private int maxMoney;
+    private double maxMoney;
     private int maxPickUpNumber;
-    private int minMoney;
-    private int minimum;
-    private int money;
+    private double minMoney;
+    private double minimum;
+    private double money;
     private String pickUpType;
     private int pickUped;
     private long startTime;
     private String useSocpe;
+
+    public Coupon(String name, boolean isPickUpAuto, boolean isFixed, double money, long startTime,
+                  long endTime, int maxPickUpNumber, double minimum) {
+        this.couponName = name;
+        this.pickUpType = isPickUpAuto ? "HAND" : "CONSUME";
+        this.couponMoneyType = isFixed ? "FIXED" : "RANDOM";
+        this.money = money;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.maxPickUpNumber = maxPickUpNumber;
+        this.minimum = minimum;
+    }
+
+    public Coupon(String name, boolean isPickUpAuto, boolean isFixed, double minMoney, double maxMoney, long startTime,
+                  long endTime, int maxPickUpNumber, double minimum) {
+        this.couponName = name;
+        this.pickUpType = isPickUpAuto ? "HAND" : "CONSUME";
+        this.couponMoneyType = isFixed ? "FIXED" : "RANDOM";
+        this.minMoney = minMoney;
+        this.maxMoney = maxMoney;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.maxPickUpNumber = maxPickUpNumber;
+        this.minimum = minimum;
+    }
 
     /**
      * 金额是否随机
@@ -64,11 +89,12 @@ public class Coupon {
         if (endTime == 0)
             return "无期限";
         else
-            return XDateUtils.millis2String(endTime,"yyyy-MM-dd HH:mm") + "到期";
+            return XDateUtils.millis2String(endTime, "yyyy-MM-dd HH:mm") + "到期";
     }
 
     /**
      * 最小金额
+     *
      * @return
      */
     public String getMinStr() {
@@ -80,13 +106,14 @@ public class Coupon {
 
     /**
      * 红包金额
+     *
      * @return
      */
-    public String getMoneyStr(){
-        if(!isRandom())
-            return "¥"+money;
+    public String getMoneyStr() {
+        if (!isRandom())
+            return "¥" + money;
         else
-            return "¥"+minMoney+"~"+"¥"+maxMoney;
+            return "¥" + minMoney + "~" + "¥" + maxMoney;
     }
 
     public boolean isCanPickUp() {
@@ -129,11 +156,11 @@ public class Coupon {
         this.endTime = endTime;
     }
 
-    public int getMaxMoney() {
+    public double getMaxMoney() {
         return maxMoney;
     }
 
-    public void setMaxMoney(int maxMoney) {
+    public void setMaxMoney(double maxMoney) {
         this.maxMoney = maxMoney;
     }
 
@@ -145,27 +172,27 @@ public class Coupon {
         this.maxPickUpNumber = maxPickUpNumber;
     }
 
-    public int getMinMoney() {
+    public double getMinMoney() {
         return minMoney;
     }
 
-    public void setMinMoney(int minMoney) {
+    public void setMinMoney(double minMoney) {
         this.minMoney = minMoney;
     }
 
-    public int getMinimum() {
+    public double getMinimum() {
         return minimum;
     }
 
-    public void setMinimum(int minimum) {
+    public void setMinimum(double minimum) {
         this.minimum = minimum;
     }
 
-    public int getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 

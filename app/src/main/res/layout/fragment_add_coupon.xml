@@ -24,13 +24,13 @@
             <EditText
                 android:id="@+id/et_name"
                 style="@style/EtItemHint"
-                android:hint="红包名称，最多10个字符" />
+                android:hint="红包名称，最多10个字符"
+                android:maxLength="10" />
 
             <View
                 style="@style/XYLine"
                 android:layout_alignParentBottom="true" />
         </RelativeLayout>
-
 
 
         <RelativeLayout style="@style/RlItem">
@@ -41,18 +41,20 @@
 
 
             <TextView
-                android:id="@+id/tv_inventory_hint"
+                android:id="@+id/tv_pick_up_hint"
                 style="@style/TvItemHint"
+                android:layout_alignParentRight="false"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/sw_pick_up"
                 android:text="允许"
                 android:textColor="@color/tv_name" />
 
             <com.kyleduo.switchbutton.SwitchButton
-                android:id="@+id/sw_inventory"
+                android:id="@+id/sw_pick_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/tv_inventory_hint"
                 android:checked="true" />
 
             <View
@@ -67,34 +69,81 @@
                 style="@style/TvItemTitle"
                 android:text="金额类型" />
 
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sw_fixed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:checked="true" />
 
             <TextView
                 android:id="@+id/tv_random_hint"
                 style="@style/TvItemHint"
+                android:layout_alignParentRight="false"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/sw_fixed"
                 android:text="固定"
                 android:textColor="@color/tv_name" />
 
-            <com.kyleduo.switchbutton.SwitchButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/tv_random_hint"
-                android:checked="true" />
 
             <View
                 style="@style/XYLine"
                 android:layout_alignParentBottom="true" />
         </RelativeLayout>
 
-        <RelativeLayout style="@style/RlItem">
+        <RelativeLayout
+            android:id="@+id/rl_money_range"
+            style="@style/RlItem"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/TvItemTitle"
+                android:text="随机金额范围" />
+
+
+            <EditText
+                android:id="@+id/et_max_money"
+                style="@style/EtItemHint"
+                android:layout_width="70dp"
+                android:hint="最大随机金额"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/tv_light" />
+
+            <TextView
+                android:id="@+id/tv_line"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/et_max_money"
+                android:gravity="center"
+                android:text="-" />
+
+            <EditText
+                android:id="@+id/et_min_money"
+                style="@style/EtItemHint"
+                android:layout_width="70dp"
+                android:layout_alignParentRight="false"
+                android:layout_marginRight="2dp"
+                android:layout_toLeftOf="@id/tv_line"
+                android:hint="最小随机金额"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/tv_light" />
+
+            <View
+                style="@style/XYLine"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_money"
+            style="@style/RlItem">
 
             <TextView
                 style="@style/TvItemTitle"
                 android:text="红包金额" />
 
             <EditText
-                android:id="@+id/et_price"
+                android:id="@+id/et_money"
                 style="@style/EtItemHint"
                 android:hint="红包金额"
                 android:inputType="numberDecimal" />
@@ -105,6 +154,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_start_time"
             style="@style/RlItem">
 
             <TextView
@@ -112,17 +162,20 @@
                 android:text="开始时间" />
 
             <TextView
+                android:id="@+id/tv_start_time"
                 style="@style/TvItem"
                 android:layout_width="wrap_content"
                 android:layout_alignParentRight="true"
                 android:drawablePadding="@dimen/drawable_padding_text"
                 android:paddingRight="0dp" />
+
             <View
                 style="@style/XYLine"
                 android:layout_alignParentBottom="true" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_end_time"
             style="@style/RlItem">
 
             <TextView
@@ -130,11 +183,13 @@
                 android:text="结束时间" />
 
             <TextView
+                android:id="@+id/tv_end_time"
                 style="@style/TvItem"
                 android:layout_width="wrap_content"
                 android:layout_alignParentRight="true"
                 android:drawablePadding="@dimen/drawable_padding_text"
                 android:paddingRight="0dp" />
+
             <View
                 style="@style/XYLine"
                 android:layout_alignParentBottom="true" />
@@ -167,7 +222,7 @@
                 android:text="最大领取量" />
 
             <EditText
-                android:id="@+id/et_box_count"
+                android:id="@+id/et_max_pick_number"
                 style="@style/EtItemHint"
                 android:hint="留空为不限制"
                 android:inputType="number" />
@@ -184,7 +239,7 @@
                 android:text="最低消费额度" />
 
             <EditText
-                android:id="@+id/et_box_price"
+                android:id="@+id/et_min"
                 style="@style/EtItemHint"
                 android:hint="最低消费额度"
                 android:inputType="numberDecimal" />

@@ -48,7 +48,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="99"
                 android:textColor="@color/tv_red"
-                android:textSize="@dimen/tv_Big" />
+                android:textSize="@dimen/tv_Blod" />
 
             <TextView
                 android:id="@+id/tv_min"

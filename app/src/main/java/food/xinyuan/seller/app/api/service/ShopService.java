@@ -222,5 +222,12 @@ public interface ShopService {
     @DELETE("/seller/coupon/{couponId}")
     Observable<HttpResponseData> delCoupon(@Path("couponId") int id);
 
+    /**
+     * 添加红包
+     * @param json
+     * @return
+     */
+    @PUT("/seller/coupon")
+    Observable<HttpResponseData<Coupon>> addCoupon(@Body RequestBody json);
 
 }
