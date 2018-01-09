@@ -24,21 +24,17 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.Coupon;
 import food.xinyuan.seller.app.data.event.EventConstant;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.DialogUtils;
-import food.xinyuan.seller.app.utils.XDateUtils;
 import food.xinyuan.seller.di.component.DaggerCouponComponent;
 import food.xinyuan.seller.di.module.CouponModule;
 import food.xinyuan.seller.mvp.contract.CouponContract;
 import food.xinyuan.seller.mvp.presenter.CouponPresenter;
-import food.xinyuan.seller.mvp.ui.widgets.NormalDecoration;
 import food.xinyuan.seller.mvp.ui.widgets.SurroundDecoration;
 
 
@@ -149,7 +145,7 @@ public class CouponFragment extends AbstractMyBaseFragment<CouponPresenter> impl
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAddSpec(String msg) {
-        if (TextUtils.equals(msg, EventConstant.UPDATA_COUPON_LIST))
+        if (TextUtils.equals(msg, EventConstant.UPDATE_COUPON_LIST))
             mPresenter.getCouponList();
     }
 

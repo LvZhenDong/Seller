@@ -16,6 +16,7 @@ import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import food.xinyuan.seller.app.utils.DataUtils;
+import food.xinyuan.seller.app.utils.L;
 import food.xinyuan.seller.app.utils.MySharePreferencesManager;
 import food.xinyuan.seller.mvp.contract.HomeContract;
 import io.reactivex.ObservableSource;
@@ -58,7 +59,10 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
     public void getInitData() {
         //刷新token→请求shop统计数据→请求shop detail
         mModel.refreshToken()
-                .compose(TransFactory.commonTrans(mRootView))
+                .compose(TransFactory.noLoadingTrans(mRootView))
+                .doOnSubscribe(disposable -> {
+                    mRootView.showLoading();
+                })
                 .doOnNext(loginResponse -> {
                     //保存token以及用户信息
                     MySharePreferencesManager.getInstance().putString("token", loginResponse.getJwt());
@@ -81,6 +85,9 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                     return mModel.getShopDetail();
                 })
                 .compose(TransFactory.transStepTwo())
+                .doFinally(() -> {
+                    mRootView.hideLoading();
+                })
                 .subscribe(new ErrorHandleSubscriber<ShopDetail>(mErrorHandler) {
                     @Override
                     public void onNext(ShopDetail data) {

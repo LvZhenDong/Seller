@@ -57,7 +57,6 @@
             android:ellipsize="end"
             android:padding="3dp"
             android:singleLine="true"
-            android:text="冬季的樱花sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdsdf"
             android:textColor="@color/white"
             android:textSize="@dimen/tv_Blod" />
 
@@ -90,8 +89,7 @@
 
             <TextView
                 android:id="@+id/tv_turnover"
-                style="@style/TvHomeRevenue"
-                android:text="1234" />
+                style="@style/TvHomeRevenue" />
 
             <TextView
                 style="@style/TvHomeRevenueBlack"
@@ -102,15 +100,14 @@
                 android:id="@+id/tv_yesterday_turnover"
                 style="@style/TvHomeRevenueBlack.Small"
                 android:layout_below="@id/tv_turnover"
-                android:text="昨日123" />
+                android:text="昨日" />
         </RelativeLayout>
 
         <RelativeLayout style="@style/RlHomeRevenue">
 
             <TextView
                 android:id="@+id/tv_order_quantity"
-                style="@style/TvHomeRevenue"
-                android:text="1234" />
+                style="@style/TvHomeRevenue" />
 
             <TextView
                 style="@style/TvHomeRevenueBlack"
@@ -121,7 +118,7 @@
                 android:id="@+id/tv_yesterday_order_quantity"
                 style="@style/TvHomeRevenueBlack.Small"
                 android:layout_below="@id/tv_order_quantity"
-                android:text="昨日123" />
+                android:text="昨日" />
 
             <View
                 android:layout_width="1dp"
@@ -142,8 +139,7 @@
 
             <TextView
                 android:id="@+id/tv_balance"
-                style="@style/TvHomeRevenue"
-                android:text="1234" />
+                style="@style/TvHomeRevenue" />
 
             <TextView
                 style="@style/TvHomeRevenueBlack"
@@ -154,7 +150,7 @@
                 android:id="@+id/tv_drawal"
                 style="@style/TvHomeRevenueBlack.Small"
                 android:layout_below="@id/tv_balance"
-                android:text="可以提现123" />
+                android:text="可以提现" />
         </RelativeLayout>
     </LinearLayout>
 

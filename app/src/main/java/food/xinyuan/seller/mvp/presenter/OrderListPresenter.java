@@ -1,15 +1,19 @@
 package food.xinyuan.seller.mvp.presenter;
 
 import android.app.Application;
+import android.content.Intent;
+import android.net.Uri;
 
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.utils.ArmsUtils;
 
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Order;
+import food.xinyuan.seller.app.utils.DataUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
@@ -45,15 +49,61 @@ public class OrderListPresenter extends BasePresenter<OrderListContract.Model, O
         this.mApplication = null;
     }
 
-    public void getOrderList(String status){
-        mModel.getOrderList(1,status)
-                .compose(TransFactory.commonTrans(mRootView))
+    private int mPageId = 1;
+
+    public void refreshOrder(String status){
+        mPageId = 1;
+        mModel.getOrderList(mPageId,status)
+                .compose(TransFactory.noLoadingTrans(mRootView))
+                .doFinally(() -> {
+                    mRootView.stopLoading();
+                })
                 .subscribe(new ErrorHandleSubscriber<ListResponse<Order>>(mErrorHandler) {
                     @Override
                     public void onNext(ListResponse<Order> orderListResponse) {
-                        mRootView.getListSuc(orderListResponse.getList());
+                        if(DataUtils.isEmpty(orderListResponse.getList())){    //没有数据
+                            mRootView.noData();
+                        }else {
+                            mPageId++; //加载成功后pageNum加1方便下次加载下一页
+                            mRootView.getListSuc(orderListResponse.getList());
+                        }
                     }
                 });
+    }
+
+    public void loadMoreOrder(String status){
+        mModel.getOrderList(mPageId,status)
+                .compose(TransFactory.noLoadingTrans(mRootView))
+                .doFinally(() -> {
+                    mRootView.stopLoading();
+                })
+                .subscribe(new ErrorHandleSubscriber<ListResponse<Order>>(mErrorHandler) {
+                    @Override
+                    public void onNext(ListResponse<Order> orderListResponse) {
+                        if(DataUtils.isEmpty(orderListResponse.getList())){    //没有数据
+                            mRootView.noMoreData();
+                        }else {
+                            mPageId++; //加载成功后pageNum加1方便下次加载下一页
+                            mRootView.loadMoreSuc(orderListResponse.getList());
+                        }
+                    }
+                });
+    }
+
+    public void printOrder(long id){
+        mModel.printOrder(id)
+                .compose(TransFactory.commonTransNoData(mRootView))
+                .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        ArmsUtils.makeText(mApplication.getApplicationContext(),"打印成功");
+                    }
+                });
+    }
+
+    public void callPhone(String phone){
+        Intent intent = new Intent(Intent.ACTION_DIAL , Uri.parse("tel:" + phone));
+        mApplication.startActivity(intent);
     }
 
 }

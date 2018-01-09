@@ -29,6 +29,7 @@ import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.ImageLoaderUtils;
+import food.xinyuan.seller.app.utils.L;
 import food.xinyuan.seller.di.component.DaggerHomeComponent;
 import food.xinyuan.seller.di.module.HomeModule;
 import food.xinyuan.seller.mvp.contract.HomeContract;
@@ -164,8 +165,9 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                     case 2:
 
                         break;
+                        //营业分析
                     case 3:
-
+                        start(AnalysisFragment.newInstance());
                         break;
                     //门店信息
                     case 4:
@@ -220,6 +222,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
     @Override
     public void getShopDetailSuc(ShopDetail shopDetail) {
         ImageLoaderUtils.loadCirImg(mAppComponent, shopDetail.getShopFaceUrl(), ivHead);
+        tvUserName.setText(shopDetail.getShopName());
     }
 
     @OnClick({R.id.tv_status_shop, R.id.tv_status_bind, R.id.tv_check_info})

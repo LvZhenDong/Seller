@@ -1,5 +1,6 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import food.xinyuan.seller.di.component.DaggerSettingComponent;
 import food.xinyuan.seller.di.module.SettingModule;
 import food.xinyuan.seller.mvp.contract.SettingContract;
 import food.xinyuan.seller.mvp.presenter.SettingPresenter;
+import food.xinyuan.seller.mvp.ui.activity.LoginActivity;
 
 
 public class SettingFragment extends AbstractMyBaseFragment<SettingPresenter> implements SettingContract.View {
@@ -121,6 +123,11 @@ public class SettingFragment extends AbstractMyBaseFragment<SettingPresenter> im
             case R.id.tv_service:
                 break;
             case R.id.tv_login_out:
+                //TODO 将LoginActivity改为Fragment
+                DataUtils.setToken(getContext(), null);
+                DataUtils.setUser(getContext(), null);
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+                getActivity().finish();
                 break;
             default:
                 break;

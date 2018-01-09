@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View style="@style/XYLine"
+        android:layout_alignParentTop="true"/>
+    <TextView
+        android:id="@+id/tv_goods_name"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        style="@style/TvCardHint"
+        android:text="饭盒费" />
+
+    <TextView
+        android:id="@+id/tv_goods_price"
+        android:text="Y5"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/tv_goods_name"
+        style="@style/TvCardContent" />
+
+    <TextView
+        android:id="@+id/tv_goods_num"
+        android:text="Y5"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/tv_goods_price"
+        android:layout_alignBottom="@id/tv_goods_name"
+        style="@style/TvCardContent" />
+
+
+</RelativeLayout>

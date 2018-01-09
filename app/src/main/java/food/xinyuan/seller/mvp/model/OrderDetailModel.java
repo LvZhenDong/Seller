@@ -12,19 +12,18 @@ import javax.inject.Inject;
 
 import food.xinyuan.seller.app.api.service.OrderService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
-import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Order;
-import food.xinyuan.seller.mvp.contract.OrderListContract;
+import food.xinyuan.seller.mvp.contract.OrderDetailContract;
 import io.reactivex.Observable;
 
 
 @ActivityScope
-public class OrderListModel extends BaseModel implements OrderListContract.Model {
+public class OrderDetailModel extends BaseModel implements OrderDetailContract.Model {
     private Gson mGson;
     private Application mApplication;
 
     @Inject
-    public OrderListModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
+    public OrderDetailModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
         super(repositoryManager);
         this.mGson = gson;
         this.mApplication = application;
@@ -38,12 +37,7 @@ public class OrderListModel extends BaseModel implements OrderListContract.Model
     }
 
     @Override
-    public Observable<HttpResponseData<ListResponse<Order>>> getOrderList(int pageId, String status) {
-        return mRepositoryManager.obtainRetrofitService(OrderService.class).getOrderList(pageId,status);
-    }
-
-    @Override
-    public Observable<HttpResponseData> printOrder(long id) {
-        return mRepositoryManager.obtainRetrofitService(OrderService.class).printOrder(id);
+    public Observable<HttpResponseData<Order>> getOrderDetail(long id) {
+        return mRepositoryManager.obtainRetrofitService(OrderService.class).getOrderDetail(id);
     }
 }

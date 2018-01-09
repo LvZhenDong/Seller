@@ -15,5 +15,18 @@ public class EventConstant {
      */
     public final static String UPDATE_PRINTER_LIST="updatePrinterList";
 
-    public final static String UPDATA_COUPON_LIST="updateCouponList";
+    /**
+     * 刷新红包
+     */
+    public final static String UPDATE_COUPON_LIST ="updateCouponList";
+
+    /**
+     * 启动取消订单fragment
+     */
+    public final static String START_ORDER_CANCEL_FRAGMENT="startOrderCancelFragment";
+
+    /**
+     * 启动订单详情fragment
+     */
+    public final static String START_ORDER_DETAIL_FRAGMENT="startOrderDetailFragment";
 }

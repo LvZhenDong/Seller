@@ -52,7 +52,7 @@ public class Order {
      * orderInvoiceInfo : {"orderId":5017}
      */
 
-    private int orderId;
+    private long orderId;
     private String orderNum;
     private String orderName;
     private int userId;
@@ -82,15 +82,15 @@ public class Order {
     private int orderGoodsCount;
     private boolean isRefund;
     private OrderInvoiceInfoBean orderInvoiceInfo;
-    private List<?> orderGoods;
-    private List<?> orderActivitys;
+    private List<OrderGoods> orderGoods;
+    private List<OrderActivitys> orderActivitys;
 
     public String getShortOrderNum() {
         return "#" + orderNum.substring(orderNum.length() - 4, orderNum.length());
     }
 
-    public String getPayTimeStr() {
-        return XDateUtils.millis2String(payTime);
+    public String getAddTimeStr() {
+        return XDateUtils.millis2String(addTime);
     }
 
     public String getOrderTypeStr() {
@@ -112,11 +112,11 @@ public class Order {
         return result;
     }
 
-    public int getOrderId() {
+    public long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
 
@@ -352,19 +352,19 @@ public class Order {
         this.orderInvoiceInfo = orderInvoiceInfo;
     }
 
-    public List<?> getOrderGoods() {
+    public List<OrderGoods> getOrderGoods() {
         return orderGoods;
     }
 
-    public void setOrderGoods(List<?> orderGoods) {
+    public void setOrderGoods(List<OrderGoods> orderGoods) {
         this.orderGoods = orderGoods;
     }
 
-    public List<?> getOrderActivitys() {
+    public List<OrderActivitys> getOrderActivitys() {
         return orderActivitys;
     }
 
-    public void setOrderActivitys(List<?> orderActivitys) {
+    public void setOrderActivitys(List<OrderActivitys> orderActivitys) {
         this.orderActivitys = orderActivitys;
     }
 
@@ -408,6 +408,24 @@ public class Order {
         private double mealFee;
         private long deliveryTime;
         private String distributionType;
+        private String carrierDriverName;
+        private String carrierDriverphone;
+
+        public String getCarrierDriverName() {
+            return carrierDriverName;
+        }
+
+        public void setCarrierDriverName(String carrierDriverName) {
+            this.carrierDriverName = carrierDriverName;
+        }
+
+        public String getCarrierDriverphone() {
+            return carrierDriverphone;
+        }
+
+        public void setCarrierDriverphone(String carrierDriverphone) {
+            this.carrierDriverphone = carrierDriverphone;
+        }
 
         public int getOrderId() {
             return orderId;
@@ -592,6 +610,10 @@ public class Order {
 
         public String getContactName() {
             return contactName;
+        }
+
+        public String getContactNameStr(){
+            return contactName+(!TextUtils.equals("MALE",gender)?"女士":"先生");
         }
 
         public void setContactName(String contactName) {

@@ -182,6 +182,32 @@
         <item name="android:textSize">@dimen/tv_Blod</item>
     </style>
 
+    <style name="RlCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/padding_hor</item>
+        <item name="android:layout_marginRight">@dimen/padding_hor</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@drawable/bg_white_radius_5dp</item>
+        <item name="android:padding">7dp</item>
+    </style>
+
+    <style name="TvCardHint">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/tv_name</item>
+        <item name="android:textSize">@dimen/tv_Normal</item>
+    </style>
+
+    <style name="TvCardContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/tv_light</item>
+    </style>
+
+
+
 
 
 

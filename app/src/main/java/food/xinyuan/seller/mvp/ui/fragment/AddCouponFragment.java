@@ -210,6 +210,6 @@ public class AddCouponFragment extends AbstractMyBaseFragment<AddCouponPresenter
     public void addCouponSuc() {
         ArmsUtils.makeText(getActivity(), "添加成功");
         pop();
-        EventBus.getDefault().post(EventConstant.UPDATA_COUPON_LIST);
+        EventBus.getDefault().post(EventConstant.UPDATE_COUPON_LIST);
     }
 }
