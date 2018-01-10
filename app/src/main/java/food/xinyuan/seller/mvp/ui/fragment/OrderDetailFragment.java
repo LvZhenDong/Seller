@@ -1,17 +1,29 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
+import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdate;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.CameraPosition;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
@@ -22,9 +34,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
+import food.xinyuan.seller.app.data.bean.response.GeoInfo;
 import food.xinyuan.seller.app.data.bean.response.Order;
 import food.xinyuan.seller.app.data.bean.response.OrderActivitys;
 import food.xinyuan.seller.app.data.bean.response.OrderGoods;
+import food.xinyuan.seller.app.data.bean.response.RiderLocation;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.XDateUtils;
@@ -32,6 +46,7 @@ import food.xinyuan.seller.di.component.DaggerOrderDetailComponent;
 import food.xinyuan.seller.di.module.OrderDetailModule;
 import food.xinyuan.seller.mvp.contract.OrderDetailContract;
 import food.xinyuan.seller.mvp.presenter.OrderDetailPresenter;
+import food.xinyuan.seller.mvp.ui.widgets.MapContainer;
 
 
 public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPresenter> implements OrderDetailContract.View {
@@ -56,7 +71,7 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
     @BindView(R.id.tv_content)
     TextView tvContent;
     @BindView(R.id.srl_order_detail)
-    SmartRefreshLayout srlOrderDetail;
+    SwipeRefreshLayout srlOrderDetail;
     @BindView(R.id.rl1)
     RelativeLayout rlOne;
     @BindView(R.id.tv_address)
@@ -79,6 +94,12 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
     LinearLayout llContent;
     @BindView(R.id.rl_rider)
     RelativeLayout rlRider;
+    @BindView(R.id.map)
+    MapView mapView;
+    @BindView(R.id.map_container)
+    MapContainer mapContainer;
+    @BindView(R.id.sv_order_detail)
+    ScrollView svOrderDetail;
 
     long mId;
     Order mOrder;
@@ -107,16 +128,38 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        mapView.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
     public void initData(Bundle savedInstanceState) {
+        mapView.onCreate(savedInstanceState);
+        mapContainer.setScrollView(svOrderDetail);
         tvHeaderCenter.setText("订单详情");
         CommonUtils.setBack(this, ivHeaderLeft);
 
         initRv();
 
-        srlOrderDetail.setRefreshHeader(new ClassicsHeader(getActivity()));
-        srlOrderDetail.setOnRefreshListener(refreshlayout -> mPresenter.getDetail(mId));
+        srlOrderDetail.setOnRefreshListener(() -> mPresenter.getDetail(mId));
+        srlOrderDetail.post(() ->{
+            srlOrderDetail.setRefreshing(true);
+            mPresenter.getDetail(mId);
+        } );
 
-        srlOrderDetail.autoRefresh();
     }
 
     private void initRv() {
@@ -155,7 +198,7 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
 
     @Override
     public void hideLoading() {
-
+        srlOrderDetail.setRefreshing(false);
     }
 
     @Override
@@ -164,7 +207,6 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
         if(!TextUtils.isEmpty(order.getOrderTakeout().getCarrierDriverphone()))
             rlRider.setVisibility(View.VISIBLE);
         llContent.setVisibility(View.VISIBLE);
-        srlOrderDetail.finishRefresh();
 
         //第一栏
         tvOrderShortNum.setText(order.getShortOrderNum());
@@ -196,6 +238,27 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
         mOrderGoodsAdapter.setNewData(order.getOrderGoods());
         mOrderActivityAdapter.setNewData(order.getOrderActivitys());
 
+        showRiderLocation();
+        mPresenter.getRiderLoc(mId);
+    }
+
+    @Override
+    public void getRiderLocSuc(RiderLocation riderLocation) {
+
+    }
+
+    @Override
+    public void getGeoInfoSuc(GeoInfo geoInfo) {
+
+    }
+
+    private void showRiderLocation(){
+        AMap aMap=mapView.getMap();
+        //TODO 这里接口有问题，一直返回的签名错误
+        LatLng latLng = new LatLng(30.55002860,104.06830564);
+        final Marker marker = aMap.addMarker(new MarkerOptions().position(latLng));
+        CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng,15,0,0));
+        aMap.moveCamera(mCameraUpdate);
     }
 
     @OnClick(R.id.tv_driver)

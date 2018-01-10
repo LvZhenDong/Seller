@@ -2,7 +2,9 @@ package food.xinyuan.seller.app.api.service;
 
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
+import food.xinyuan.seller.app.data.bean.response.GeoInfo;
 import food.xinyuan.seller.app.data.bean.response.Order;
+import food.xinyuan.seller.app.data.bean.response.RiderLocation;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -47,5 +49,21 @@ public interface OrderService {
      */
     @GET("/seller/order/{orderId}")
     Observable<HttpResponseData<Order>> getOrderDetail(@Path("orderId") long id);
+
+    /**
+     * 骑手位置
+     * @param id
+     * @return
+     */
+    @GET("/seller/order/carrier/{orderId}")
+    Observable<HttpResponseData<RiderLocation>> getRiderLoc(@Path("orderId") long id);
+
+    /**
+     * 经纬度信息
+     * @param id
+     * @return
+     */
+    @GET("/seller/order/geoInfo/{orderId}")
+    Observable<HttpResponseData<GeoInfo>> getGeoInfo(@Path("orderId") long id);
 
 }

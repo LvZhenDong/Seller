@@ -85,9 +85,7 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                     return mModel.getShopDetail();
                 })
                 .compose(TransFactory.transStepTwo())
-                .doFinally(() -> {
-                    mRootView.hideLoading();
-                })
+                .doFinally(() -> mRootView.hideLoading())
                 .subscribe(new ErrorHandleSubscriber<ShopDetail>(mErrorHandler) {
                     @Override
                     public void onNext(ShopDetail data) {

@@ -12,7 +12,9 @@ import javax.inject.Inject;
 
 import food.xinyuan.seller.app.api.service.OrderService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
+import food.xinyuan.seller.app.data.bean.response.GeoInfo;
 import food.xinyuan.seller.app.data.bean.response.Order;
+import food.xinyuan.seller.app.data.bean.response.RiderLocation;
 import food.xinyuan.seller.mvp.contract.OrderDetailContract;
 import io.reactivex.Observable;
 
@@ -39,5 +41,15 @@ public class OrderDetailModel extends BaseModel implements OrderDetailContract.M
     @Override
     public Observable<HttpResponseData<Order>> getOrderDetail(long id) {
         return mRepositoryManager.obtainRetrofitService(OrderService.class).getOrderDetail(id);
+    }
+
+    @Override
+    public Observable<HttpResponseData<RiderLocation>> getRiderLoc(long id) {
+        return mRepositoryManager.obtainRetrofitService(OrderService.class).getRiderLoc(id);
+    }
+
+    @Override
+    public Observable<HttpResponseData<GeoInfo>> getGeoInfo(long id) {
+        return mRepositoryManager.obtainRetrofitService(OrderService.class).getGeoInfo(id);
     }
 }
