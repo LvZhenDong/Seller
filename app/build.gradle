@@ -112,5 +112,7 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-5'
     //高德地图
     compile 'com.amap.api:map2d:latest.integration'
+    //图表
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.5'
 
 }

@@ -1,11 +1,14 @@
 package food.xinyuan.seller.app.api.service;
 
+import java.util.List;
+
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
 import food.xinyuan.seller.app.data.bean.response.Coupon;
 import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
+import food.xinyuan.seller.app.data.bean.response.NewCustomer;
 import food.xinyuan.seller.app.data.bean.response.Printer;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
@@ -229,5 +232,13 @@ public interface ShopService {
      */
     @PUT("/seller/coupon")
     Observable<HttpResponseData<Coupon>> addCoupon(@Body RequestBody json);
+
+    /**
+     * 新客户数据
+     * @param days
+     * @return
+     */
+    @GET("/seller/analysis/newCustomer")
+    Observable<HttpResponseData<List<NewCustomer>>> getNewCustomer(@Query("days") int days);
 
 }
