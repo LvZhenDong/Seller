@@ -35,6 +35,6 @@
     <color name="bg_btn_deep_green">#07983F</color>
     <color name="bg_btn_green">#1abe5f</color>
     <color name="bg_btn_green_pressed">#8f1abe5f</color>
-    <color name="trans_gray">#55999999</color>
+    <color name="trans_gray">#80333333</color>
 
 </resources>

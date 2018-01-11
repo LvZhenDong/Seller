@@ -1,6 +1,8 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
@@ -15,7 +19,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.jess.arms.di.component.AppComponent;
 
 import java.util.ArrayList;
@@ -42,11 +45,38 @@ public class AnalysisChartFragment extends AbstractMyBaseFragment<AnalysisChartP
     TextView tvHeaderCenter;
     @BindView(R.id.lineChart)
     LineChart mLineChart;
+    @BindView(R.id.tv_count_tips)
+    TextView tvCountTips;
+    @BindView(R.id.rv_chart)
+    RecyclerView rvChart;
+    @BindView(R.id.tv_tips)
+    TextView tvTips;
 
     MaterialDialog mDialog;
+    BaseQuickAdapter<NewCustomer,BaseViewHolder> mAdapter;
+    ChartInfo mChartInfo;
 
-    public static AnalysisChartFragment newInstance() {
+    public static AnalysisChartFragment newInstance(int type) {
         AnalysisChartFragment fragment = new AnalysisChartFragment();
+        switch (type){
+            case 0:
+                fragment.mChartInfo=new ChartInfo(type,R.color.tv_red,"新客户趋势图",
+                        "新客户量","新客户：第一次再本店进行下单的客户");
+                break;
+            case 1:
+                fragment.mChartInfo=new ChartInfo(type,R.color.colorPrimary,"订单量趋势图",
+                        "订单量","订单量：只统计已完成的订单数量");
+                break;
+            case 2:
+                fragment.mChartInfo=new ChartInfo(type,R.color.bg_yellow,"营业额趋势图",
+                        "营业额","营业额：只统计已完成的订单的订单金额");
+                break;
+            case 3:
+                fragment.mChartInfo=new ChartInfo(type,R.color.blue,"销售量趋势图",
+                        "销售量","销售量：只统计已完成的订单的商品数量");
+                break;
+
+        }
         return fragment;
     }
 
@@ -67,28 +97,45 @@ public class AnalysisChartFragment extends AbstractMyBaseFragment<AnalysisChartP
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        tvHeaderCenter.setText("新客户趋势图");
+        tvHeaderCenter.setText(mChartInfo.getTitle());
         CommonUtils.setBack(this, ivHeaderLeft);
         mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
                 progress(true, 0).build();
 
+        tvCountTips.setText(mChartInfo.getCountStr());
         initChart();
-        mPresenter.getNewCustomer();
+        initRv();
+        switch (mChartInfo.getType()){
+            case 0:
+                mPresenter.getNewCustomer();
+                break;
+            case 1:
+                mPresenter.getOrderQuantity();
+                break;
+            case 2:
+                mPresenter.getTurnover();
+                break;
+            //TODO 输入商品关键字，选择商品
+            case 3:
+                mPresenter.getGoodsSales(0);
+                break;
+        }
+
     }
+
     /**
      * Y轴上的动画时间
      */
     private static final int ANIMATEY_TIME = 2000;
 
-    private void initChart(){
+    private void initChart() {
         mLineChart.setNoDataText("没有数据");
         mLineChart.getLegend().setWordWrapEnabled(true);    //label自动换行
         mLineChart.animateY(ANIMATEY_TIME);
         mLineChart.setMaxVisibleValueCount(Integer.MAX_VALUE);
 
         mLineChart.setDescription("");
-        MarkerView markerView=new ChartMarkView(getActivity(),R.layout.view_chart_mark);
-        mLineChart.setMarkerView(markerView);
+
         YAxis rightAxis = mLineChart.getAxisRight();
         rightAxis.setEnabled(false);    //右边Y轴不显示
 
@@ -97,11 +144,29 @@ public class AnalysisChartFragment extends AbstractMyBaseFragment<AnalysisChartP
         leftAxis.setDrawGridLines(false);
         leftAxis.setAxisLineWidth(2f);
 
-        XAxis xAxis=mLineChart.getXAxis();
+        XAxis xAxis = mLineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setSpaceBetweenLabels(1);
         xAxis.setGridLineWidth(1f);
         xAxis.setAxisLineWidth(2f);
+    }
+
+    private void initRv(){
+        mAdapter=new BaseQuickAdapter<NewCustomer, BaseViewHolder>(R.layout.item_chart) {
+            @Override
+            protected void convert(BaseViewHolder helper, NewCustomer item) {
+                helper.setText(R.id.tv_date,XDateUtils.millis2String(item.getFinishDay(),"yyyy/MM/dd"));
+                //因为有的接口返回值是int,有的是float
+                if(mChartInfo.isInt()){
+                    helper.setText(R.id.tv_count,item.getIntData()+"");
+                }else {
+                    helper.setText(R.id.tv_count,item.getFloatData()+"");
+                }
+            }
+        };
+        rvChart.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvChart.setAdapter(mAdapter);
+
     }
 
     @Override
@@ -124,31 +189,83 @@ public class AnalysisChartFragment extends AbstractMyBaseFragment<AnalysisChartP
 
     @Override
     public void getNewCustomerSuc(List<NewCustomer> data) {
-        List<String> strs=new ArrayList<>();
+        mAdapter.setNewData(data);
 
-
+        List<String> strs = new ArrayList<>();
         List<Entry> yVals = new ArrayList<>();
-        for (NewCustomer item:data
-             ) {
-            int i=data.indexOf(item);
-            yVals.add(new Entry(item.getNewCustomerCount(),i));
-            strs.add(XDateUtils.millis2String(item.getFinishDay(),"MM-dd"));
+        for (NewCustomer item : data) {
+            int i = data.indexOf(item);
+            //因为有的接口返回值是int,有的是float
+            yVals.add(new Entry(mChartInfo.isInt()?item.getIntData():item.getFloatData(), i));
+            strs.add(XDateUtils.millis2String(item.getFinishDay(), "MM-dd"));
         }
-        LineDataSet dataSet=new LineDataSet(yVals,"新客户趋势图");
+        LineDataSet dataSet = new LineDataSet(yVals, mChartInfo.getTitle());
+        setDataSetStyle(dataSet);
 
-        dataSet.setColor(getResources().getColor(R.color.tv_red));
-        dataSet.setCircleColor(getResources().getColor(R.color.tv_red));
+        LineData lineData = new LineData(strs, dataSet);
+
+        MarkerView markerView = new ChartMarkView(getActivity(), R.layout.view_chart_mark, strs, mChartInfo.getCountStr(), mLineChart.getHeight());
+        mLineChart.setMarkerView(markerView);
+        mLineChart.setData(lineData);
+        mLineChart.notifyDataSetChanged();
+        mLineChart.invalidate();
+        tvTips.setText(mChartInfo.getTips());
+    }
+
+    private void setDataSetStyle(LineDataSet dataSet) {
+        dataSet.setColor(getResources().getColor(mChartInfo.getColorId()));
+        dataSet.setCircleColor(getResources().getColor(mChartInfo.getColorId()));
         dataSet.setLineWidth(2f);
         dataSet.setCircleRadius(3f);
         dataSet.setDrawCircleHole(true);  //点是实心的
         dataSet.setValueTextSize(9f);
         dataSet.setDrawFilled(false);  //单纯的line，line下面不覆盖颜色
-
-        LineData lineData=new LineData(strs,dataSet);
-
-        mLineChart.setData(lineData);
-        mLineChart.animateY(ANIMATEY_TIME);
-        mLineChart.notifyDataSetChanged();
-        mLineChart.invalidate();
     }
+
+    public static class ChartInfo{
+        public ChartInfo(int type, int colorId, String title, String countStr, String tips) {
+            this.type = type;
+            this.colorId = colorId;
+            this.title = title;
+            this.countStr = countStr;
+            this.tips = tips;
+        }
+
+        int type;
+        int colorId;
+        String title,countStr,tips;
+
+        public boolean isInt(){
+            return type==0 || type ==1 || type==3;
+        }
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public int getColorId() {
+            return colorId;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getCountStr() {
+            return countStr;
+        }
+
+        public String getTips() {
+            return tips;
+        }
+
+    }
+
 }

@@ -89,19 +89,19 @@ public class AnalysisFragment extends AbstractMyBaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position){
                     case 0:
-                        start(AnalysisChartFragment.newInstance());
+                        start(AnalysisChartFragment.newInstance(0));
                         break;
                     case 1:
-
+                        start(AnalysisChartFragment.newInstance(1));
                         break;
                     case 2:
-
+                        start(AnalysisChartFragment.newInstance(2));
                         break;
                     case 3:
-
+                        start(AnalysisChartFragment.newInstance(3));
                         break;
                     case 4:
-
+                        start(SalesRankFragment.newInstance());
                         break;
                 }
             }

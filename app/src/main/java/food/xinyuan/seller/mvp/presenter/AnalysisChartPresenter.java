@@ -10,6 +10,7 @@ import com.jess.arms.http.imageloader.ImageLoader;
 import java.util.Collections;
 import java.util.List;
 
+import food.xinyuan.seller.app.api.service.ShopService;
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.response.NewCustomer;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
@@ -58,5 +59,42 @@ public class AnalysisChartPresenter extends BasePresenter<AnalysisChartContract.
                     }
                 });
     }
+
+    public void getOrderQuantity(){
+        mModel.getOrderQuantity(7)
+                .compose(TransFactory.commonTrans(mRootView))
+                .subscribe(new ErrorHandleSubscriber<List<NewCustomer>>(mErrorHandler) {
+                    @Override
+                    public void onNext(List<NewCustomer> newCustomers) {
+                        Collections.reverse(newCustomers);
+                        mRootView.getNewCustomerSuc(newCustomers);
+                    }
+                });
+    }
+
+    public void getTurnover(){
+        mModel.getTurnover(7)
+                .compose(TransFactory.commonTrans(mRootView))
+                .subscribe(new ErrorHandleSubscriber<List<NewCustomer>>(mErrorHandler) {
+                    @Override
+                    public void onNext(List<NewCustomer> newCustomers) {
+                        Collections.reverse(newCustomers);
+                        mRootView.getNewCustomerSuc(newCustomers);
+                    }
+                });
+    }
+
+    public void getGoodsSales(long goodsId){
+        mModel.getGoodsSales(7,goodsId)
+                .compose(TransFactory.commonTrans(mRootView))
+                .subscribe(new ErrorHandleSubscriber<List<NewCustomer>>(mErrorHandler) {
+                    @Override
+                    public void onNext(List<NewCustomer> newCustomers) {
+                        Collections.reverse(newCustomers);
+                        mRootView.getNewCustomerSuc(newCustomers);
+                    }
+                });
+    }
+
 
 }

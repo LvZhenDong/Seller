@@ -122,7 +122,7 @@ public class OrderFragment extends AbstractMyBaseFragment {
             start(OrderCancelFragment.newInstance(order.getOrderId()));
         }else if(TextUtils.equals(event.getKey(),EventConstant.START_ORDER_DETAIL_FRAGMENT)){
             Order order= (Order) event.getData();
-            start(OrderDetailFragment.newInstance(order.getOrderId()));
+            start(OrderDetailFragment.newInstance(order));
         }
 
     }

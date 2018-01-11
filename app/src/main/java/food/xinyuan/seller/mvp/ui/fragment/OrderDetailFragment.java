@@ -1,5 +1,6 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +21,8 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdate;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.UiSettings;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
@@ -100,15 +103,20 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
     MapContainer mapContainer;
     @BindView(R.id.sv_order_detail)
     ScrollView svOrderDetail;
+    @BindView(R.id.rl_map)
+            RelativeLayout rlMap;
 
     long mId;
     Order mOrder;
+    boolean isGetGeoInfo;
     BaseQuickAdapter<OrderGoods, BaseViewHolder> mOrderGoodsAdapter;
     BaseQuickAdapter<OrderActivitys, BaseViewHolder> mOrderActivityAdapter;
 
-    public static OrderDetailFragment newInstance(long id) {
+    public static OrderDetailFragment newInstance(Order order) {
         OrderDetailFragment fragment = new OrderDetailFragment();
-        fragment.mId = id;
+        fragment.mOrder = order;
+        fragment.mId=order.getOrderId();
+        fragment.isGetGeoInfo = TextUtils.equals(order.getOrderStatus(), ConstantUtil.ORDER_STATUS_SHIPPING);
         return fragment;
     }
 
@@ -154,12 +162,19 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
 
         initRv();
 
-        srlOrderDetail.setOnRefreshListener(() -> mPresenter.getDetail(mId));
-        srlOrderDetail.post(() ->{
+        srlOrderDetail.setOnRefreshListener(() -> {
+            if(isGetGeoInfo)
+                mPresenter.getDetailAndGeoInfo(mId);
+            else
+                mPresenter.getDetail(mId);
+        });
+        srlOrderDetail.post(() -> {
             srlOrderDetail.setRefreshing(true);
-            mPresenter.getDetail(mId);
-        } );
-
+            if(isGetGeoInfo)
+                mPresenter.getDetailAndGeoInfo(mId);
+            else
+                mPresenter.getDetail(mId);
+        });
     }
 
     private void initRv() {
@@ -204,8 +219,19 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
     @Override
     public void getDetailSuc(Order order) {
         mOrder = order;
-        if(!TextUtils.isEmpty(order.getOrderTakeout().getCarrierDriverphone()))
+
+        //配送中或者已经完成显示骑手信息
+        if(TextUtils.equals(order.getOrderStatus(), ConstantUtil.ORDER_STATUS_SHIPPING) ||
+                TextUtils.equals(order.getOrderStatus(), ConstantUtil.ORDER_STATUS_FINISHED)){
             rlRider.setVisibility(View.VISIBLE);
+            //配送中显示地图且调用获取经纬度接口
+            if(TextUtils.equals(order.getOrderStatus(), ConstantUtil.ORDER_STATUS_SHIPPING)){
+                isGetGeoInfo=true;
+                rlMap.setVisibility(View.VISIBLE);
+            }
+
+        }
+
         llContent.setVisibility(View.VISIBLE);
 
         //第一栏
@@ -237,27 +263,32 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
         tvShippingPrice.setText("¥" + order.getOrderTakeout().getShippingFee());
         mOrderGoodsAdapter.setNewData(order.getOrderGoods());
         mOrderActivityAdapter.setNewData(order.getOrderActivitys());
-
-        showRiderLocation();
-        mPresenter.getRiderLoc(mId);
     }
+
+    Marker rider;
 
     @Override
     public void getRiderLocSuc(RiderLocation riderLocation) {
-
+        LatLng latLngRider = new LatLng(riderLocation.getLatitude(),riderLocation.getLongitude());
+        if(rider != null){
+            rider.setPosition(latLngRider);
+        }else {
+            AMap aMap = mapView.getMap();
+            rider = aMap.addMarker(new MarkerOptions().position(latLngRider));
+        }
     }
 
     @Override
     public void getGeoInfoSuc(GeoInfo geoInfo) {
-
-    }
-
-    private void showRiderLocation(){
-        AMap aMap=mapView.getMap();
-        //TODO 这里接口有问题，一直返回的签名错误
-        LatLng latLng = new LatLng(30.55002860,104.06830564);
-        final Marker marker = aMap.addMarker(new MarkerOptions().position(latLng));
-        CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng,15,0,0));
+        AMap aMap = mapView.getMap();
+        aMap.getUiSettings().setZoomGesturesEnabled(true);
+        LatLng latLngRider = new LatLng(geoInfo.getCarrier().getLatitude(), geoInfo.getCarrier().getLongitude());
+        LatLng latLngBuyer = new LatLng(geoInfo.getBuyer().getLatitude(), geoInfo.getBuyer().getLongitude());
+        LatLng latLngShop = new LatLng(geoInfo.getShop().getLatitude(), geoInfo.getShop().getLongitude());
+        rider = aMap.addMarker(new MarkerOptions().position(latLngRider));
+        aMap.addMarker(new MarkerOptions().position(latLngBuyer));
+        aMap.addMarker(new MarkerOptions().position(latLngShop));
+        CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLngRider, 15, 0, 0));
         aMap.moveCamera(mCameraUpdate);
     }
 

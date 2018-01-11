@@ -212,6 +212,7 @@ public class ShopInfoFragment extends AbstractMyBaseFragment<ShopInfoPresenter> 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_shop_bus_time:
+                if(mShopDetail == null)return;
                 start(BusTimeFragment.newInstance(mShopDetail.getBusBeginTime(),mShopDetail.getBusEndTime()));
                 break;
             case R.id.rl_shop_bus_phone:    //更改联系方式

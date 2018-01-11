@@ -9,8 +9,11 @@ import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.utils.ArmsUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.response.Coupon;
+import food.xinyuan.seller.app.data.event.EventConstant;
 import food.xinyuan.seller.app.utils.XDateUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
@@ -121,6 +124,8 @@ public class AddCouponPresenter extends BasePresenter<AddCouponContract.Model, A
                 .subscribe(new ErrorHandleSubscriber<Coupon>(mErrorHandler) {
                     @Override
                     public void onNext(Coupon coupon) {
+                        ArmsUtils.makeText(mApplication.getApplicationContext(), "添加成功");
+                        EventBus.getDefault().post(EventConstant.UPDATE_COUPON_LIST);
                         mRootView.addCouponSuc();
                     }
                 });

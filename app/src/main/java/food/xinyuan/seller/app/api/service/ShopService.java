@@ -10,6 +10,7 @@ import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
 import food.xinyuan.seller.app.data.bean.response.NewCustomer;
 import food.xinyuan.seller.app.data.bean.response.Printer;
+import food.xinyuan.seller.app.data.bean.response.SalesRank;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import io.reactivex.Observable;
@@ -240,5 +241,39 @@ public interface ShopService {
      */
     @GET("/seller/analysis/newCustomer")
     Observable<HttpResponseData<List<NewCustomer>>> getNewCustomer(@Query("days") int days);
+
+    /**
+     * 订单量数据
+     * @param days
+     * @return
+     */
+    @GET("/seller/analysis/orderQuantity")
+    Observable<HttpResponseData<List<NewCustomer>>> getOrderQuantity(@Query("days") int days);
+
+    /**
+     * 营业额
+     * @param days
+     * @return
+     */
+    @GET("/seller/analysis/turnover")
+    Observable<HttpResponseData<List<NewCustomer>>> getTurnover(@Query("days") int days);
+
+    /**
+     * 商品销售量
+     * @param days
+     * @param goodsId
+     * @return
+     */
+    @GET("/seller/analysis/goodsSales")
+    Observable<HttpResponseData<List<NewCustomer>>> getGoodsSales(@Query("days") int days,
+                                                                  @Query("goodId") long goodsId);
+
+    /**
+     * 商品销售量排行
+     * @param queryDate
+     * @return
+     */
+    @GET("/seller/analysis/salesRank")
+    Observable<HttpResponseData<List<SalesRank>>> getSalesRank(@Query("queryDate") String queryDate);
 
 }

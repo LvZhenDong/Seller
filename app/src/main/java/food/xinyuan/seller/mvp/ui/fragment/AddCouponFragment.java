@@ -171,12 +171,13 @@ public class AddCouponFragment extends AbstractMyBaseFragment<AddCouponPresenter
 
                 break;
             case R.id.tv_save:
+                //添加固定金额红包
                 if(swFixed.isChecked()){
                     mPresenter.addFixedCoupon(etName.getText().toString().trim(), swPickUp.isChecked(), swFixed.isChecked(),
                             etMoney.getText().toString().trim(), tvStartTime.getText().toString().trim(),
                             tvEndTime.getText().toString(), etMaxPickNumber.getText().toString().trim(),
                             etMin.getText().toString().trim());
-                }else {
+                }else { //添加随机金额红包
                     mPresenter.addRandomCoupon(etName.getText().toString().trim(), swPickUp.isChecked(), swFixed.isChecked(),
                             etMinMoney.getText().toString().trim(), etMaxMoney.getText().toString().trim(), tvStartTime.getText().toString().trim(),
                             tvEndTime.getText().toString(), etMaxPickNumber.getText().toString().trim(),
@@ -208,8 +209,6 @@ public class AddCouponFragment extends AbstractMyBaseFragment<AddCouponPresenter
 
     @Override
     public void addCouponSuc() {
-        ArmsUtils.makeText(getActivity(), "添加成功");
         pop();
-        EventBus.getDefault().post(EventConstant.UPDATE_COUPON_LIST);
     }
 }

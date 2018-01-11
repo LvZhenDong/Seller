@@ -42,4 +42,19 @@ public class AnalysisChartModel extends BaseModel implements AnalysisChartContra
     public Observable<HttpResponseData<List<NewCustomer>>> getNewCustomer(int days) {
         return mRepositoryManager.obtainRetrofitService(ShopService.class).getNewCustomer(days);
     }
+
+    @Override
+    public Observable<HttpResponseData<List<NewCustomer>>> getOrderQuantity(int days) {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).getOrderQuantity(days);
+    }
+
+    @Override
+    public Observable<HttpResponseData<List<NewCustomer>>> getTurnover(int days) {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).getTurnover(days);
+    }
+
+    @Override
+    public Observable<HttpResponseData<List<NewCustomer>>> getGoodsSales(int days, long goodsId) {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).getGoodsSales(days,goodsId);
+    }
 }

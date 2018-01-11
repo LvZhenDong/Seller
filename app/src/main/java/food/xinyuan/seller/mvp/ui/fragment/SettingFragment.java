@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jess.arms.di.component.AppComponent;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import food.xinyuan.seller.R;
+import food.xinyuan.seller.app.ARouterPaths;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.utils.CommonUtils;
@@ -126,7 +128,7 @@ public class SettingFragment extends AbstractMyBaseFragment<SettingPresenter> im
                 //TODO 将LoginActivity改为Fragment
                 DataUtils.setToken(getContext(), null);
                 DataUtils.setUser(getContext(), null);
-                startActivity(new Intent(getActivity(),LoginActivity.class));
+                ARouter.getInstance().build(ARouterPaths.LOGIN).navigation();
                 getActivity().finish();
                 break;
             default:

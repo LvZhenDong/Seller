@@ -59,6 +59,19 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.Mode
     public void getDetail(long id){
         mModel.getOrderDetail(id)
                 .compose(TransFactory.noLoadingTrans(mRootView))
+                .doFinally(() -> mRootView.hideLoading())
+                .subscribe(new ErrorHandleSubscriber<Order>(mErrorHandler) {
+                    @Override
+                    public void onNext(Order order) {
+                        mRootView.getDetailSuc(order);
+                    }
+                });
+
+    }
+
+    public void getDetailAndGeoInfo(long id){
+        mModel.getOrderDetail(id)
+                .compose(TransFactory.noLoadingTrans(mRootView))
                 .doOnNext(order -> mRootView.getDetailSuc(order))
                 .observeOn(Schedulers.io())
                 .flatMap(getInfo -> mModel.getGeoInfo(id))
@@ -68,6 +81,7 @@ public class OrderDetailPresenter extends BasePresenter<OrderDetailContract.Mode
                     @Override
                     public void onNext(GeoInfo geoInfo) {
                         mRootView.getGeoInfoSuc(geoInfo);
+                        getRiderLoc(id);
                     }
                 });
     }

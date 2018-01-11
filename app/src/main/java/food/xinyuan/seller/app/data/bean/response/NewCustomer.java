@@ -1,5 +1,7 @@
 package food.xinyuan.seller.app.data.bean.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * <p>
  * Description：每天的新客户
@@ -14,23 +16,22 @@ public class NewCustomer {
      * finishDay : 1515513600000
      * newCustomerCount : 1
      */
-
+    @SerializedName(value = "finishDay", alternate = {"finishDayTime"})
     private long finishDay;
-    private int newCustomerCount;
+    @SerializedName(value = "newCustomerCount", alternate = {"orderQuantity","goodsSaleCount"})
+    private int intData;
+    @SerializedName("turnoverCount")
+    private float floatData;
+
+    public float getFloatData() {
+        return floatData;
+    }
 
     public long getFinishDay() {
         return finishDay;
     }
 
-    public void setFinishDay(long finishDay) {
-        this.finishDay = finishDay;
-    }
-
-    public int getNewCustomerCount() {
-        return newCustomerCount;
-    }
-
-    public void setNewCustomerCount(int newCustomerCount) {
-        this.newCustomerCount = newCustomerCount;
+    public int getIntData() {
+        return intData;
     }
 }
