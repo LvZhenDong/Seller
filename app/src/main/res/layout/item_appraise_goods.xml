@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_goods_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="哈哈"
+        android:textColor="@color/tv_name"
+        android:textSize="@dimen/tv_Normal"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_goods_appraise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_goods_name"
+        android:textSize="@dimen/tv_Normal" />
+
+    <RatingBar
+        android:id="@+id/rb_appraise_goods"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:numStars="5"
+        android:progressDrawable="@drawable/bg_rating_bar"
+        android:stepSize="1" />
+</RelativeLayout>

@@ -121,19 +121,21 @@ public class SalesRankFragment extends AbstractMyBaseFragment<SalesRankPresenter
     }
 
     boolean[] types = {true, true, true, false, false, false};
+
     @OnClick(R.id.tv_date)
     public void onViewClicked() {
         Calendar calendar = Calendar.getInstance();
-            TimePickerView pvTime = new TimePickerView.Builder(getActivity(), new TimePickerView.OnTimeSelectListener() {
-                @Override
-                public void onTimeSelect(Date date, View v) {
-                    mDate=XDateUtils.date2String(date,"yyyy-MM-dd");
-                    tvDate.setText(mDate);
-                    mPresenter.getSalesRank(mDate);
-                }
-            }).setType(types).setRangDate(null,calendar).build();
-            pvTime.setDate(calendar);
-            pvTime.show();
+        calendar.setTime(XDateUtils.string2Date(mDate,"yyyy-MM-dd"));
+        TimePickerView pvTime = new TimePickerView.Builder(getActivity(), new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                mDate = XDateUtils.date2String(date, "yyyy-MM-dd");
+                tvDate.setText(mDate);
+                mPresenter.getSalesRank(mDate);
+            }
+        }).setType(types).setRangDate(null,  Calendar.getInstance()).build();
+        pvTime.setDate(calendar);
+        pvTime.show();
 
     }
 }

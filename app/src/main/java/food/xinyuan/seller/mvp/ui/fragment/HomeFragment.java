@@ -162,10 +162,11 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                     case 1:
                         start(OrderFragment.newInstance());
                         break;
+                    //评价
                     case 2:
-
+                        start(AppraiseManageFragment.newInstance());
                         break;
-                        //营业分析
+                    //营业分析
                     case 3:
                         start(AnalysisFragment.newInstance());
                         break;
@@ -173,6 +174,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                     case 4:
                         start(ShopInfoFragment.newInstance());
                         break;
+                    //活动
                     case 5:
 
                         break;

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_default" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_head"
+            android:text="哈哈"
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_Normal"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/rb_appraise"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignBottom="@id/iv_head"
+            android:layout_alignLeft="@id/tv_user_name"
+            android:numStars="5"
+            android:progressDrawable="@drawable/bg_rating_bar"
+            android:stepSize="1" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2018-01-05"
+            android:textSize="@dimen/tv_Normal" />
+
+        <TextView
+            android:id="@+id/tv_reply"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_time"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_btn_green_radius_5dp_selector"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="回复"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tv_light" />
+
+        <TextView
+            android:id="@+id/tv_shop_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_reply"
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_Normal" />
+
+        <TextView
+            android:id="@+id/tv_order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_shop_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/tv_light" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_order_name" />
+
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_goods_appraise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_f7" />
+
+    <View style="@style/XYLine" />
+
+</LinearLayout>

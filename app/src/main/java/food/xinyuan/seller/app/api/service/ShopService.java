@@ -5,12 +5,14 @@ import java.util.List;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
+import food.xinyuan.seller.app.data.bean.response.Appraise;
 import food.xinyuan.seller.app.data.bean.response.Coupon;
 import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
 import food.xinyuan.seller.app.data.bean.response.NewCustomer;
 import food.xinyuan.seller.app.data.bean.response.Printer;
 import food.xinyuan.seller.app.data.bean.response.SalesRank;
+import food.xinyuan.seller.app.data.bean.response.AppraiseStatistics;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import io.reactivex.Observable;
@@ -275,5 +277,21 @@ public interface ShopService {
      */
     @GET("/seller/analysis/salesRank")
     Observable<HttpResponseData<List<SalesRank>>> getSalesRank(@Query("queryDate") String queryDate);
+
+    /**
+     * 查询店铺评价统计
+     * @return
+     */
+    @GET("/seller/shopAppraise/shopAppriseStatistics")
+    Observable<HttpResponseData<AppraiseStatistics>> getAppraiseStatistics();
+
+    /**
+     * 获取店铺评价list
+     * @return
+     */
+    @GET("/seller/shopAppraise")
+    Observable<HttpResponseData<ListResponse<Appraise>>> getAppraiseList(@Query("reply") Boolean reply,
+                                                                         @Query("commentsAppraise") Boolean commentsAppraise,
+                                                                         @Query("pageId") int pageId);
 
 }
