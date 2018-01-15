@@ -7,10 +7,15 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Appraise;
+import food.xinyuan.seller.app.data.event.EventConstant;
+import food.xinyuan.seller.app.data.event.SellerEvent;
 import food.xinyuan.seller.app.utils.DataUtils;
+import food.xinyuan.seller.app.utils.RequestUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
@@ -46,8 +51,12 @@ public class AppraiseListFragmentPresenter extends BasePresenter<AppraiseListFra
         this.mApplication = null;
     }
 
+    int mType;
     private int mPageId = 1;
     Boolean reply = null;
+    /**
+     * 是否仅显示有回复内容的list
+     */
     Boolean commentsAppraise = null;
 
     /**
@@ -55,6 +64,7 @@ public class AppraiseListFragmentPresenter extends BasePresenter<AppraiseListFra
      */
     public void refireshList(int type) {
         mPageId = 1;
+        mType = type;
         switch (type) {
             case 0:
                 reply = null;
@@ -75,7 +85,7 @@ public class AppraiseListFragmentPresenter extends BasePresenter<AppraiseListFra
                     @Override
                     public void onNext(ListResponse<Appraise> appraiseListResponse) {
                         if (DataUtils.isEmpty(appraiseListResponse.getList())) {    //没有更多数据了
-                            mRootView.noMoreData();
+                            mRootView.noData();
                         } else {
                             mPageId++; //加载成功后pageNum加1方便下次加载下一页
                             mRootView.getListSuc(appraiseListResponse.getList());
@@ -85,19 +95,34 @@ public class AppraiseListFragmentPresenter extends BasePresenter<AppraiseListFra
 
     }
 
-    public void loadMore(){
+    public void loadMore() {
         mModel.getAppraiseList(reply, commentsAppraise, mPageId)
                 .compose(TransFactory.noLoadingTrans(mRootView))
                 .doFinally(() -> mRootView.stopLoading())
                 .subscribe(new ErrorHandleSubscriber<ListResponse<Appraise>>(mErrorHandler) {
                     @Override
                     public void onNext(ListResponse<Appraise> appraiseListResponse) {
-                        if(DataUtils.isEmpty(appraiseListResponse.getList())){    //没有数据
+                        if (DataUtils.isEmpty(appraiseListResponse.getList())) {    //没有数据
                             mRootView.noMoreData();
-                        }else {
+                        } else {
                             mPageId++; //加载成功后pageNum加1方便下次加载下一页
                             mRootView.loadMoreSuc(appraiseListResponse.getList());
                         }
+                    }
+                });
+    }
+
+    public void addAppraise(String content, Appraise appraise, int position) {
+        mModel.addAppraise(RequestUtils.getRequestBody(new Appraise.CommentListBean(content, appraise.getShopAppraiseId())))
+                .compose(TransFactory.commonTrans(mRootView))
+                .subscribe(new ErrorHandleSubscriber<Appraise.CommentListBean>(mErrorHandler) {
+                    @Override
+                    public void onNext(Appraise.CommentListBean data) {
+                        appraise.getCommentList().add(data);
+                        //当前list直接更新本地数据
+                        mRootView.addAppraiseSuc(position);
+                        //其他2个list通过接口更新数据
+                        EventBus.getDefault().post(new SellerEvent<Integer>(EventConstant.UPDATE_APPRAISE_LIST, mType));
                     }
                 });
     }

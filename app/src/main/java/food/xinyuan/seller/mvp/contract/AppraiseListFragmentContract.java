@@ -10,6 +10,8 @@ import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Appraise;
 import food.xinyuan.seller.app.data.bean.response.Notice;
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Query;
 
 
@@ -25,6 +27,8 @@ public interface AppraiseListFragmentContract {
         void noData();
 
         void stopLoading();
+
+        void addAppraiseSuc(int pos);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
@@ -32,5 +36,7 @@ public interface AppraiseListFragmentContract {
         Observable<HttpResponseData<ListResponse<Appraise>>> getAppraiseList(Boolean reply,
                                                                              Boolean commentsAppraise,
                                                                              int pageId);
+
+        Observable<HttpResponseData<Appraise.CommentListBean>> addAppraise(RequestBody json);
     }
 }

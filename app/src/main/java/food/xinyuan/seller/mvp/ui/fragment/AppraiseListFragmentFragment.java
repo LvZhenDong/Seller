@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +22,18 @@ import com.jess.arms.utils.ArmsUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import butterknife.BindView;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.Appraise;
+import food.xinyuan.seller.app.data.event.EventConstant;
+import food.xinyuan.seller.app.data.event.SellerEvent;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.DialogUtils;
@@ -49,6 +56,7 @@ public class AppraiseListFragmentFragment extends AbstractMyBaseFragment<Apprais
     AppComponent mAppComponent;
     private int mType;
     AppraiseAdapter mAdapter;
+    MaterialDialog mDialog;
     /**
      * 如果当前fragment还没有显示出来过，则不eventBus不用刷新该list
      */
@@ -78,6 +86,8 @@ public class AppraiseListFragmentFragment extends AbstractMyBaseFragment<Apprais
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
+                progress(true, 0).build();
         initRv();
     }
 
@@ -94,7 +104,7 @@ public class AppraiseListFragmentFragment extends AbstractMyBaseFragment<Apprais
                 MaterialDialog dialog=DialogUtils.inputDialog(getActivity(), "回复", "请输入回复内容", InputType.TYPE_CLASS_TEXT, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-
+                        mPresenter.addAppraise(input.toString(),mAdapter.getItem(position),position);
                     }
                 });
                 EditText editText=dialog.getInputEditText();
@@ -121,12 +131,35 @@ public class AppraiseListFragmentFragment extends AbstractMyBaseFragment<Apprais
 
     @Override
     public void showLoading() {
-
+        if(mDialog != null)
+            mDialog.show();
     }
 
     @Override
     public void hideLoading() {
+        if(mDialog != null)
+            mDialog.dismiss();
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshList(SellerEvent<Integer> event){
+        if(TextUtils.equals(event.getKey(), EventConstant.UPDATE_APPRAISE_LIST)){
+            if(event.getData() != mType && hasShown){
+                mPresenter.refireshList(mType);
+            }
+        }
     }
 
     @Override
@@ -153,5 +186,14 @@ public class AppraiseListFragmentFragment extends AbstractMyBaseFragment<Apprais
     public void stopLoading() {
         srlAppraise.finishLoadmore();
         srlAppraise.finishRefresh();
+    }
+
+    @Override
+    public void addAppraiseSuc(int pos) {
+        if(mType == 2){
+            mAdapter.remove(pos);
+        }else {
+            mAdapter.notifyItemChanged(pos);
+        }
     }
 }

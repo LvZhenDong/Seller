@@ -294,4 +294,12 @@ public interface ShopService {
                                                                          @Query("commentsAppraise") Boolean commentsAppraise,
                                                                          @Query("pageId") int pageId);
 
+    /**
+     * 添加评价
+     * @param json
+     * @return
+     */
+    @PUT("/seller/reply")
+    Observable<HttpResponseData<Appraise.CommentListBean>> addAppraise(@Body RequestBody json);
+
 }

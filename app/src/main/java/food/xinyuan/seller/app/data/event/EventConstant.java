@@ -29,4 +29,6 @@ public class EventConstant {
      * 启动订单详情fragment
      */
     public final static String START_ORDER_DETAIL_FRAGMENT="startOrderDetailFragment";
+
+    public final static String UPDATE_APPRAISE_LIST="updateAppraiseList";
 }

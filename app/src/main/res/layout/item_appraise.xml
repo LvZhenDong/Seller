@@ -76,10 +76,17 @@
             android:textSize="@dimen/tv_light" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_comment"
+            android:id="@+id/rv_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_order_name" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_img"
+            android:layout_marginTop="2dp" />
 
 
     </RelativeLayout>

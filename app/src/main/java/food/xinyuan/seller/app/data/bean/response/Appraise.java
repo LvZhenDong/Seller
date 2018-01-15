@@ -1,6 +1,11 @@
 package food.xinyuan.seller.app.data.bean.response;
 
+import android.text.format.DateUtils;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import food.xinyuan.seller.app.utils.DataUtils;
 
 /**
  * <p>
@@ -32,7 +37,7 @@ public class Appraise {
      * goodsAppraiseList : [{"goodsAppraiseId":2167,"appraiseLevel":5,"appraiseContent":"非常好","appraiseTime":1515138568000,"goodsId":9087,"goodsName":"哈喽果汁(大杯)","shopId":61,"userId":4422,"orderId":4989,"tagGoodsAppraise":""},{"goodsAppraiseId":2168,"appraiseLevel":5,"appraiseContent":"非常好","appraiseTime":1515138568000,"goodsId":9094,"goodsName":"商品名称(小规格)","shopId":61,"userId":4422,"orderId":4989,"tagGoodsAppraise":""}]
      * deliveryAppraise : {"deliveryAppraiseId":399,"appraiseLevel":5,"appraiseContent":"非常好","appraiseTime":1515138568000,"shopId":61,"userId":4422,"orderId":4989,"tagDeliveryAppraise":""}
      */
-
+    private List<String> shopAppraiseImageUrlList;
     private int shopAppraiseId;
     private int orderId;
     private String orderName;
@@ -49,8 +54,16 @@ public class Appraise {
     private String userName;
     private String avatorUrl;
     private DeliveryAppraiseBean deliveryAppraise;
-    private List<CommentListBean> commentList;
+    private List<CommentListBean> commentList=new ArrayList<>();
     private List<GoodsAppraiseListBean> goodsAppraiseList;
+
+    public List<String> getShopAppraiseImageUrlList() {
+        return shopAppraiseImageUrlList;
+    }
+
+    public void setShopAppraiseImageUrlList(List<String> shopAppraiseImageUrlList) {
+        this.shopAppraiseImageUrlList = shopAppraiseImageUrlList;
+    }
 
     public int getShopAppraiseId() {
         return shopAppraiseId;
@@ -283,12 +296,18 @@ public class Appraise {
     }
 
     public static class CommentListBean {
+        public CommentListBean(String commentContent,int shopAppraiseId) {
+            this.shopAppraiseId=shopAppraiseId;
+            this.commentContent = commentContent;
+        }
+
         /**
          * replyId : 128
          * shopAppraiseId : 1570
          * commentContent : 啊
          * commentTime : 1515667662000
          */
+
 
         private int replyId;
         private int shopAppraiseId;

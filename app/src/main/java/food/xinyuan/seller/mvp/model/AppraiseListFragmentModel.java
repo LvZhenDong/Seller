@@ -16,6 +16,7 @@ import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Appraise;
 import food.xinyuan.seller.mvp.contract.AppraiseListFragmentContract;
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 
 
 @ActivityScope
@@ -40,5 +41,10 @@ public class AppraiseListFragmentModel extends BaseModel implements AppraiseList
     @Override
     public Observable<HttpResponseData<ListResponse<Appraise>>> getAppraiseList(Boolean reply, Boolean commentsAppraise, int pageId) {
         return mRepositoryManager.obtainRetrofitService(ShopService.class).getAppraiseList(reply, commentsAppraise, pageId);
+    }
+
+    @Override
+    public Observable<HttpResponseData<Appraise.CommentListBean>> addAppraise(RequestBody json) {
+        return mRepositoryManager.obtainRetrofitService(ShopService.class).addAppraise(json);
     }
 }

@@ -1,5 +1,6 @@
 package food.xinyuan.seller.mvp.ui.adapter;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RatingBar;
@@ -41,10 +42,28 @@ public class AppraiseAdapter extends BaseQuickAdapter<Appraise, BaseViewHolder> 
         RatingBar ratingBar = helper.getView(R.id.rb_appraise);
         ratingBar.setRating(item.getShopAppraise());
         ImageLoaderUtils.loadCirImg(mAppComponent, item.getAvatorUrl(), helper.getView(R.id.iv_head));
-        //TODO 评论图片的显示
+        showImg(helper, item);
         showComment(helper,item);
         showGoodsAppraise(helper, item);
 
+    }
+
+    /**
+     * 评论图片
+     * @param helper
+     * @param item
+     */
+    private void showImg(BaseViewHolder helper,Appraise item){
+        RecyclerView rv=helper.getView(R.id.rv_img);
+        rv.setLayoutManager(new GridLayoutManager(mContext,4));
+        BaseQuickAdapter<String,BaseViewHolder> adapter=new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_appraise_img) {
+            @Override
+            protected void convert(BaseViewHolder helper, String item) {
+                ImageLoaderUtils.loadImg(mAppComponent, item, helper.getView(R.id.iv_img));
+            }
+        };
+        rv.setAdapter(adapter);
+        adapter.setNewData(item.getShopAppraiseImageUrlList());
     }
 
     /**
