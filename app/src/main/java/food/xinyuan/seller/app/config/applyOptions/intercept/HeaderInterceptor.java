@@ -20,9 +20,13 @@ public class HeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
         String token = MySharePreferencesManager.getInstance().getString("token", "");
+        String shopId = MySharePreferencesManager.getInstance().getString("shopId", "");
         Request.Builder builder = original.newBuilder();
         if (!TextUtils.isEmpty(token)){     //添加token
-            builder.addHeader("token",token);
+            builder.addHeader("TOKEN",token);
+        }
+        if (!TextUtils.isEmpty(shopId)){     //添加shopId
+            builder.addHeader("SHOP-ID",shopId);
         }
         builder.addHeader("Domain-Name","main");
         return chain.proceed(builder.build());

@@ -176,7 +176,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
                         break;
                     //活动
                     case 5:
-
+                        start(ActivityManageFragment.newInstance());
                         break;
                     //商品分类
                     case 6:

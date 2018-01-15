@@ -1,5 +1,7 @@
 package food.xinyuan.seller.app.data.bean.response;
 
+import java.util.List;
+
 /**
  * <p>
  * Description：
@@ -10,45 +12,22 @@ package food.xinyuan.seller.app.data.bean.response;
  */
 public class SellerInfo {
 
+
     /**
-     * initedSecretkey : false
-     * lastLoginTime : 2017-12-27T06:33:32.909Z
-     * registrationTime : 2017-12-27T06:33:32.909Z
-     * sellerId : 0
-     * sellerName : string
-     * shopId : 0
+     * sellerId : 1
+     * sellerName : 15828064744
+     * registrationTime : 1505803515000
+     * lastLoginTime : 1516002616087
+     * initedSecretkey : true
+     * shopList : [{"shopId":1189,"shopName":"奎奎甜饼店","address":"四川省成都市金牛区四川省成都市金牛区九里堤街道交大智能小区二期交大智能小区2期"},{"shopId":61,"shopName":"鑫圆共享测试店铺(不对外点餐)","address":"四川省成都市青羊区通威国际中心"}]
      */
 
-    private boolean initedSecretkey;
-    private String lastLoginTime;
-    private String registrationTime;
     private int sellerId;
     private String sellerName;
-    private int shopId;
-
-    public boolean isInitedSecretkey() {
-        return initedSecretkey;
-    }
-
-    public void setInitedSecretkey(boolean initedSecretkey) {
-        this.initedSecretkey = initedSecretkey;
-    }
-
-    public String getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(String lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    public String getRegistrationTime() {
-        return registrationTime;
-    }
-
-    public void setRegistrationTime(String registrationTime) {
-        this.registrationTime = registrationTime;
-    }
+    private long registrationTime;
+    private long lastLoginTime;
+    private boolean initedSecretkey;
+    private List<ShopListBean> shopList;
 
     public int getSellerId() {
         return sellerId;
@@ -66,11 +45,71 @@ public class SellerInfo {
         this.sellerName = sellerName;
     }
 
-    public int getShopId() {
-        return shopId;
+    public long getRegistrationTime() {
+        return registrationTime;
     }
 
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
+    public void setRegistrationTime(long registrationTime) {
+        this.registrationTime = registrationTime;
+    }
+
+    public long getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(long lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public boolean isInitedSecretkey() {
+        return initedSecretkey;
+    }
+
+    public void setInitedSecretkey(boolean initedSecretkey) {
+        this.initedSecretkey = initedSecretkey;
+    }
+
+    public List<ShopListBean> getShopList() {
+        return shopList;
+    }
+
+    public void setShopList(List<ShopListBean> shopList) {
+        this.shopList = shopList;
+    }
+
+    public static class ShopListBean {
+        /**
+         * shopId : 1189
+         * shopName : 奎奎甜饼店
+         * address : 四川省成都市金牛区四川省成都市金牛区九里堤街道交大智能小区二期交大智能小区2期
+         */
+
+        private int shopId;
+        private String shopName;
+        private String address;
+
+        public int getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(int shopId) {
+            this.shopId = shopId;
+        }
+
+        public String getShopName() {
+            return shopName;
+        }
+
+        public void setShopName(String shopName) {
+            this.shopName = shopName;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
     }
 }

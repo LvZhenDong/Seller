@@ -5,6 +5,8 @@ import android.support.annotation.ArrayRes;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.List;
+
 import food.xinyuan.seller.R;
 
 /**
@@ -71,6 +73,13 @@ public class DialogUtils {
             selected, MaterialDialog.ListCallbackSingleChoice callback) {
         return new MaterialDialog.Builder(context)
                 .items(arrayRes)
+                .itemsCallbackSingleChoice(selected, callback).build();
+    }
+
+    public static MaterialDialog singleChoiceDialog(Context context, List<String> list, int
+            selected, MaterialDialog.ListCallbackSingleChoice callback) {
+        return new MaterialDialog.Builder(context)
+                .items(list)
                 .itemsCallbackSingleChoice(selected, callback).build();
     }
 }

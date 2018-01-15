@@ -8,11 +8,14 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
+import food.xinyuan.seller.app.data.bean.response.SellerInfo;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import food.xinyuan.seller.app.utils.DataUtils;
@@ -66,6 +69,13 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                 .doOnNext(loginResponse -> {
                     //保存token以及用户信息
                     MySharePreferencesManager.getInstance().putString("token", loginResponse.getJwt());
+                    List<SellerInfo.ShopListBean> list=loginResponse.getSeller().getShopList();
+                    if(!DataUtils.isEmpty(list)){
+                        //TODO shopId
+                        String shopId=list.get(1).getShopId()+"";
+                        MySharePreferencesManager.getInstance().putString("shopId",shopId);
+                    }
+
                     DataUtils.setToken(mApplication.getApplicationContext(), loginResponse.getJwt());
                     DataUtils.setUser(mApplication.getApplicationContext(), loginResponse);
                 })

@@ -9,6 +9,8 @@ import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import food.xinyuan.seller.R;
@@ -16,6 +18,7 @@ import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.request.LoginRequest;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
+import food.xinyuan.seller.app.data.bean.response.SellerInfo;
 import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.MySharePreferencesManager;
@@ -98,6 +101,14 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
                         @Override
                         public void onNext(LoginResponse data) {
                             MySharePreferencesManager.getInstance().putString("token", data.getJwt());
+                            //保存shopId
+                            List<SellerInfo.ShopListBean> list=data.getSeller().getShopList();
+                            if(!DataUtils.isEmpty(list)){
+                                //TODO shopId
+                                String shopId=list.get(1).getShopId()+"";
+                                MySharePreferencesManager.getInstance().putString("shopId",shopId);
+                            }
+
                             DataUtils.setToken(mApplication.getApplicationContext(), data.getJwt());
                             DataUtils.setUser(mApplication.getApplicationContext(),data);
                             mRootView.loginSuc();

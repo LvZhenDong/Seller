@@ -12,6 +12,10 @@ public class MainItem {
     String title;
     int imgId;
 
+    public MainItem(int imgId) {
+        this.imgId = imgId;
+    }
+
     public MainItem(String title, int imgId) {
         this.title = title;
         this.imgId = imgId;
