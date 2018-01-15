@@ -31,11 +31,12 @@ public class OrderAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
                 .setText(R.id.tv_phone, item.getOrderContact().getContactPhone())
                 .setText(R.id.tv_address, item.getOrderContact().getAddress())
                 .setText(R.id.tv_time, item.getAddTimeStr())
-                .setText(R.id.tv_price, item.getOrderPrice() + "")
+                .setText(R.id.tv_price, "¥ " + item.getOrderPrice())
                 .setText(R.id.tv_type, item.getOrderTypeStr())
                 .setText(R.id.tv_content, item.getOrderContent())
                 .setText(R.id.tv_status, item.getOrderStatusStr())
                 .setText(R.id.tv_rider, item.getOrderTakeout().getCarrierDriverName() + item.getOrderTakeout().getCarrierDriverphone())
+                .setText(R.id.tv_cancel,TextUtils.equals(item.getOrderStatus(),ConstantUtil.ORDER_STATUS_NEW)?"拒绝接单":"取消订单")
                 .setText(R.id.tv_cancel_type, item.getOrderCancel().getCancelTypeStr());
 
         if (TextUtils.equals(item.getOrderStatus(), ConstantUtil.ORDER_STATUS_CANCELED)) {   //已取消的显示取消原因
@@ -46,13 +47,16 @@ public class OrderAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
             helper.setTextColor(R.id.tv_status, mContext.getResources().getColor(R.color.colorPrimary));
         }
 
-        helper.setVisible(R.id.tv_cancel, TextUtils.equals(item.getOrderStatus(), ConstantUtil.ORDER_STATUS_RECEIPT) ? true : false)//已接单显示取消订单按钮
+        helper.setVisible(R.id.tv_cancel, (TextUtils.equals(item.getOrderStatus(), ConstantUtil.ORDER_STATUS_RECEIPT)||
+                TextUtils.equals(item.getOrderStatus(), ConstantUtil.ORDER_STATUS_NEW)) ? true : false)//已接单，新订单显示取消订单按钮
+                .setVisible(R.id.tv_receipt,TextUtils.equals(item.getOrderStatus(),ConstantUtil.ORDER_STATUS_NEW))  //新订单显示接单
                 .setVisible(R.id.rl_rider, TextUtils.equals(item.getOrderStatus(), ConstantUtil.ORDER_STATUS_SHIPPING) ||
-                        TextUtils.equals(item.getOrderStatus(), ConstantUtil.ORDER_STATUS_FINISHED)? true : false);//配送中，已完成显示骑手信息
+                        TextUtils.equals(item.getOrderStatus(), ConstantUtil.ORDER_STATUS_FINISHED) ? true : false);//配送中，已完成显示骑手信息
 
         helper.addOnClickListener(R.id.iv_contact_phone)
                 .addOnClickListener(R.id.tv_rider)
                 .addOnClickListener(R.id.tv_cancel)
+                .addOnClickListener(R.id.tv_receipt)
                 .addOnClickListener(R.id.tv_print);
 
 

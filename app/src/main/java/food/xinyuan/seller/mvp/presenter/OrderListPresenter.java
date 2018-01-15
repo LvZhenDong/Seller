@@ -10,9 +10,12 @@ import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.utils.ArmsUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Order;
+import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.DataUtils;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
@@ -97,6 +100,19 @@ public class OrderListPresenter extends BasePresenter<OrderListContract.Model, O
                     @Override
                     public void onNext(Boolean aBoolean) {
                         ArmsUtils.makeText(mApplication.getApplicationContext(),"打印成功");
+                    }
+                });
+    }
+
+    public void receiptOrder(Order order){
+        mModel.receiptOrder(order.getOrderId())
+                .compose(TransFactory.commonTrans(mRootView))
+                .subscribe(new ErrorHandleSubscriber<Order>(mErrorHandler) {
+                    @Override
+                    public void onNext(Order data) {
+                        ArmsUtils.makeText(mApplication.getApplicationContext(),"接单成功");
+                        //刷新已接单，全部订单
+                        EventBus.getDefault().post(ConstantUtil.ORDER_STATUS_RECEIPT);
                     }
                 });
     }

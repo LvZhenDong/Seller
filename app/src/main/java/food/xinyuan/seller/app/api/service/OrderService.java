@@ -35,6 +35,14 @@ public interface OrderService {
     Observable<HttpResponseData<Order>> cancelOrder(@Body RequestBody json);
 
     /**
+     * 接单
+     * @param orderId
+     * @return
+     */
+    @PUT("/seller/order/confirmReceipt/{orderId}")
+    Observable<HttpResponseData<Order>> receiptOrder(@Path("orderId") long orderId);
+
+    /**
      * 打印订单
      * @param id
      * @return

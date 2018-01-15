@@ -114,7 +114,15 @@ public class OrderListFragment extends AbstractMyBaseFragment<OrderListPresenter
                         break;
                     //取消订单
                     case R.id.tv_cancel:
-                        EventBus.getDefault().post(new SellerEvent<Order>(EventConstant.START_ORDER_CANCEL_FRAGMENT,order));
+                        EventBus.getDefault().post(new SellerEvent<Order>(EventConstant.START_ORDER_CANCEL_FRAGMENT, order));
+                        break;
+                    case R.id.tv_receipt:
+                        DialogUtils.commonChooseDialog(getActivity(), "确定接单？", new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                mPresenter.receiptOrder(order);
+                            }
+                        }).show();
                         break;
                 }
             }
@@ -124,7 +132,7 @@ public class OrderListFragment extends AbstractMyBaseFragment<OrderListPresenter
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Order order = mAdapter.getItem(position);
-                EventBus.getDefault().post(new SellerEvent<Order>(EventConstant.START_ORDER_DETAIL_FRAGMENT,order));
+                EventBus.getDefault().post(new SellerEvent<Order>(EventConstant.START_ORDER_DETAIL_FRAGMENT, order));
             }
         });
     }

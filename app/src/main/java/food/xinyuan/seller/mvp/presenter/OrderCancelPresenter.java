@@ -62,8 +62,9 @@ public class OrderCancelPresenter extends BasePresenter<OrderCancelContract.Mode
                         @Override
                         public void onNext(Order order) {
                             ArmsUtils.makeText(mApplication.getApplicationContext(),"取消成功");
-                            EventBus.getDefault().post(ConstantUtil.ORDER_STATUS_RECEIPT);    //刷新已接单list
-                            EventBus.getDefault().post(ConstantUtil.ORDER_STATUS_CANCELED);    //刷新已取消list
+                            //刷新已接单,已取消，全部list
+                            EventBus.getDefault().post(ConstantUtil.ORDER_STATUS_RECEIPT);
+                            EventBus.getDefault().post(ConstantUtil.ORDER_STATUS_CANCELED);
                             mRootView.cancelOrderSuc();
                         }
                     });

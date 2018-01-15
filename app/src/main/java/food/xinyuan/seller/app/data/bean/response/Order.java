@@ -107,6 +107,8 @@ public class Order {
             result = "已完成";
         } else if (TextUtils.equals(ConstantUtil.ORDER_STATUS_CANCELED, orderStatus)) {
             result = "已取消";
+        } else if (TextUtils.equals(ConstantUtil.ORDER_STATUS_NEW, orderStatus)) {
+            result = "新订单";
         }
 
         return result;
@@ -549,12 +551,12 @@ public class Order {
             return cancelType;
         }
 
-        public String getCancelTypeStr(){
-            String result="";
-            if(TextUtils.equals("RECEIVING_TIMEOUT",cancelType)){
-                result="接单超时";
-            }else if(TextUtils.equals("DELIVERY_REJECT",cancelType)){
-                result="拒绝配送";
+        public String getCancelTypeStr() {
+            String result = "";
+            if (TextUtils.equals("RECEIVING_TIMEOUT", cancelType)) {
+                result = "接单超时";
+            } else if (TextUtils.equals("DELIVERY_REJECT", cancelType)) {
+                result = "拒绝配送";
             }
 
             return result;
@@ -612,8 +614,8 @@ public class Order {
             return contactName;
         }
 
-        public String getContactNameStr(){
-            return contactName+(!TextUtils.equals("MALE",gender)?"女士":"先生");
+        public String getContactNameStr() {
+            return contactName + (!TextUtils.equals("MALE", gender) ? "女士" : "先生");
         }
 
         public void setContactName(String contactName) {

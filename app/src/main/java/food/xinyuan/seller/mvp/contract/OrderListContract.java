@@ -33,5 +33,7 @@ public interface OrderListContract {
         Observable<HttpResponseData<ListResponse<Order>>> getOrderList(int pageId, String status);
 
         Observable<HttpResponseData> printOrder(long id);
+
+        Observable<HttpResponseData<Order>> receiptOrder(long orderId);
     }
 }

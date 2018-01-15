@@ -24,6 +24,7 @@ public class ConstantUtil {
     public static final String NOTICE_ORDER_STATUS_FINISHED = "ORDER_FINISHED";    //订单完成
 
     //订单状态
+    public static final String ORDER_STATUS_NEW="PAYED";//新订单
     public static final String ORDER_STATUS_RECEIPT="MERCHANT_CONFIRM_RECEIPT"; //已接单
     public static final String ORDER_STATUS_SHIPPING="SHIPPING";        //配送中
     public static final String ORDER_STATUS_FINISHED="TRANSACT_FINISHED";   //已完成

@@ -46,4 +46,9 @@ public class OrderListModel extends BaseModel implements OrderListContract.Model
     public Observable<HttpResponseData> printOrder(long id) {
         return mRepositoryManager.obtainRetrofitService(OrderService.class).printOrder(id);
     }
+
+    @Override
+    public Observable<HttpResponseData<Order>> receiptOrder(long orderId) {
+        return mRepositoryManager.obtainRetrofitService(OrderService.class).receiptOrder(orderId);
+    }
 }

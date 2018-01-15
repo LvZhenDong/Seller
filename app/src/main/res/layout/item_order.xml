@@ -234,7 +234,8 @@
                     android:textSize="@dimen/tv_light" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
+                android:gravity="right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
@@ -243,7 +244,6 @@
                     android:id="@+id/tv_print"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/bg_btn_green_radius_5dp_selector"
                     android:padding="5dp"
@@ -252,6 +252,7 @@
                     android:textSize="@dimen/tv_light" />
 
                 <TextView
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/tv_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -262,7 +263,20 @@
                     android:text="取消订单"
                     android:textColor="@color/white"
                     android:textSize="@dimen/tv_light" />
-            </RelativeLayout>
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tv_receipt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/tv_print"
+                    android:layout_toLeftOf="@id/tv_print"
+                    android:background="@drawable/bg_btn_deep_green_radius_5dp_selector"
+                    android:padding="5dp"
+                    android:text="    接单    "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/tv_light" />
+            </LinearLayout>
         </LinearLayout>
 
 
