@@ -35,6 +35,7 @@ public class ConstantUtil {
     public static final String ACTIVITY_TYPE_SALE = "SALE";//折
     public static final String ACTIVITY_TYPE_DELGOLD = "DELGOLD";//减
     public static final String ACTIVITY_TYPE_FIRST = "FIRST";//首
+    public static final String ACTIVITY_TYPE_SPECIFIC="SPECIFIC";//其
 
     /**
      * APP文件及缓存路径

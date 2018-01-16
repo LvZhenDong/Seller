@@ -21,7 +21,9 @@ import food.xinyuan.seller.mvp.presenter.ActivityDelgoldPresenter;
 
 import food.xinyuan.seller.R;
 
-
+/**
+ * 购满就减
+ */
 public class ActivityDelgoldFragment extends AbstractMyBaseFragment<ActivityDelgoldPresenter> implements ActivityDelgoldContract.View {
 
     @BindView(R.id.iv_header_left)

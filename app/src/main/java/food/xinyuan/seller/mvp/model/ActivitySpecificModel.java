@@ -13,18 +13,18 @@ import javax.inject.Inject;
 import food.xinyuan.seller.app.api.service.ActivityService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.response.ShopActivity;
-import food.xinyuan.seller.mvp.contract.ActivityFirstContract;
+import food.xinyuan.seller.mvp.contract.ActivitySpecificContract;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 
 
 @ActivityScope
-public class ActivityFirstModel extends BaseModel implements ActivityFirstContract.Model {
+public class ActivitySpecificModel extends BaseModel implements ActivitySpecificContract.Model {
     private Gson mGson;
     private Application mApplication;
 
     @Inject
-    public ActivityFirstModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
+    public ActivitySpecificModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
         super(repositoryManager);
         this.mGson = gson;
         this.mApplication = application;

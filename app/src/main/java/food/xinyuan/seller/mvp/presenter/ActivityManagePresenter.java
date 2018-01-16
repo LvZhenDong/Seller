@@ -57,6 +57,20 @@ public class ActivityManagePresenter extends BasePresenter<ActivityManageContrac
                 });
     }
 
+    /**
+     * 刷新，但是不显示dialog
+     */
+    public void refresh(){
+        mModel.getActivityList(Integer.MAX_VALUE)
+                .compose(TransFactory.noLoadingTrans(mRootView))
+                .subscribe(new ErrorHandleSubscriber<ListResponse<ShopActivity>>(mErrorHandler) {
+                    @Override
+                    public void onNext(ListResponse<ShopActivity> shopActivityListResponse) {
+                        mRootView.getListSuc(shopActivityListResponse.getList());
+                    }
+                });
+    }
+
     public void delActivity(long id,int pos){
         mModel.delActivity(id)
                 .compose(TransFactory.commonTransNoData(mRootView))

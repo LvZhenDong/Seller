@@ -30,11 +30,9 @@ public class ActivitySaleFragment extends AbstractMyBaseFragment<ActivitySalePre
     TextView tvHeaderCenter;
 
     MaterialDialog mDialog;
-    int mType;
 
-    public static ActivitySaleFragment newInstance(int type) {
+    public static ActivitySaleFragment newInstance() {
         ActivitySaleFragment fragment = new ActivitySaleFragment();
-        fragment.mType = type;
         return fragment;
     }
 
@@ -55,7 +53,7 @@ public class ActivitySaleFragment extends AbstractMyBaseFragment<ActivitySalePre
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        tvHeaderCenter.setText("title");
+        tvHeaderCenter.setText("折扣商品");
         CommonUtils.setBack(this, ivHeaderLeft);
         mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
                 progress(true, 0).build();

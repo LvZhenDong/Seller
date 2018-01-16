@@ -9,6 +9,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -25,6 +26,7 @@ public interface ActivityService {
 
     /**
      * 活动list
+     *
      * @param pageSize
      * @return
      */
@@ -33,6 +35,7 @@ public interface ActivityService {
 
     /**
      * 删除活动
+     *
      * @param id
      * @return
      */
@@ -41,9 +44,29 @@ public interface ActivityService {
 
     /**
      * 添加活动
+     *
      * @param json
      * @return
      */
     @PUT("/seller/activity")
     Observable<HttpResponseData<ShopActivity>> addActivity(@Body RequestBody json);
+
+    /**
+     * 修改活动
+     *
+     * @param json
+     * @return
+     */
+    @POST("/seller/activity/{activityId}")
+    Observable<HttpResponseData<ShopActivity>> updateActivity(@Path("activityId") long activityId,
+                                                              @Body RequestBody json);
+
+    /**
+     * 获取活动详情
+     *
+     * @param activityId
+     * @return
+     */
+    @GET("/seller/activity/{activityId}")
+    Observable<HttpResponseData<ShopActivity>> getActivity(@Path("activityId") long activityId);
 }

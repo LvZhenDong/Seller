@@ -84,19 +84,19 @@ public class ActivityAddFragment extends AbstractMyBaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position){
                     case 0:
-                        start(ActivityComplimentaryFragment.newInstance());
+                        start(ActivityComplimentaryFragment.newInstance(null));
                         break;
                     case 1:
-                        start(ActivityFirstFragment.newInstance());
+                        start(ActivityFirstFragment.newInstance(null));
                         break;
                     case 2:
                         start(ActivityDelgoldFragment.newInstance());
                         break;
                     case 3:
-                        start(ActivitySaleFragment.newInstance(0));
+                        start(ActivitySaleFragment.newInstance());
                         break;
                     case 4:
-                        start(ActivitySaleFragment.newInstance(1));
+                        start(ActivitySpecificFragment.newInstance(null));
                         break;
                 }
             }

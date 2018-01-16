@@ -17,12 +17,51 @@ import food.xinyuan.seller.app.utils.XDateUtils;
  */
 public class ShopActivity {
 
-    public ShopActivity(String activityType, long beginTime, long endTime ,ActivityContentBean activityContent) {
+    public ShopActivity(String activityType, long beginTime, long endTime, ActivityContentBean activityContent) {
         this.activityType = activityType;
         this.activityContent = activityContent;
         this.beginTime = beginTime;
         this.endTime = endTime;
     }
+
+    public ShopActivity() {
+
+    }
+
+    /**
+     * 添加首单立减活动
+     * @param beginTime
+     * @param endTime
+     * @param money
+     */
+    public void setFirstActivity(long beginTime, long endTime, double money) {
+        this.activityType=ConstantUtil.ACTIVITY_TYPE_FIRST;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+        ActivityContentBean activityContentBean = new ActivityContentBean();
+        activityContentBean.setMoney(money);
+        activityContentBean.setTypeName("sharefood.models.activity.activity.entity.FirstActivityData");
+        this.activityContent = activityContentBean;
+    }
+
+    /**
+     * 添加其他活动
+     * @param beginTime
+     * @param endTime
+     * @param name
+     */
+    public void setSepcificActivity(long beginTime,long endTime,String name){
+        this.activityType=ConstantUtil.ACTIVITY_TYPE_SPECIFIC;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+        this.activityName=name;
+        ActivityContentBean activityContentBean = new ActivityContentBean();
+        activityContentBean.setTypeName("sharefood.models.activity.activity.entity.SpecificActivityData");
+        activityContentBean.setContent(name);
+        this.activityContent=activityContentBean;
+    }
+
+
 
     /**
      * activityId : 272
@@ -36,53 +75,56 @@ public class ShopActivity {
      * endTime : 1515254400000
      */
     private int type;
-    private final static String[] typeStrs= {"购满就送","折扣商品","购满就减","首单立减","其他"};
-    private final static String[] iconStrs= {"惠","折","减","首","惠"};
-    private final static int[] iconBgs={R.drawable.bg_red_radius_2dp,R.drawable.bg_orange_radius_2dp,
-            R.drawable.bg_red_radius_2dp,R.drawable.bg_green_radius_2dp,R.drawable.bg_orange_radius_2dp};
-    private int activityId;
-    private int shopId;
+    private final static String[] typeStrs = {"购满就送", "折扣商品", "购满就减", "首单立减", "其他"};
+    private final static String[] iconStrs = {"惠", "折", "减", "首", "惠"};
+    private final static int[] iconBgs = {R.drawable.bg_red_radius_2dp, R.drawable.bg_orange_radius_2dp,
+            R.drawable.bg_red_radius_2dp, R.drawable.bg_green_radius_2dp, R.drawable.bg_orange_radius_2dp};
+    private Integer activityId;
+    private Integer shopId;
     private String activityName;
     private String activityType;
     private ActivityContentBean activityContent;
     private boolean audit;
-    private boolean isValid;
+    private Boolean isValid;
     private long beginTime;
     private long endTime;
 
-    public int getType(){
-        if(TextUtils.equals(activityType,ConstantUtil.ACTIVITY_TYPE_COMPLIMENTARY)){
+    public int getType() {
+        if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_COMPLIMENTARY)) {
             return 0;
-        }else if(TextUtils.equals(activityType,ConstantUtil.ACTIVITY_TYPE_SALE)){
+        } else if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_SALE)) {
             return 1;
-        }else if(TextUtils.equals(activityType,ConstantUtil.ACTIVITY_TYPE_DELGOLD)){
+        } else if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_DELGOLD)) {
             return 2;
-        }else if(TextUtils.equals(activityType,ConstantUtil.ACTIVITY_TYPE_FIRST)){
+        } else if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_FIRST)) {
             return 3;
+        } else if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_SPECIFIC)) {
+            return 4;
         }else {
             return 4;
         }
     }
 
-    public String getTimeStr(){
-        String startTimeStr= XDateUtils.millis2String(beginTime,"yyyy-MM-dd");
-        String endTimeStr="";
-        if(endTime == 0){
-            endTimeStr="长期";
-        }else {
-            endTimeStr=XDateUtils.millis2String(endTime,"yyyy-MM-dd");
+    public String getTimeStr() {
+        String startTimeStr = XDateUtils.millis2String(beginTime, "yyyy-MM-dd");
+        String endTimeStr = "";
+        if (endTime == 0) {
+            endTimeStr = "长期";
+        } else {
+            endTimeStr = XDateUtils.millis2String(endTime, "yyyy-MM-dd");
         }
-        return "有效期:"+startTimeStr+" 至 "+endTimeStr;
+        return "有效期:" + startTimeStr + " 至 " + endTimeStr;
     }
-    public String getTypeStr(){
+
+    public String getTypeStr() {
         return typeStrs[getType()];
     }
 
-    public String getIconStr(){
+    public String getIconStr() {
         return iconStrs[getType()];
     }
 
-    public int getIconDrawableId(){
+    public int getIconDrawableId() {
         return iconBgs[getType()];
     }
 
@@ -134,11 +176,11 @@ public class ShopActivity {
         this.audit = audit;
     }
 
-    public boolean isIsValid() {
+    public Boolean isIsValid() {
         return isValid;
     }
 
-    public void setIsValid(boolean isValid) {
+    public void setIsValid(Boolean isValid) {
         this.isValid = isValid;
     }
 
@@ -160,10 +202,14 @@ public class ShopActivity {
 
     public static class ActivityContentBean {
 
-        public ActivityContentBean(long couponId, double full, int couponCount) {
+        public ActivityContentBean(long couponId, double full, int couponCount, String typeName) {
             this.couponId = couponId;
             this.full = full;
             this.couponCount = couponCount;
+            this.typeName = typeName;
+        }
+
+        public ActivityContentBean() {
         }
 
         /**
@@ -177,6 +223,24 @@ public class ShopActivity {
         private long couponId;
         private double full;
         private int couponCount;
+        private double money;
+        private String content;
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public double getMoney() {
+            return money;
+        }
+
+        public void setMoney(double money) {
+            this.money = money;
+        }
 
         public String getTypeName() {
             return typeName;

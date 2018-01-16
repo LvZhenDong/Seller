@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,6 +28,7 @@ import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.ShopActivity;
+import food.xinyuan.seller.app.data.event.EventConstant;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.DialogUtils;
 import food.xinyuan.seller.di.component.DaggerActivityManageComponent;
@@ -78,26 +83,56 @@ public class ActivityManageFragment extends AbstractMyBaseFragment<ActivityManag
         tvHeaderRight.setText("+");
 
 
-        mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
+        mDialog = new MaterialDialog.Builder(getContext()).content(R.string.waiting).
                 progress(true, 0).build();
 
         initRv();
         mPresenter.getList();
     }
 
-    private void initRv(){
-        mAdapter=new ActivityListAdapter(R.layout.item_activity);
+    private void initRv() {
+        mAdapter = new ActivityListAdapter(R.layout.item_activity);
         rvActivity.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvActivity.setAdapter(mAdapter);
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                DialogUtils.commonChooseDialog(getActivity(), "确定要删除该活动？", new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        mPresenter.delActivity(mAdapter.getItem(position).getActivityId(),position);
-                    }
-                }).show();
+                switch (view.getId()) {
+                    case R.id.tv_del:
+                        DialogUtils.commonChooseDialog(getActivity(), "确定要删除该活动？", new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                mPresenter.delActivity(mAdapter.getItem(position).getActivityId(), position);
+                            }
+                        }).show();
+                        break;
+                    case R.id.rl_activity_content:
+                        //这里因为swipeLayout的侧滑事件要触发BaseQuickAdapter的item click事件，所以将item点击事件写在了这里
+                        ShopActivity item = mAdapter.getItem(position);
+                        switch (item.getType()) {
+
+                            case 0:
+                                //购满就送
+                                start(ActivityComplimentaryFragment.newInstance(item));
+                                break;
+                            case 1:
+
+                                break;
+                            case 2:
+
+                                break;
+                            case 3:
+                                //首单立减
+                                start(ActivityFirstFragment.newInstance(item));
+                                break;
+                            case 4:
+                                //其他活动
+                                start(ActivitySpecificFragment.newInstance(item));
+                                break;
+                        }
+                        break;
+                }
+
 
             }
         });
@@ -108,6 +143,24 @@ public class ActivityManageFragment extends AbstractMyBaseFragment<ActivityManag
 
     }
 
+    @Subscribe
+    public void update(String event) {
+        if (TextUtils.equals(event, EventConstant.UPDATE_ACTIVITY_LIST)) {
+            mPresenter.refresh();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public void showLoading() {

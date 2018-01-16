@@ -49,4 +49,14 @@ public class ActivityComplimentaryModel extends BaseModel implements ActivityCom
     public Observable<HttpResponseData<ShopActivity>> addActivity(RequestBody json) {
         return mRepositoryManager.obtainRetrofitService(ActivityService.class).addActivity(json);
     }
+
+    @Override
+    public Observable<HttpResponseData<ShopActivity>> getActivity(long activityId) {
+        return mRepositoryManager.obtainRetrofitService(ActivityService.class).getActivity(activityId);
+    }
+
+    @Override
+    public Observable<HttpResponseData<ShopActivity>> updateActivity(long activityId, RequestBody json) {
+        return mRepositoryManager.obtainRetrofitService(ActivityService.class).updateActivity(activityId, json);
+    }
 }

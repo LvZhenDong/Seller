@@ -20,19 +20,19 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
 
-import food.xinyuan.seller.mvp.contract.ActivityFirstContract;
+import food.xinyuan.seller.mvp.contract.ActivitySpecificContract;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 @ActivityScope
-public class ActivityFirstPresenter extends BasePresenter<ActivityFirstContract.Model, ActivityFirstContract.View> {
+public class ActivitySpecificPresenter extends BasePresenter<ActivitySpecificContract.Model, ActivitySpecificContract.View> {
     private RxErrorHandler mErrorHandler;
     private Application mApplication;
     private ImageLoader mImageLoader;
     private AppManager mAppManager;
 
     @Inject
-    public ActivityFirstPresenter(ActivityFirstContract.Model model, ActivityFirstContract.View rootView
+    public ActivitySpecificPresenter(ActivitySpecificContract.Model model, ActivitySpecificContract.View rootView
             , RxErrorHandler handler, Application application
             , ImageLoader imageLoader, AppManager appManager) {
         super(model, rootView);
@@ -51,8 +51,8 @@ public class ActivityFirstPresenter extends BasePresenter<ActivityFirstContract.
         this.mApplication = null;
     }
 
-    public void addActivity(String startTimeStr,String endTimeStr,String reduceStr){
-        ShopActivity shopActivity=createShopActivity(startTimeStr, endTimeStr, reduceStr);
+    public void addActivity(String startTimeStr,String endTimeStr,String name){
+        ShopActivity shopActivity=createShopActivity(startTimeStr, endTimeStr, name);
         if(shopActivity != null){
             mModel.addActivity(RequestUtils.getRequestBody(shopActivity))
                     .compose(TransFactory.commonTrans(mRootView))
@@ -67,8 +67,8 @@ public class ActivityFirstPresenter extends BasePresenter<ActivityFirstContract.
         }
     }
 
-    public void updateActivity(String startTimeStr,String endTimeStr,String reduceStr,long activityId) {
-        ShopActivity shopActivity=createShopActivity(startTimeStr, endTimeStr, reduceStr);
+    public void updateActivity(String startTimeStr,String endTimeStr,String name,long activityId){
+        ShopActivity shopActivity=createShopActivity(startTimeStr, endTimeStr, name);
         if(shopActivity != null){
             mModel.updateActivity(activityId,RequestUtils.getRequestBody(shopActivity))
                     .compose(TransFactory.commonTrans(mRootView))
@@ -83,15 +83,14 @@ public class ActivityFirstPresenter extends BasePresenter<ActivityFirstContract.
         }
     }
 
-    private ShopActivity createShopActivity(String startTimeStr,String endTimeStr,String reduceStr){
-        if(TextUtils.isEmpty(reduceStr)){
-            ArmsUtils.makeText(mApplication,"请输入立减金额");
+    private ShopActivity createShopActivity(String startTimeStr,String endTimeStr,String name){
+        if(TextUtils.isEmpty(name)){
+            ArmsUtils.makeText(mApplication,"请输入活动名称");
         }else {
-            double reduce=new Double(reduceStr);
             ShopActivity shopActivity=new ShopActivity();
-            shopActivity.setFirstActivity(XDateUtils.string2Millis(startTimeStr,"yyyy-MM-dd"),
+            shopActivity.setSepcificActivity(XDateUtils.string2Millis(startTimeStr,"yyyy-MM-dd"),
                     XDateUtils.string2Millis(endTimeStr,"yyyy-MM-dd"),
-                    reduce);
+                    name);
 
             return shopActivity;
         }

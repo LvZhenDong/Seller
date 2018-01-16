@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
+import food.xinyuan.seller.app.data.bean.response.ShopActivity;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.XDateUtils;
 import food.xinyuan.seller.di.component.DaggerActivityFirstComponent;
@@ -52,8 +53,11 @@ public class ActivityFirstFragment extends AbstractMyBaseFragment<ActivityFirstP
     @BindView(R.id.tv_save)
     TextView tvSave;
 
-    public static ActivityFirstFragment newInstance() {
+    private ShopActivity mShopActivity;
+
+    public static ActivityFirstFragment newInstance(ShopActivity shopActivity) {
         ActivityFirstFragment fragment = new ActivityFirstFragment();
+        fragment.mShopActivity = shopActivity;
         return fragment;
     }
 
@@ -78,6 +82,22 @@ public class ActivityFirstFragment extends AbstractMyBaseFragment<ActivityFirstP
         CommonUtils.setBack(this, ivHeaderLeft);
         mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
                 progress(true, 0).build();
+
+
+        if(mShopActivity != null){
+            //如果是修改活动，则填入数据
+            tvStartTime.setText(XDateUtils.millis2String(mShopActivity.getBeginTime(), "yyyy-MM-dd"));
+            startDate = XDateUtils.millis2Date(mShopActivity.getBeginTime());
+            long endTime = mShopActivity.getEndTime();
+            tvEndTime.setText(endTime <= 0 ? "无限制" : XDateUtils.millis2String(mShopActivity.getEndTime(), "yyyy-MM-dd"));
+            endDate = XDateUtils.millis2Date(mShopActivity.getEndTime());
+            if (mShopActivity.getActivityContent() != null) {
+                etReduce.setText(mShopActivity.getActivityContent().getMoney()+"");
+            }
+        }else{
+            //如果是添加活动，仅加载红包list
+            tvStartTime.setText(XDateUtils.date2String(startDate, "yyyy-MM-dd"));
+        }
     }
 
     @Override
@@ -131,6 +151,15 @@ public class ActivityFirstFragment extends AbstractMyBaseFragment<ActivityFirstP
 
                 break;
             case R.id.tv_save:
+                if(mShopActivity == null){
+                    mPresenter.addActivity(tvStartTime.getText().toString().trim(),
+                            tvEndTime.getText().toString().trim(),
+                            etReduce.getText().toString().trim());
+                }else {
+                    mPresenter.updateActivity(tvStartTime.getText().toString().trim(),
+                            tvEndTime.getText().toString().trim(),
+                            etReduce.getText().toString().trim(),mShopActivity.getActivityId());
+                }
 
                 break;
         }
@@ -147,5 +176,10 @@ public class ActivityFirstFragment extends AbstractMyBaseFragment<ActivityFirstP
                 .build();
 
         pvTime.show();
+    }
+
+    @Override
+    public void addActivitySuc() {
+        pop();
     }
 }

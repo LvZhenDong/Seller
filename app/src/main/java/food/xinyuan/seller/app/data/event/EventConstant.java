@@ -30,5 +30,13 @@ public class EventConstant {
      */
     public final static String START_ORDER_DETAIL_FRAGMENT="startOrderDetailFragment";
 
+    /**
+     * 刷新评价list
+     */
     public final static String UPDATE_APPRAISE_LIST="updateAppraiseList";
+
+    /**
+     * 刷新活动管理list
+     */
+    public final static String UPDATE_ACTIVITY_LIST="updateActivityList";
 }

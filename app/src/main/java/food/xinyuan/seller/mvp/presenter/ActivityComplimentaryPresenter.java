@@ -9,12 +9,15 @@ import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.utils.ArmsUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Coupon;
 import food.xinyuan.seller.app.data.bean.response.ShopActivity;
+import food.xinyuan.seller.app.data.event.EventConstant;
 import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.RequestUtils;
@@ -79,12 +82,13 @@ public class ActivityComplimentaryPresenter extends BasePresenter<ActivityCompli
         } else {
             double min = new Double(minStr);
             int count = new Integer(countStr);
-            int couponId=list.get(selectedCoupon).getCouponId();
-            // TODO typeName没有传
-            ShopActivity shopActivity=new ShopActivity(ConstantUtil.ACTIVITY_TYPE_COMPLIMENTARY,
-                    XDateUtils.string2Millis(startTime,"yyyy-MM-dd"),
-                    XDateUtils.string2Millis(endTime,"yyyy-MM-dd"),
-                    new ShopActivity.ActivityContentBean(couponId,min,count));
+            int couponId = list.get(selectedCoupon).getCouponId();
+
+            ShopActivity shopActivity = new ShopActivity(ConstantUtil.ACTIVITY_TYPE_COMPLIMENTARY,
+                    XDateUtils.string2Millis(startTime, "yyyy-MM-dd"),
+                    XDateUtils.string2Millis(endTime, "yyyy-MM-dd"),
+                    new ShopActivity.ActivityContentBean(couponId, min, count,
+                            "sharefood.models.activity.activity.entity.ComplimentaryActivityData"));
 
             mModel.addActivity(RequestUtils.getRequestBody(shopActivity))
                     .compose(TransFactory.commonTrans(mRootView))
@@ -92,11 +96,69 @@ public class ActivityComplimentaryPresenter extends BasePresenter<ActivityCompli
                         @Override
                         public void onNext(ShopActivity shopActivity) {
                             ArmsUtils.makeText(mApplication, "添加成功");
+                            EventBus.getDefault().post(EventConstant.UPDATE_ACTIVITY_LIST);
+                            mRootView.addActivitySuc();
+                        }
+                    });
+        }
+
+        ShopActivity shopActivity=createShopActivity(startTime, endTime, minStr, countStr, selectedCoupon, list);
+        if(shopActivity != null){
+            mModel.addActivity(RequestUtils.getRequestBody(shopActivity))
+                    .compose(TransFactory.commonTrans(mRootView))
+                    .subscribe(new ErrorHandleSubscriber<ShopActivity>(mErrorHandler) {
+                        @Override
+                        public void onNext(ShopActivity shopActivity) {
+                            ArmsUtils.makeText(mApplication, "添加成功");
+                            EventBus.getDefault().post(EventConstant.UPDATE_ACTIVITY_LIST);
                             mRootView.addActivitySuc();
                         }
                     });
         }
 
     }
+
+    public void updateActivity(String startTime, String endTime, String minStr, String countStr,
+                               int selectedCoupon, List<Coupon> list,long activityId) {
+        ShopActivity shopActivity=createShopActivity(startTime, endTime, minStr, countStr, selectedCoupon, list);
+        if(shopActivity != null){
+            mModel.updateActivity(activityId,RequestUtils.getRequestBody(shopActivity))
+                    .compose(TransFactory.commonTrans(mRootView))
+                    .subscribe(new ErrorHandleSubscriber<ShopActivity>(mErrorHandler) {
+                        @Override
+                        public void onNext(ShopActivity shopActivity) {
+                            ArmsUtils.makeText(mApplication, "修改成功");
+                            EventBus.getDefault().post(EventConstant.UPDATE_ACTIVITY_LIST);
+                            mRootView.addActivitySuc();
+                        }
+                    });
+        }
+    }
+
+    private ShopActivity createShopActivity(String startTime, String endTime, String minStr, String countStr,
+                                            int selectedCoupon, List<Coupon> list){
+        if (TextUtils.isEmpty(minStr)) {
+            ArmsUtils.makeText(mApplication, "请输入最低消费金额");
+        } else if (selectedCoupon < 0) {
+            ArmsUtils.makeText(mApplication, "请选择红包种类");
+        } else if (TextUtils.isEmpty(countStr)) {
+            ArmsUtils.makeText(mApplication, "请输入赠送红包数量");
+        } else {
+            double min = new Double(minStr);
+            int count = new Integer(countStr);
+            int couponId = list.get(selectedCoupon).getCouponId();
+
+            ShopActivity shopActivity = new ShopActivity(ConstantUtil.ACTIVITY_TYPE_COMPLIMENTARY,
+                    XDateUtils.string2Millis(startTime, "yyyy-MM-dd"),
+                    XDateUtils.string2Millis(endTime, "yyyy-MM-dd"),
+                    new ShopActivity.ActivityContentBean(couponId, min, count,
+                            "sharefood.models.activity.activity.entity.ComplimentaryActivityData"));
+
+            return shopActivity;
+        }
+
+        return null;
+    }
+
 
 }

@@ -89,7 +89,7 @@ public class Coupon {
         if (endTime == 0)
             return "无期限";
         else
-            return XDateUtils.millis2String(endTime, "yyyy-MM-dd HH:mm") + "到期";
+            return XDateUtils.millis2String(endTime, "yyyy-MM-dd") + "到期";
     }
 
     /**
