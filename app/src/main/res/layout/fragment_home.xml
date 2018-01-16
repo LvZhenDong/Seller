@@ -68,7 +68,7 @@
             android:layout_alignLeft="@id/tv_user_name"
             android:layout_toRightOf="@id/iv_head"
             android:padding="3dp"
-            android:text="点击查看门店详情"
+            android:text="点击更换其他门店"
             android:textColor="@color/white"
             android:textSize="@dimen/tv_Normal" />
 

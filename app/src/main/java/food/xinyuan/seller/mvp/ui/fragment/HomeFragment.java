@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +30,10 @@ import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.MainItem;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
+import food.xinyuan.seller.app.data.bean.response.SellerInfo;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
+import food.xinyuan.seller.app.data.event.EventConstant;
 import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.ImageLoaderUtils;
 import food.xinyuan.seller.app.utils.L;
@@ -68,6 +75,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
     LoginResponse mLoginResponse;
     BaseQuickAdapter<MainItem, BaseViewHolder> mAdapter;
     AppComponent mAppComponent;
+    List<SellerInfo.ShopListBean> mList;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -92,6 +100,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
                 progress(true, 0).build();
 
@@ -105,10 +114,17 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
     }
 
     @Override
-    public void setData(Object data) {
-
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refresh(String event){
+        if(TextUtils.equals(event, EventConstant.UPDATE_HOME)){
+            mPresenter.getInitData();
+        }
+    }
 
     @Override
     public void showLoading() {
@@ -222,6 +238,11 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
     }
 
     @Override
+    public void refreshTokenSuc(List<SellerInfo.ShopListBean> list) {
+        mList=list;
+    }
+
+    @Override
     public void getShopDetailSuc(ShopDetail shopDetail) {
         ImageLoaderUtils.loadCirImg(mAppComponent, shopDetail.getShopFaceUrl(), ivHead);
         tvUserName.setText(shopDetail.getShopName());
@@ -235,7 +256,7 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
             case R.id.tv_status_bind:
                 break;
             case R.id.tv_check_info:
-                start(ShopInfoFragment.newInstance());
+                start(ShopChooseFragment.newInstance(mList,false));
                 break;
         }
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -17,6 +18,7 @@ import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.ARouterPaths;
 import food.xinyuan.seller.app.base.AbstractMyBaseActivity;
 import food.xinyuan.seller.app.utils.CommonUtils;
+import food.xinyuan.seller.app.utils.MySharePreferencesManager;
 import food.xinyuan.seller.app.utils.SystemBarHelper;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,7 +53,13 @@ public class SplashActivity extends AbstractMyBaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
                     if (CommonUtils.isAvailable(getApplicationContext())) {
-                        ARouter.getInstance().build(ARouterPaths.MAIN).navigation();
+                        //没有token就跳登录界面
+                        if(TextUtils.isEmpty(MySharePreferencesManager.getInstance().getString("token", ""))){
+                            ARouter.getInstance().build(ARouterPaths.LOGIN).navigation();
+                        }else {
+                            //跳转首页
+                            ARouter.getInstance().build(ARouterPaths.MAIN).navigation();
+                        }
                         finish();
                     } else {
                         new AlertDialog.Builder(this)

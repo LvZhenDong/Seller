@@ -67,17 +67,12 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                     mRootView.showLoading();
                 })
                 .doOnNext(loginResponse -> {
-                    //保存token以及用户信息
+                    //保存token
                     MySharePreferencesManager.getInstance().putString("token", loginResponse.getJwt());
-                    List<SellerInfo.ShopListBean> list=loginResponse.getSeller().getShopList();
-                    if(!DataUtils.isEmpty(list)){
-                        //TODO shopId
-                        String shopId=list.get(1).getShopId()+"";
-                        MySharePreferencesManager.getInstance().putString("shopId",shopId);
-                    }
 
                     DataUtils.setToken(mApplication.getApplicationContext(), loginResponse.getJwt());
                     DataUtils.setUser(mApplication.getApplicationContext(), loginResponse);
+                    mRootView.refreshTokenSuc(loginResponse.getSeller().getShopList());
                 })
                 .observeOn(Schedulers.io())
                 .flatMap(loginResponse -> {

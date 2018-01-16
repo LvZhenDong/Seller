@@ -372,4 +372,9 @@ public abstract class AbstractMyBaseFragment<P extends IPresenter> extends BaseF
     public <T extends ISupportFragment> T findChildFragment(Class<T> fragmentClass) {
         return SupportHelper.findFragment(getChildFragmentManager(), fragmentClass);
     }
+
+    @Override
+    public void setData(Object data) {
+
+    }
 }

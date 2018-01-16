@@ -21,6 +21,7 @@ import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.DataUtils;
+import food.xinyuan.seller.app.utils.MySharePreferencesManager;
 import food.xinyuan.seller.di.component.DaggerSettingComponent;
 import food.xinyuan.seller.di.module.SettingModule;
 import food.xinyuan.seller.mvp.contract.SettingContract;
@@ -125,9 +126,9 @@ public class SettingFragment extends AbstractMyBaseFragment<SettingPresenter> im
             case R.id.tv_service:
                 break;
             case R.id.tv_login_out:
-                //TODO 将LoginActivity改为Fragment
                 DataUtils.setToken(getContext(), null);
                 DataUtils.setUser(getContext(), null);
+                MySharePreferencesManager.getInstance().putString("token", "");
                 ARouter.getInstance().build(ARouterPaths.LOGIN).navigation();
                 getActivity().finish();
                 break;

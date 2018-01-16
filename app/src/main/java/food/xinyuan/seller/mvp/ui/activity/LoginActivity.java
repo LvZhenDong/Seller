@@ -9,9 +9,12 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.gson.Gson;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -19,6 +22,7 @@ import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.ARouterPaths;
 import food.xinyuan.seller.app.base.AbstractMyBaseActivity;
+import food.xinyuan.seller.app.data.bean.response.SellerInfo;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.di.component.DaggerLoginComponent;
 import food.xinyuan.seller.di.module.LoginModule;
@@ -137,9 +141,13 @@ public class LoginActivity extends AbstractMyBaseActivity<LoginPresenter> implem
     }
 
     @Override
-    public void loginSuc() {
-        ArmsUtils.makeText(this,"登录成功");
-        ARouter.getInstance().build(ARouterPaths.MAIN).navigation();
+    public void loginSuc(String listStr) {
+
+        ArmsUtils.makeText(this, "登录成功");
+        ARouter.getInstance().build(ARouterPaths.MAIN)
+                .withBoolean("chooseShop", true)
+                .withString("shopList", listStr)
+                .navigation();
         finish();
     }
 
@@ -200,7 +208,7 @@ public class LoginActivity extends AbstractMyBaseActivity<LoginPresenter> implem
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mDialog != null){
+        if (mDialog != null) {
             mDialog.dismiss();
         }
         if (mDisposable != null) {

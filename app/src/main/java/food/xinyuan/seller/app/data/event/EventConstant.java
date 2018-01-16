@@ -39,4 +39,9 @@ public class EventConstant {
      * 刷新活动管理list
      */
     public final static String UPDATE_ACTIVITY_LIST="updateActivityList";
+
+    /**
+     * 刷新首页
+     */
+    public final static String UPDATE_HOME="updateHome";
 }

@@ -114,7 +114,7 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
             fragments.add(GoodsListFragment.newInstance(item.getGoodsCategoryId()));
         }
 
-        tlGoodsCategory.setupWithFragment(getFragmentManager(), R.id.fl_fragment, fragments);
+        tlGoodsCategory.setupWithFragment(getChildFragmentManager(), R.id.fl_fragment, fragments);
     }
 
     List<Fragment> fragments=new ArrayList<>();

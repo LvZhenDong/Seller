@@ -3,8 +3,11 @@ package food.xinyuan.seller.mvp.contract;
 import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
 
+import java.util.List;
+
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
+import food.xinyuan.seller.app.data.bean.response.SellerInfo;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import io.reactivex.Observable;
@@ -15,7 +18,7 @@ public interface HomeContract {
     interface View extends IView {
         void getShopStatisticsSuc(ShopStatistics shopStatistics);
 
-//        void refreshTokenSuc();
+        void refreshTokenSuc(List<SellerInfo.ShopListBean> list);
 
         void getShopDetailSuc(ShopDetail shopDetail);
     }

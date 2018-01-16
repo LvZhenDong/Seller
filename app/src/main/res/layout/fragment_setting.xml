@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/tv_account"
             style="@style/TvItemHint"
-            android:text="12345678901" />
+            android:textColor="@color/tv_name" />
 
     </RelativeLayout>
 
@@ -65,7 +65,7 @@
         android:layout_marginTop="10dp"
         android:drawableRight="@null"
         android:gravity="center"
-        android:text="客服电话 028-1234567"
+        android:text="客服电话 400-8780-222"
         android:textColor="@color/colorPrimary" />
 
     <TextView

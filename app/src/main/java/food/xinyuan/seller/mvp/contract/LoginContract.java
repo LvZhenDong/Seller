@@ -5,8 +5,11 @@ import android.support.annotation.StringRes;
 import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
 
+import java.util.List;
+
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
+import food.xinyuan.seller.app.data.bean.response.SellerInfo;
 import io.reactivex.Observable;
 
 
@@ -21,7 +24,7 @@ public interface LoginContract {
 
         void sendVerCodeSuc();
 
-        void loginSuc();
+        void loginSuc(String listStr);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

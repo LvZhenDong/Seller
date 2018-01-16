@@ -45,7 +45,7 @@ public interface ShopService {
     /**
      * 查询店铺详情
      */
-    @GET("/seller/shopDetail")
+    @GET("/seller/shop")
     Observable<HttpResponseData<ShopDetail>> getShopDetail();
 
     /**
@@ -53,7 +53,7 @@ public interface ShopService {
      *
      * @return
      */
-    @DELETE("/seller/shopDetail/operatingState")
+    @DELETE("/seller/shop/operatingState")
     Observable<HttpResponseData> delOperating();
 
     /**
@@ -61,7 +61,7 @@ public interface ShopService {
      *
      * @return
      */
-    @PUT("/seller/shopDetail/operatingState")
+    @PUT("/seller/shop/operatingState")
     Observable<HttpResponseData> putOperating();
 
     /**
@@ -70,7 +70,7 @@ public interface ShopService {
      * @param phone
      * @return
      */
-    @PUT("/seller/shopDetail/takeOutPhone/{takeOutPhone}")
+    @PUT("/seller/shop/takeOutPhone/{takeOutPhone}")
     Observable<HttpResponseData> changeShopPhone(@Path("takeOutPhone") String phone);
 
     /**
@@ -79,7 +79,7 @@ public interface ShopService {
      * @param price
      * @return
      */
-    @PUT("/seller/shopDetail/updateMinDeliveryPrice/{minDeliveryPrice}")
+    @PUT("/seller/shop/updateMinDeliveryPrice/{minDeliveryPrice}")
     Observable<HttpResponseData> changeMinDeliveryPrice(@Path("minDeliveryPrice") String price);
 
     /**
@@ -87,7 +87,7 @@ public interface ShopService {
      *
      * @return
      */
-    @DELETE("/seller/shopDetail/automaticAcceptOrder")
+    @DELETE("/seller/shop/automaticAcceptOrder")
     Observable<HttpResponseData> delAutoOrder();
 
     /**
@@ -95,7 +95,7 @@ public interface ShopService {
      *
      * @return
      */
-    @PUT("/seller/shopDetail/automaticAcceptOrder")
+    @PUT("/seller/shop/automaticAcceptOrder")
     Observable<HttpResponseData> putAutoOrder();
 
     /**
@@ -114,7 +114,12 @@ public interface ShopService {
     @PUT("/seller/shop/drawInvoice")
     Observable<HttpResponseData> putDrawInvoice();
 
-    @PUT("/seller/shopDetail/busTime")
+    /**
+     * 更改营业时间
+     * @param json
+     * @return
+     */
+    @PUT("/seller/shop/busTime")
     Observable<HttpResponseData> changeBusTime(@Body RequestBody json);
 
     /**

@@ -103,15 +103,13 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
                             MySharePreferencesManager.getInstance().putString("token", data.getJwt());
                             //保存shopId
                             List<SellerInfo.ShopListBean> list=data.getSeller().getShopList();
-                            if(!DataUtils.isEmpty(list)){
-                                //TODO shopId
-                                String shopId=list.get(1).getShopId()+"";
-                                MySharePreferencesManager.getInstance().putString("shopId",shopId);
-                            }
+
 
                             DataUtils.setToken(mApplication.getApplicationContext(), data.getJwt());
                             DataUtils.setUser(mApplication.getApplicationContext(),data);
-                            mRootView.loginSuc();
+                            Gson gson = new Gson();
+                            String listStr = gson.toJson(list);
+                            mRootView.loginSuc(listStr);
                         }
                     });
         }
