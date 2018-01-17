@@ -18,7 +18,7 @@ public class DataCleanManager {
     public static String getTotalCacheSize(Context context) throws Exception {
 
         long cacheSize = getFolderSize(context.getCacheDir());
-        cacheSize += getFolderSize(new File(ConstantUtil.CACHE_DIR));
+        cacheSize += getFolderSize(new File(Constant.CACHE_DIR));
         return getFormatSize(cacheSize);
     }
 

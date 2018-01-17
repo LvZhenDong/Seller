@@ -26,7 +26,7 @@ import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.request.ChangeBusTime;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.utils.CommonUtils;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DialogUtils;
 import food.xinyuan.seller.di.component.DaggerShopInfoComponent;
 import food.xinyuan.seller.di.module.ShopInfoModule;
@@ -220,7 +220,7 @@ public class ShopInfoFragment extends AbstractMyBaseFragment<ShopInfoPresenter> 
                                 .TYPE_CLASS_PHONE,
                         (dialog, input) -> {
                             if (TextUtils.isEmpty(input)) {
-                                ArmsUtils.snackbarText("请输入联系电话", ConstantUtil.SNACK_WARING);
+                                ArmsUtils.snackbarText("请输入联系电话", Constant.SNACK_WARING);
                             } else {
                                 mPresenter.changePhone(input + "");
                             }
@@ -244,7 +244,7 @@ public class ShopInfoFragment extends AbstractMyBaseFragment<ShopInfoPresenter> 
                         InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL,
                         (dialog, input) -> {
                             if (TextUtils.isEmpty(input)) {
-                                ArmsUtils.snackbarText("请输入最低配送金额", ConstantUtil.SNACK_WARING);
+                                ArmsUtils.snackbarText("请输入最低配送金额", Constant.SNACK_WARING);
                             } else {
                                 mPresenter.changeMinDeliveryPrice(input + "");
                             }

@@ -29,7 +29,7 @@ import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
 import food.xinyuan.seller.app.utils.CommonUtils;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DataUtils;
 
 /**
@@ -130,11 +130,11 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
             case R.id.tv_add:
                 String property = etProperty.getText().toString().trim();
                 if (mList.size() >= 4) {
-                    ArmsUtils.snackbarText("属性值最多4项", ConstantUtil.SNACK_WARING);
+                    ArmsUtils.snackbarText("属性值最多4项", Constant.SNACK_WARING);
                     return;
                 }
                 if (mList.contains(property)) {
-                    ArmsUtils.snackbarText("该属性值已存在", ConstantUtil.SNACK_WARING);
+                    ArmsUtils.snackbarText("该属性值已存在", Constant.SNACK_WARING);
                     return;
                 }
                 if (!TextUtils.isEmpty(property)) {
@@ -145,9 +145,9 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
                 break;
             case R.id.tv_ensure:
                 if (TextUtils.isEmpty(etName.getText().toString().trim())) {
-                    ArmsUtils.snackbarText("请输入属性名称", ConstantUtil.SNACK_WARING);
+                    ArmsUtils.snackbarText("请输入属性名称", Constant.SNACK_WARING);
                 }else if (DataUtils.isEmpty(mList)) {
-                    ArmsUtils.snackbarText("请输入属性值", ConstantUtil.SNACK_WARING);
+                    ArmsUtils.snackbarText("请输入属性值", Constant.SNACK_WARING);
                 }else if(mProperty != null){
                     mProperty.setGoodsPropertyName(etName.getText().toString().trim());
                     mProperty.setGoodsPropertyValueList(mList);

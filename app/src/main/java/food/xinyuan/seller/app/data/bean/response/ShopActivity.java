@@ -3,8 +3,7 @@ package food.xinyuan.seller.app.data.bean.response;
 import android.text.TextUtils;
 
 import food.xinyuan.seller.R;
-import food.xinyuan.seller.app.utils.ConstantUtil;
-import food.xinyuan.seller.app.utils.DataUtils;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.XDateUtils;
 
 /**
@@ -35,7 +34,7 @@ public class ShopActivity {
      * @param money
      */
     public void setFirstActivity(long beginTime, long endTime, double money) {
-        this.activityType=ConstantUtil.ACTIVITY_TYPE_FIRST;
+        this.activityType= Constant.ACTIVITY_TYPE_FIRST;
         this.beginTime = beginTime;
         this.endTime = endTime;
         ActivityContentBean activityContentBean = new ActivityContentBean();
@@ -51,7 +50,7 @@ public class ShopActivity {
      * @param name
      */
     public void setSepcificActivity(long beginTime,long endTime,String name){
-        this.activityType=ConstantUtil.ACTIVITY_TYPE_SPECIFIC;
+        this.activityType= Constant.ACTIVITY_TYPE_SPECIFIC;
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.activityName=name;
@@ -90,15 +89,15 @@ public class ShopActivity {
     private long endTime;
 
     public int getType() {
-        if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_COMPLIMENTARY)) {
+        if (TextUtils.equals(activityType, Constant.ACTIVITY_TYPE_COMPLIMENTARY)) {
             return 0;
-        } else if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_SALE)) {
+        } else if (TextUtils.equals(activityType, Constant.ACTIVITY_TYPE_SALE)) {
             return 1;
-        } else if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_DELGOLD)) {
+        } else if (TextUtils.equals(activityType, Constant.ACTIVITY_TYPE_DELGOLD)) {
             return 2;
-        } else if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_FIRST)) {
+        } else if (TextUtils.equals(activityType, Constant.ACTIVITY_TYPE_FIRST)) {
             return 3;
-        } else if (TextUtils.equals(activityType, ConstantUtil.ACTIVITY_TYPE_SPECIFIC)) {
+        } else if (TextUtils.equals(activityType, Constant.ACTIVITY_TYPE_SPECIFIC)) {
             return 4;
         }else {
             return 4;

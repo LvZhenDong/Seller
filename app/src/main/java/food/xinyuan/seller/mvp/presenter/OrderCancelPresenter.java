@@ -14,8 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.request.CancelOrder;
 import food.xinyuan.seller.app.data.bean.response.Order;
-import food.xinyuan.seller.app.data.event.EventConstant;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
@@ -63,8 +62,8 @@ public class OrderCancelPresenter extends BasePresenter<OrderCancelContract.Mode
                         public void onNext(Order order) {
                             ArmsUtils.makeText(mApplication.getApplicationContext(),"取消成功");
                             //刷新已接单,已取消，全部list
-                            EventBus.getDefault().post(ConstantUtil.ORDER_STATUS_RECEIPT);
-                            EventBus.getDefault().post(ConstantUtil.ORDER_STATUS_CANCELED);
+                            EventBus.getDefault().post(Constant.ORDER_STATUS_RECEIPT);
+                            EventBus.getDefault().post(Constant.ORDER_STATUS_CANCELED);
                             mRootView.cancelOrderSuc();
                         }
                     });

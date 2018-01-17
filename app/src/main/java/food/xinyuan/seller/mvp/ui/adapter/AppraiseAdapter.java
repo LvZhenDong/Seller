@@ -64,6 +64,7 @@ public class AppraiseAdapter extends BaseQuickAdapter<Appraise, BaseViewHolder> 
         };
         rv.setAdapter(adapter);
         adapter.setNewData(item.getShopAppraiseImageUrlList());
+        //TODO 点击图片查看
     }
 
     /**

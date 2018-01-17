@@ -155,13 +155,13 @@ public class DataUtils {
 //    public static String getOrderStatusTitle(String orderStatus) {
 //        String orderStatusTitle = "";
 //        switch (orderStatus) {
-//            case ConstantUtil.WAIT_PICKUP:
+//            case Constant.WAIT_PICKUP:
 //                orderStatusTitle = "待到店";
 //                break;
-//            case ConstantUtil.PICKUPING:
+//            case Constant.PICKUPING:
 //                orderStatusTitle = "待取餐";
 //                break;
-//            case ConstantUtil.SHIPPING:
+//            case Constant.SHIPPING:
 //                orderStatusTitle = "待送达";
 //                break;
 //        }

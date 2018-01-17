@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import java.util.List;
 
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 
 /**
  * <p>
@@ -95,11 +95,11 @@ public class Goods {
     }
 
     public boolean isPutAway(){
-        return TextUtils.equals(ConstantUtil.PUTAWAY,getGoodsStatus());
+        return TextUtils.equals(Constant.PUTAWAY,getGoodsStatus());
     }
 
     public void setPutAway(boolean isPutAway){
-        setGoodsStatus(isPutAway?ConstantUtil.PUTAWAY:ConstantUtil.SOLD_OUT);
+        setGoodsStatus(isPutAway? Constant.PUTAWAY: Constant.SOLD_OUT);
     }
 
     public void setGoodsStatus(String goodsStatus) {

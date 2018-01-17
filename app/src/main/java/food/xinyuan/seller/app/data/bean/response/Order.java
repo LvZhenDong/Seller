@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import java.util.List;
 
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.XDateUtils;
 
 /**
@@ -99,15 +99,15 @@ public class Order {
 
     public String getOrderStatusStr() {
         String result = "";
-        if (TextUtils.equals(ConstantUtil.ORDER_STATUS_RECEIPT, orderStatus)) {
+        if (TextUtils.equals(Constant.ORDER_STATUS_RECEIPT, orderStatus)) {
             result = "已接单";
-        } else if (TextUtils.equals(ConstantUtil.ORDER_STATUS_SHIPPING, orderStatus)) {
+        } else if (TextUtils.equals(Constant.ORDER_STATUS_SHIPPING, orderStatus)) {
             result = "配送中";
-        } else if (TextUtils.equals(ConstantUtil.ORDER_STATUS_FINISHED, orderStatus)) {
+        } else if (TextUtils.equals(Constant.ORDER_STATUS_FINISHED, orderStatus)) {
             result = "已完成";
-        } else if (TextUtils.equals(ConstantUtil.ORDER_STATUS_CANCELED, orderStatus)) {
+        } else if (TextUtils.equals(Constant.ORDER_STATUS_CANCELED, orderStatus)) {
             result = "已取消";
-        } else if (TextUtils.equals(ConstantUtil.ORDER_STATUS_NEW, orderStatus)) {
+        } else if (TextUtils.equals(Constant.ORDER_STATUS_NEW, orderStatus)) {
             result = "新订单";
         }
 

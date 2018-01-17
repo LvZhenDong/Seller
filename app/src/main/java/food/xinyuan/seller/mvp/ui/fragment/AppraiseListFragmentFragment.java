@@ -11,12 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -34,15 +31,13 @@ import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.Appraise;
 import food.xinyuan.seller.app.data.event.EventConstant;
 import food.xinyuan.seller.app.data.event.SellerEvent;
-import food.xinyuan.seller.app.utils.CommonUtils;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DialogUtils;
 import food.xinyuan.seller.di.component.DaggerAppraiseListFragmentComponent;
 import food.xinyuan.seller.di.module.AppraiseListFragmentModule;
 import food.xinyuan.seller.mvp.contract.AppraiseListFragmentContract;
 import food.xinyuan.seller.mvp.presenter.AppraiseListFragmentPresenter;
 
-import food.xinyuan.seller.R;
 import food.xinyuan.seller.mvp.ui.adapter.AppraiseAdapter;
 
 
@@ -174,12 +169,12 @@ public class AppraiseListFragmentFragment extends AbstractMyBaseFragment<Apprais
 
     @Override
     public void noMoreData() {
-        ArmsUtils.snackbarText("没有更多数据", ConstantUtil.SNACK_WARING);
+        ArmsUtils.snackbarText("没有更多数据", Constant.SNACK_WARING);
     }
 
     @Override
     public void noData() {
-        ArmsUtils.snackbarText("没有数据", ConstantUtil.SNACK_WARING);
+        ArmsUtils.snackbarText("没有数据", Constant.SNACK_WARING);
     }
 
     @Override

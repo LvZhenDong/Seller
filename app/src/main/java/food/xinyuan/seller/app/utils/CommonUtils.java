@@ -54,7 +54,7 @@ public class CommonUtils {
                         context.startActivity(intent);
                     } else {
 
-                        ArmsUtils.snackbarText("未获取到拨打电话权限，无法拨打电话！", ConstantUtil.SNACK_ERROR);
+                        ArmsUtils.snackbarText("未获取到拨打电话权限，无法拨打电话！", Constant.SNACK_ERROR);
                     }
                 });
     }

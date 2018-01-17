@@ -47,13 +47,13 @@ public class ImageLoaderUtils {
      * @param imageView
      */
     public static void loadImg(AppComponent appComponent, String url, ImageView imageView) {
-        L.i(ConstantUtil.IMAGE + url);
+        L.i(Constant.IMAGE + url);
         appComponent
                 .imageLoader()
                 .loadImage(appComponent.application(),
                         ImageConfigImpl
                                 .builder()
-                                .url(ConstantUtil.IMAGE + url)
+                                .url(Constant.IMAGE + url)
                                 .placeholder(R.drawable.img_default)
                                 .errorPic(R.drawable.img_default)
                                 .imageView(imageView)
@@ -67,13 +67,13 @@ public class ImageLoaderUtils {
      * @param imageView
      */
     public static void loadCirImg(AppComponent appComponent, String url, ImageView imageView) {
-        L.i(ConstantUtil.IMAGE + url);
+        L.i(Constant.IMAGE + url);
         appComponent
                 .imageLoader()
                 .loadImage(appComponent.application(),
                         ImageConfigImpl
                                 .builder()
-                                .url(ConstantUtil.IMAGE + url)
+                                .url(Constant.IMAGE + url)
                                 .transformation(new CircleCrop())
                                 .placeholder(R.drawable.img_default)
                                 .errorPic(R.drawable.img_default)

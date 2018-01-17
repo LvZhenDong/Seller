@@ -20,18 +20,20 @@
         android:paddingRight="10dp">
 
         <TextView
-            android:id="@+id/tv_status_shop"
+            android:id="@+id/tv_shop_status"
             style="@style/TvShopStatus"
             android:layout_alignParentRight="true"
-            android:drawableTop="@drawable/ic_shop"
-            android:text="营业中" />
+            android:drawableTop="@drawable/ic_shop_gray"
+            android:textColor="@color/gray_bd"
+            android:text="休息中" />
 
         <TextView
-            android:id="@+id/tv_status_bind"
+            android:id="@+id/tv_printer_status"
             style="@style/TvShopStatus"
             android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@id/tv_status_shop"
-            android:drawableTop="@drawable/ic_bind"
+            android:layout_toLeftOf="@id/tv_shop_status"
+            android:drawableTop="@drawable/ic_printer_gray"
+            android:textColor="@color/gray_bd"
             android:text="未绑定" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -52,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/view_center"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/tv_status_bind"
+            android:layout_toLeftOf="@id/tv_printer_status"
             android:layout_toRightOf="@id/iv_head"
             android:ellipsize="end"
             android:padding="3dp"

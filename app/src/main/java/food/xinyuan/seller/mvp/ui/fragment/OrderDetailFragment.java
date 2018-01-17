@@ -1,14 +1,11 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
-import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,8 +18,6 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdate;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.UiSettings;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
@@ -30,8 +25,6 @@ import com.amap.api.maps2d.model.MarkerOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,7 +36,7 @@ import food.xinyuan.seller.app.data.bean.response.OrderActivitys;
 import food.xinyuan.seller.app.data.bean.response.OrderGoods;
 import food.xinyuan.seller.app.data.bean.response.RiderLocation;
 import food.xinyuan.seller.app.utils.CommonUtils;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.XDateUtils;
 import food.xinyuan.seller.di.component.DaggerOrderDetailComponent;
 import food.xinyuan.seller.di.module.OrderDetailModule;
@@ -116,7 +109,7 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
         OrderDetailFragment fragment = new OrderDetailFragment();
         fragment.mOrder = order;
         fragment.mId=order.getOrderId();
-        fragment.isGetGeoInfo = TextUtils.equals(order.getOrderStatus(), ConstantUtil.ORDER_STATUS_SHIPPING);
+        fragment.isGetGeoInfo = TextUtils.equals(order.getOrderStatus(), Constant.ORDER_STATUS_SHIPPING);
         return fragment;
     }
 
@@ -221,11 +214,11 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
         mOrder = order;
 
         //配送中或者已经完成显示骑手信息
-        if(TextUtils.equals(order.getOrderStatus(), ConstantUtil.ORDER_STATUS_SHIPPING) ||
-                TextUtils.equals(order.getOrderStatus(), ConstantUtil.ORDER_STATUS_FINISHED)){
+        if(TextUtils.equals(order.getOrderStatus(), Constant.ORDER_STATUS_SHIPPING) ||
+                TextUtils.equals(order.getOrderStatus(), Constant.ORDER_STATUS_FINISHED)){
             rlRider.setVisibility(View.VISIBLE);
             //配送中显示地图且调用获取经纬度接口
-            if(TextUtils.equals(order.getOrderStatus(), ConstantUtil.ORDER_STATUS_SHIPPING)){
+            if(TextUtils.equals(order.getOrderStatus(), Constant.ORDER_STATUS_SHIPPING)){
                 isGetGeoInfo=true;
                 rlMap.setVisibility(View.VISIBLE);
             }
@@ -242,7 +235,7 @@ public class OrderDetailFragment extends AbstractMyBaseFragment<OrderDetailPrese
         tvTime.setText(order.getAddTimeStr());
         tvPrice.setText("¥" + order.getOrderPrice());
         tvContent.setText(order.getOrderContent());
-        if (TextUtils.equals(order.getOrderStatus(), ConstantUtil.ORDER_STATUS_CANCELED)) {   //已取消的显示取消原因
+        if (TextUtils.equals(order.getOrderStatus(), Constant.ORDER_STATUS_CANCELED)) {   //已取消的显示取消原因
 
             tvCancelType.setVisibility(View.VISIBLE);
             tvStatus.setTextColor(getResources().getColor(R.color.tv_red));

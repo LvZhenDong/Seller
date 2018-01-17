@@ -3,7 +3,7 @@ package food.xinyuan.seller.app.data.bean.request;
 import java.util.ArrayList;
 import java.util.List;
 
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DataUtils;
 
 /**
@@ -72,7 +72,7 @@ public class AddGoods {
             this.goodsContent = goodsContent;
             this.goodsImgUrl = goodsImgUrl;
             this.goodsName = goodsName;
-            this.goodsStatus = isPutOn? ConstantUtil.PUTAWAY:ConstantUtil.SOLD_OUT;
+            this.goodsStatus = isPutOn? Constant.PUTAWAY: Constant.SOLD_OUT;
         }
 
         /**

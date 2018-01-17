@@ -19,7 +19,7 @@ import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.request.LoginRequest;
 import food.xinyuan.seller.app.data.bean.response.LoginResponse;
 import food.xinyuan.seller.app.data.bean.response.SellerInfo;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.MySharePreferencesManager;
 import food.xinyuan.seller.mvp.contract.LoginContract;
@@ -60,9 +60,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
 
     public void sendVerCode(String phone) {
         if (DataUtils.isEmpty(phone)) {
-            mRootView.showSnackbarMsg(R.string.emptyPhone, ConstantUtil.SNACK_WARING);
+            mRootView.showSnackbarMsg(R.string.emptyPhone, Constant.SNACK_WARING);
         } else if (!DataUtils.checkMobile(phone)) {
-            mRootView.showSnackbarMsg(R.string.errorPhone, ConstantUtil.SNACK_WARING);
+            mRootView.showSnackbarMsg(R.string.errorPhone, Constant.SNACK_WARING);
         } else {
             mModel.getCode(phone)
                     .subscribeOn(Schedulers.io())
@@ -80,7 +80,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
                         @Override
                         public void onNext(HttpResponseData<String> stringHttpResponseData) {
                             mRootView.sendVerCodeSuc();
-                            mRootView.showSnackbarMsg(R.string.send_ver_code_success, ConstantUtil.SNACK_NORMAL);
+                            mRootView.showSnackbarMsg(R.string.send_ver_code_success, Constant.SNACK_NORMAL);
                         }
                     });
         }
@@ -89,9 +89,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
 
     public void login(String phone, String verCode) {
         if (DataUtils.isEmpty(phone)) {
-            mRootView.showSnackbarMsg(R.string.emptyPhone, ConstantUtil.SNACK_WARING);
+            mRootView.showSnackbarMsg(R.string.emptyPhone, Constant.SNACK_WARING);
         } else if (!DataUtils.checkMobile(phone)) {
-            mRootView.showSnackbarMsg(R.string.errorPhone, ConstantUtil.SNACK_WARING);
+            mRootView.showSnackbarMsg(R.string.errorPhone, Constant.SNACK_WARING);
         } else {
             mRootView.hideKeyboard();
             LoginRequest loginRequest = new LoginRequest(phone, verCode);

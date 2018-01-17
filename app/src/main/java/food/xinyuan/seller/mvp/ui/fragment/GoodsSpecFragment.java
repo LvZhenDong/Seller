@@ -22,7 +22,7 @@ import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
 import food.xinyuan.seller.app.utils.CommonUtils;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 
 
 public class GoodsSpecFragment extends AbstractMyBaseFragment {
@@ -114,15 +114,15 @@ public class GoodsSpecFragment extends AbstractMyBaseFragment {
         String boxCount = etBoxCount.getText().toString().trim();
         String boxPrice = etBoxPrice.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-            ArmsUtils.snackbarText("请输入规格名称", ConstantUtil.SNACK_WARING);
+            ArmsUtils.snackbarText("请输入规格名称", Constant.SNACK_WARING);
         } else if (TextUtils.isEmpty(price)) {
-            ArmsUtils.snackbarText("请输入规格价格", ConstantUtil.SNACK_WARING);
+            ArmsUtils.snackbarText("请输入规格价格", Constant.SNACK_WARING);
         } else if (!swInventory.isChecked() && TextUtils.isEmpty(inventory)) {
-            ArmsUtils.snackbarText("请输入库存数量", ConstantUtil.SNACK_WARING);
+            ArmsUtils.snackbarText("请输入库存数量", Constant.SNACK_WARING);
         } else if (TextUtils.isEmpty(boxCount)) {
-            ArmsUtils.snackbarText("请输入餐盒数量", ConstantUtil.SNACK_WARING);
+            ArmsUtils.snackbarText("请输入餐盒数量", Constant.SNACK_WARING);
         } else if (TextUtils.isEmpty(boxPrice)) {
-            ArmsUtils.snackbarText("请输入餐盒价格", ConstantUtil.SNACK_WARING);
+            ArmsUtils.snackbarText("请输入餐盒价格", Constant.SNACK_WARING);
         } else if (mSpec != null) {
             //修改
             mSpec.setGoodsSpecificationName(name);

@@ -7,7 +7,7 @@ import android.os.Environment;
  * Description
  */
 
-public class ConstantUtil {
+public class Constant {
 
     public static final String IMAGE = "http://uploads.test.gongxiangdiancan.com";
 
@@ -35,7 +35,11 @@ public class ConstantUtil {
     public static final String ACTIVITY_TYPE_SALE = "SALE";//折
     public static final String ACTIVITY_TYPE_DELGOLD = "DELGOLD";//减
     public static final String ACTIVITY_TYPE_FIRST = "FIRST";//首
-    public static final String ACTIVITY_TYPE_SPECIFIC="SPECIFIC";//其
+    public static final String ACTIVITY_TYPE_SPECIFIC = "SPECIFIC";//其
+
+    //打印机状态
+    public static final String PRINTER_STATUS_ONLINE = "ONLINE";    //在线
+    public static final String PRINTER_STATUS_UNBIND = "UNBIND";    //未绑定
 
     /**
      * APP文件及缓存路径

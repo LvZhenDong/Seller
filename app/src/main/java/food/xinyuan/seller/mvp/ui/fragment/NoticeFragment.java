@@ -1,7 +1,6 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -26,13 +24,12 @@ import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.Notice;
 import food.xinyuan.seller.app.utils.CommonUtils;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DialogUtils;
 import food.xinyuan.seller.di.component.DaggerNoticeComponent;
 import food.xinyuan.seller.di.module.NoticeModule;
 import food.xinyuan.seller.mvp.contract.NoticeContract;
 import food.xinyuan.seller.mvp.presenter.NoticePresenter;
-import food.xinyuan.seller.mvp.ui.widgets.LastDecoration;
 import food.xinyuan.seller.mvp.ui.widgets.NormalDecoration;
 
 /**
@@ -140,12 +137,12 @@ public class NoticeFragment extends AbstractMyBaseFragment<NoticePresenter> impl
 
     @Override
     public void noMoreData() {
-        ArmsUtils.snackbarText("没有更多数据", ConstantUtil.SNACK_WARING);
+        ArmsUtils.snackbarText("没有更多数据", Constant.SNACK_WARING);
     }
 
     @Override
     public void noData() {
-        ArmsUtils.snackbarText("没有数据", ConstantUtil.SNACK_WARING);
+        ArmsUtils.snackbarText("没有数据", Constant.SNACK_WARING);
     }
 
     @Override

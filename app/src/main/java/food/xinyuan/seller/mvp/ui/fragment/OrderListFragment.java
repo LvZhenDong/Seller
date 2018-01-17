@@ -25,14 +25,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.Order;
 import food.xinyuan.seller.app.data.event.EventConstant;
 import food.xinyuan.seller.app.data.event.SellerEvent;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DialogUtils;
 import food.xinyuan.seller.di.component.DaggerOrderListComponent;
 import food.xinyuan.seller.di.module.OrderListModule;
@@ -197,12 +195,12 @@ public class OrderListFragment extends AbstractMyBaseFragment<OrderListPresenter
 
     @Override
     public void noMoreData() {
-        ArmsUtils.snackbarText("没有更多数据", ConstantUtil.SNACK_WARING);
+        ArmsUtils.snackbarText("没有更多数据", Constant.SNACK_WARING);
     }
 
     @Override
     public void noData() {
-        ArmsUtils.snackbarText("没有数据", ConstantUtil.SNACK_WARING);
+        ArmsUtils.snackbarText("没有数据", Constant.SNACK_WARING);
     }
 
     @Override

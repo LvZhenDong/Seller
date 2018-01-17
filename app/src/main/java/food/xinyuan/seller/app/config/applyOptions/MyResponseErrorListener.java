@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.jess.arms.utils.ArmsUtils;
 
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import me.jessyan.rxerrorhandler.handler.listener.ResponseErrorListener;
 import retrofit2.HttpException;
 import timber.log.Timber;
@@ -25,6 +25,6 @@ public class MyResponseErrorListener implements ResponseErrorListener {
         if (t instanceof RuntimeException) {
             Timber.e("运行错误" + t.getMessage());
         }
-        ArmsUtils.snackbarText(t.getMessage(), ConstantUtil.SNACK_ERROR);
+        ArmsUtils.snackbarText(t.getMessage(), Constant.SNACK_ERROR);
     }
 }

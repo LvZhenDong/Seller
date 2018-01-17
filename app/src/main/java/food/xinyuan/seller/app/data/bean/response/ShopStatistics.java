@@ -1,5 +1,9 @@
 package food.xinyuan.seller.app.data.bean.response;
 
+import android.text.TextUtils;
+
+import food.xinyuan.seller.app.utils.Constant;
+
 /**
  * <p>
  * Description：店铺统计数据
@@ -32,6 +36,21 @@ public class ShopStatistics {
     private double amountWithdrawal;
     private String printerStatus;
     private boolean operatingState;
+
+    public String getPrinterStatusStr(){
+        if(TextUtils.equals(printerStatus, Constant.PRINTER_STATUS_ONLINE)){
+            return "在线";
+        }else if(TextUtils.equals(printerStatus, Constant.PRINTER_STATUS_UNBIND)){
+            return "未绑定";
+        }else {
+            //TODO 除了ONLINE UNBIND还有其他字段吗？
+            return "离线";
+        }
+    }
+
+    public boolean isPrinterOnLine(){
+        return TextUtils.equals(printerStatus, Constant.PRINTER_STATUS_ONLINE);
+    }
 
     public int getShopId() {
         return shopId;

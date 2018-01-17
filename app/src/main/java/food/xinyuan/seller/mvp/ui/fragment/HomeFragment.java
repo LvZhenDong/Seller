@@ -45,10 +45,10 @@ import food.xinyuan.seller.mvp.presenter.HomePresenter;
 
 public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implements HomeContract
         .View {
-    @BindView(R.id.tv_status_shop)
-    TextView tvStatusShop;
-    @BindView(R.id.tv_status_bind)
-    TextView tvStatusBind;
+    @BindView(R.id.tv_shop_status)
+    TextView tvShopStatus;
+    @BindView(R.id.tv_printer_status)
+    TextView tvPrinterStatus;
     @BindView(R.id.iv_head)
     ImageView ivHead;
     @BindView(R.id.tv_user_name)
@@ -120,8 +120,8 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refresh(String event){
-        if(TextUtils.equals(event, EventConstant.UPDATE_HOME)){
+    public void refresh(String event) {
+        if (TextUtils.equals(event, EventConstant.UPDATE_HOME)) {
             mPresenter.getInitData();
         }
     }
@@ -233,13 +233,37 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
             tvYesterdayOrderQuantity.setText("昨日" + shopStatistics.getYesterdayOrderQuantity());
             tvBalance.setText(shopStatistics.getAvailableBalance() + "");
             tvDrawal.setText("可提现" + shopStatistics.getAmountWithdrawal());
+
+            //设置店铺状态，打印机状态
+            int colorOnline = getResources().getColor(R.color.bold_green);
+            int colorOffline = getResources().getColor(R.color.gray_bd);
+            Drawable printerDrawable = getResources().getDrawable(R.drawable.ic_printer);
+            printerDrawable.setBounds(0, 0, printerDrawable.getMinimumWidth(), printerDrawable.getMinimumHeight());
+            Drawable printerGrayDrawable = getResources().getDrawable(R.drawable.ic_printer_gray);
+            printerGrayDrawable.setBounds(0, 0, printerDrawable.getMinimumWidth(), printerDrawable.getMinimumHeight());
+            Drawable shopDrawable = getResources().getDrawable(R.drawable.ic_shop);
+            shopDrawable.setBounds(0, 0, printerDrawable.getMinimumWidth(), printerDrawable.getMinimumHeight());
+            Drawable shopGrayDrawable = getResources().getDrawable(R.drawable.ic_shop_gray);
+            shopGrayDrawable.setBounds(0, 0, printerDrawable.getMinimumWidth(), printerDrawable.getMinimumHeight());
+
+            tvPrinterStatus.setText(shopStatistics.getPrinterStatusStr());
+            tvPrinterStatus.setTextColor(shopStatistics.isPrinterOnLine() ? colorOnline : colorOffline);
+            tvPrinterStatus.setCompoundDrawables(null,
+                    (shopStatistics.isPrinterOnLine() ? printerDrawable : printerGrayDrawable),
+                    null, null);
+
+            tvShopStatus.setText(shopStatistics.isOperatingState() ? "营业中" : "休息中");
+            tvShopStatus.setTextColor(shopStatistics.isOperatingState() ? colorOnline : colorOffline);
+            tvShopStatus.setCompoundDrawables(null,
+                    (shopStatistics.isOperatingState() ? shopDrawable : shopGrayDrawable),
+                    null, null);
         }
 
     }
 
     @Override
     public void refreshTokenSuc(List<SellerInfo.ShopListBean> list) {
-        mList=list;
+        mList = list;
     }
 
     @Override
@@ -248,15 +272,11 @@ public class HomeFragment extends AbstractMyBaseFragment<HomePresenter> implemen
         tvUserName.setText(shopDetail.getShopName());
     }
 
-    @OnClick({R.id.tv_status_shop, R.id.tv_status_bind, R.id.tv_check_info})
+    @OnClick({R.id.tv_check_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_status_shop:
-                break;
-            case R.id.tv_status_bind:
-                break;
             case R.id.tv_check_info:
-                start(ShopChooseFragment.newInstance(mList,false));
+                start(ShopChooseFragment.newInstance(mList, false));
                 break;
         }
     }

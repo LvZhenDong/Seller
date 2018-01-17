@@ -9,7 +9,7 @@ import com.alibaba.android.arouter.facade.template.IInterceptor;
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import food.xinyuan.seller.app.ARouterPaths;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DataUtils;
 
 
@@ -25,7 +25,7 @@ public class ARouterInterceptor implements IInterceptor {
     @Override
     public void process(Postcard postcard, InterceptorCallback callback) {
         switch (postcard.getExtra()) {
-            case ConstantUtil.SHOULD_LOGIN:
+            case Constant.SHOULD_LOGIN:
                 if (DataUtils.checkToken(mContext)) {
                     callback.onContinue(postcard);
                 } else {

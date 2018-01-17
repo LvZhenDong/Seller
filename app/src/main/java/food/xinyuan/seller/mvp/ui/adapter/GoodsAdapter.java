@@ -1,6 +1,5 @@
 package food.xinyuan.seller.mvp.ui.adapter;
 
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,7 +9,6 @@ import com.jess.arms.di.component.AppComponent;
 
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.data.bean.response.Goods;
-import food.xinyuan.seller.app.utils.ConstantUtil;
 import food.xinyuan.seller.app.utils.ImageLoaderUtils;
 
 /**

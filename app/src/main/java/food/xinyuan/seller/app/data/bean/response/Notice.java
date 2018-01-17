@@ -4,7 +4,7 @@ import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 
 import food.xinyuan.seller.R;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.XDateUtils;
 
 /**
@@ -39,11 +39,11 @@ public class Notice {
      * @return
      */
     public @DrawableRes int getStatusResId() {
-        if (TextUtils.equals(contentType, ConstantUtil.NOTICE_ORDER_STATUS_CANCEL))
+        if (TextUtils.equals(contentType, Constant.NOTICE_ORDER_STATUS_CANCEL))
             return R.drawable.ic_order_cancel;
-        else if (TextUtils.equals(contentType, ConstantUtil.NOTICE_ORDER_STATUS_CREATE))
+        else if (TextUtils.equals(contentType, Constant.NOTICE_ORDER_STATUS_CREATE))
             return R.drawable.ic_order_create;
-        else if(TextUtils.equals(contentType,ConstantUtil.NOTICE_ORDER_STATUS_FINISHED))
+        else if(TextUtils.equals(contentType, Constant.NOTICE_ORDER_STATUS_FINISHED))
             return R.drawable.ic_order_finished;
         else
             return R.drawable.ic_notice;

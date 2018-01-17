@@ -18,7 +18,7 @@ import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Coupon;
 import food.xinyuan.seller.app.data.bean.response.ShopActivity;
 import food.xinyuan.seller.app.data.event.EventConstant;
-import food.xinyuan.seller.app.utils.ConstantUtil;
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.RequestUtils;
 import food.xinyuan.seller.app.utils.XDateUtils;
@@ -84,7 +84,7 @@ public class ActivityComplimentaryPresenter extends BasePresenter<ActivityCompli
             int count = new Integer(countStr);
             int couponId = list.get(selectedCoupon).getCouponId();
 
-            ShopActivity shopActivity = new ShopActivity(ConstantUtil.ACTIVITY_TYPE_COMPLIMENTARY,
+            ShopActivity shopActivity = new ShopActivity(Constant.ACTIVITY_TYPE_COMPLIMENTARY,
                     XDateUtils.string2Millis(startTime, "yyyy-MM-dd"),
                     XDateUtils.string2Millis(endTime, "yyyy-MM-dd"),
                     new ShopActivity.ActivityContentBean(couponId, min, count,
@@ -148,7 +148,7 @@ public class ActivityComplimentaryPresenter extends BasePresenter<ActivityCompli
             int count = new Integer(countStr);
             int couponId = list.get(selectedCoupon).getCouponId();
 
-            ShopActivity shopActivity = new ShopActivity(ConstantUtil.ACTIVITY_TYPE_COMPLIMENTARY,
+            ShopActivity shopActivity = new ShopActivity(Constant.ACTIVITY_TYPE_COMPLIMENTARY,
                     XDateUtils.string2Millis(startTime, "yyyy-MM-dd"),
                     XDateUtils.string2Millis(endTime, "yyyy-MM-dd"),
                     new ShopActivity.ActivityContentBean(couponId, min, count,
