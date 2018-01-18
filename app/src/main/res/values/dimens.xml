@@ -63,6 +63,7 @@
     <dimen name="margin_small">5dp</dimen>
     <dimen name="margin_top">15dp</dimen>
     <dimen name="margin_top_normal">10dp</dimen>
+    <dimen name="margin_spe">1dp</dimen>
 
     <dimen name="padding_hor">10dp</dimen>
 

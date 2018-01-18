@@ -1,7 +1,11 @@
 package food.xinyuan.seller.app.data.bean.response;
 
+import android.text.TextUtils;
+import android.widget.TextView;
+
 import java.util.List;
 
+import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.XDateUtils;
 
 /**
@@ -351,6 +355,10 @@ public class ShopDetail {
 
     public String getShopType() {
         return shopType;
+    }
+
+    public String getShopTypeStr(){
+        return TextUtils.equals(shopType, Constant.SHOP_TYPE_TAKEOUT)?"外卖":"预约";
     }
 
     public void setShopType(String shopType) {

@@ -86,6 +86,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:layout_marginTop="2dp"
                                 android:id="@+id/tv_time_hint"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -100,10 +101,11 @@
                                 android:layout_alignBottom="@id/tv_time_hint"
                                 android:layout_marginLeft="20dp"
                                 android:layout_toRightOf="@id/tv_time_hint"
-                                android:text="2018-01-08 15:29:34"
+                                android:text=""
                                 android:textSize="@dimen/tv_light" />
 
                             <TextView
+                                android:layout_marginTop="2dp"
                                 android:id="@+id/tv_price_hint"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -119,11 +121,12 @@
                                 android:layout_alignBottom="@id/tv_price_hint"
                                 android:layout_marginLeft="20dp"
                                 android:layout_toRightOf="@id/tv_price_hint"
-                                android:text="Y21"
+                                android:text="Y"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/tv_light" />
 
                             <TextView
+                                android:layout_marginTop="2dp"
                                 android:id="@+id/tv_content_hint"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -140,7 +143,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="40dp"
                                 android:layout_toRightOf="@id/tv_content_hint"
-                                android:text="无通威国际中心通威国际中心通威国际中心通威国际中心通威国际中心通威国际中心通威国际中心通威国际中心通威国际中心通威国际中心通威国际中心通威国际中心通威国际中心"
+                                android:text=""
                                 android:textSize="@dimen/tv_light" />
 
                         </RelativeLayout>
@@ -162,14 +165,14 @@
                         android:layout_alignBottom="@id/tv_address_hint"
                         android:layout_marginLeft="20dp"
                         android:layout_toRightOf="@id/tv_address_hint"
-                        android:text="同为轨迹中心" />
+                        android:text="" />
 
                     <TextView
                         android:id="@+id/tv_contact_phone"
                         style="@style/TvCardContent"
                         android:layout_alignLeft="@id/tv_address"
                         android:layout_below="@id/tv_address"
-                        android:text="1283182312838" />
+                        android:text="" />
 
                     <View
                         android:id="@+id/line2"

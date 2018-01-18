@@ -32,7 +32,9 @@ import food.xinyuan.seller.mvp.contract.GoodsCategoryManageContract;
 import food.xinyuan.seller.mvp.presenter.GoodsCategoryManagePresenter;
 import food.xinyuan.seller.mvp.ui.widgets.LastDecoration;
 
-
+/**
+ * 商品分类
+ */
 public class GoodsCategoryManageFragment extends AbstractMyBaseFragment<GoodsCategoryManagePresenter> implements GoodsCategoryManageContract.View {
 
 

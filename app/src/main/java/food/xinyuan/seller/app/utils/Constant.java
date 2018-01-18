@@ -18,6 +18,9 @@ public class Constant {
     public static final String PUTAWAY = "PUTAWAY"; //上架
     public static final String SOLD_OUT = "SOLD_OUT";   //下架
 
+    //店铺类型
+    public static final String SHOP_TYPE_TAKEOUT = "TAKEOUT";//外卖
+
     //通知状态
     public static final String NOTICE_ORDER_STATUS_CANCEL = "ORDER_CANCELLATION";  //订单取消
     public static final String NOTICE_ORDER_STATUS_CREATE = "ORDER_CREATE";        //新订单

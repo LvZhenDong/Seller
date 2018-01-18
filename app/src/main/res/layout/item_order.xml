@@ -20,6 +20,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:layout_marginTop="@dimen/margin_spe"
         android:id="@+id/tv_order_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,6 +61,7 @@
         android:layout_below="@id/line1">
 
         <TextView
+            android:layout_marginTop="@dimen/margin_spe"
             android:id="@+id/tv_contact_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +80,7 @@
             android:textSize="@dimen/tv_light" />
 
         <TextView
+            android:layout_marginTop="@dimen/margin_spe"
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,6 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:layout_marginTop="@dimen/margin_spe"
                 android:id="@+id/tv_time_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,6 +135,7 @@
                 android:textSize="@dimen/tv_light" />
 
             <TextView
+                android:layout_marginTop="@dimen/margin_spe"
                 android:id="@+id/tv_price_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -151,6 +156,7 @@
                 android:textSize="@dimen/tv_light" />
 
             <TextView
+                android:layout_marginTop="@dimen/margin_spe"
                 android:id="@+id/tv_type_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -170,6 +176,7 @@
                 android:textSize="@dimen/tv_light" />
 
             <TextView
+                android:layout_marginTop="@dimen/margin_spe"
                 android:id="@+id/tv_content_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -206,6 +213,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:layout_marginTop="@dimen/margin_spe"
                 android:id="@+id/rl_rider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -216,7 +224,7 @@
                     android:id="@+id/tv_rider_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/margin_spe"
                     android:text="骑手信息"
                     android:textColor="@color/tv_name"
                     android:textSize="@dimen/tv_Normal" />
@@ -238,7 +246,7 @@
                 android:gravity="right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="2dp">
 
                 <TextView
                     android:id="@+id/tv_print"

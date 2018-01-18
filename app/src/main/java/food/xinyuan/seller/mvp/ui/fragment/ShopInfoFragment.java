@@ -69,6 +69,8 @@ public class ShopInfoFragment extends AbstractMyBaseFragment<ShopInfoPresenter> 
     SwitchButton sbDrawInvoice;
     @BindView(R.id.rl_min_delivery_price)
     RelativeLayout rlMinDeliveryPrice;
+    @BindView(R.id.tv_type)
+    TextView tvType;
 
     MaterialDialog mDialog;
     ShopDetail mShopDetail;
@@ -121,7 +123,7 @@ public class ShopInfoFragment extends AbstractMyBaseFragment<ShopInfoPresenter> 
 
     @Override
     public void getShopInfoSuc(ShopDetail data) {
-        mShopDetail=data;
+        mShopDetail = data;
         tvOperating.setText(data.isOperatingState() ? "营业中" : "歇业中");
         sbOperating.setChecked(data.isOperatingState());
         tvShopName.setText(data.getShopName());
@@ -133,6 +135,7 @@ public class ShopInfoFragment extends AbstractMyBaseFragment<ShopInfoPresenter> 
         tvMinDeliveryPrice.setText(data.getMinDeliveryPrice() + "");
         tvDrawInvoice.setText(data.isCanDrawInvoice() ? "是" : "否");
         sbDrawInvoice.setChecked(data.isCanDrawInvoice());
+        tvType.setText(data.getShopTypeStr());
     }
 
     @Override
@@ -186,11 +189,12 @@ public class ShopInfoFragment extends AbstractMyBaseFragment<ShopInfoPresenter> 
 
     /**
      * 修改时间成功
+     *
      * @param data
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAddSpec(ChangeBusTime data) {
-        tvShopBusTime.setText(data.getBusBeginTime()+"-"+data.getBusEndTime());
+        tvShopBusTime.setText(data.getBusBeginTime() + "-" + data.getBusEndTime());
     }
 
 
@@ -212,8 +216,8 @@ public class ShopInfoFragment extends AbstractMyBaseFragment<ShopInfoPresenter> 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_shop_bus_time:
-                if(mShopDetail == null)return;
-                start(BusTimeFragment.newInstance(mShopDetail.getBusBeginTime(),mShopDetail.getBusEndTime()));
+                if (mShopDetail == null) return;
+                start(BusTimeFragment.newInstance(mShopDetail.getBusBeginTime(), mShopDetail.getBusEndTime()));
                 break;
             case R.id.rl_shop_bus_phone:    //更改联系方式
                 DialogUtils.inputDialog(getActivity(), "联系电话", "请输入联系电话", InputType

@@ -8,6 +8,8 @@ import com.jess.arms.mvp.BaseModel;
 
 import com.jess.arms.di.scope.ActivityScope;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import food.xinyuan.seller.app.api.service.GoodsService;
@@ -39,7 +41,7 @@ public class GoodsCategoryModel extends BaseModel implements GoodsCategoryContra
     }
 
     @Override
-    public Observable<HttpResponseData<ListResponse<GoodsCategory>>> getGoodsCategory() {
+    public Observable<HttpResponseData<List<GoodsCategory>>> getGoodsCategory() {
         //由于商品类型数量一般较少，所以这里一次加载所有的类型，不做分页
         return mRepositoryManager.obtainRetrofitService(GoodsService.class).getGoodsCategory(Integer.MAX_VALUE);
     }

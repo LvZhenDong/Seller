@@ -267,7 +267,6 @@
 
                 <TextView
                     android:id="@+id/tv_type"
-                    android:text="类型"
                     style="@style/TvItemHint"
                     android:textColor="@color/tv_name"/>
 

@@ -1,11 +1,15 @@
 package food.xinyuan.seller.mvp.presenter;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.utils.ArmsUtils;
+
+import java.util.List;
 
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
@@ -49,15 +53,20 @@ public class GoodsCategoryManagePresenter extends BasePresenter<GoodsCategoryMan
     public void getGoodsCategory() {
         mModel.getGoodsCategory()
                 .compose(TransFactory.commonTrans(mRootView))
-                .subscribe(new ErrorHandleSubscriber<ListResponse<GoodsCategory>>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<List<GoodsCategory>>(mErrorHandler) {
                     @Override
-                    public void onNext(ListResponse<GoodsCategory> data) {
-                        mRootView.getGoodsCategorySuc(data.getList());
+                    public void onNext(List<GoodsCategory> data) {
+                        mRootView.getGoodsCategorySuc(data);
                     }
                 });
     }
 
     public void addGoodsCategory(String name){
+        if(TextUtils.isEmpty(name)){
+            ArmsUtils.makeText(mApplication,"请输入分类名称");
+            return;
+        }
+
         mModel.addGoodsCategory(RequestUtils.getRequestBody(new GoodsCategory(name)))
                 .compose(TransFactory.commonTrans(mRootView))
                 .subscribe(new ErrorHandleSubscriber<GoodsCategory>(mErrorHandler) {

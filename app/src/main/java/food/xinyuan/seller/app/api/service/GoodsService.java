@@ -1,5 +1,7 @@
 package food.xinyuan.seller.app.api.service;
 
+import java.util.List;
+
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
@@ -30,7 +32,7 @@ public interface GoodsService {
      * 获取商品类型
      */
     @GET("/seller/goodsCategory")
-    Observable<HttpResponseData<ListResponse<GoodsCategory>>> getGoodsCategory(@Query("pageSize") int pageSize);
+    Observable<HttpResponseData<List<GoodsCategory>>> getGoodsCategory(@Query("pageSize") int pageSize);
 
     /**
      * 添加商品类型

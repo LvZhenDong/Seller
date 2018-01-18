@@ -7,6 +7,8 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import java.util.List;
+
 import food.xinyuan.seller.app.config.applyOptions.factory.TransFactory;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
@@ -49,10 +51,10 @@ public class GoodsCategoryPresenter extends BasePresenter<GoodsCategoryContract.
     public void getInitData() {
         mModel.getGoodsCategory()
                 .compose(TransFactory.commonTrans(mRootView))
-                .subscribe(new ErrorHandleSubscriber<ListResponse<GoodsCategory>>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<List<GoodsCategory>>(mErrorHandler) {
                     @Override
-                    public void onNext(ListResponse<GoodsCategory> data) {
-                        mRootView.getGoodsCategorySuc(data.getList());
+                    public void onNext(List<GoodsCategory> data) {
+                        mRootView.getGoodsCategorySuc(data);
                     }
                 });
     }
