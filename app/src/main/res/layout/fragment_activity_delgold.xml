@@ -56,7 +56,17 @@
             <View
                 style="@style/XYLine"
                 android:layout_alignParentBottom="true" />
+
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="match_parent"
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_light"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding_hor"
+            android:layout_height="@dimen/height_item" />
 
     </LinearLayout>
 

@@ -19,19 +19,6 @@ import java.util.Date;
  */
 public class TimePickerUtils {
 
-    private static TimePickerUtils instance;
-
-    private TimePickerUtils() {
-
-    }
-
-    public static TimePickerUtils getInstance() {
-        if (instance == null) {
-            instance = new TimePickerUtils();
-        }
-        return instance;
-    }
-
     private Date startDate = Calendar.getInstance().getTime();
     private Date endDate;
     //只显示年月日
