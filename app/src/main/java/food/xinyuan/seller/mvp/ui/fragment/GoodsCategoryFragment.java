@@ -50,9 +50,11 @@ public class GoodsCategoryFragment extends AbstractMyBaseFragment<GoodsCategoryP
     BaseQuickAdapter<GoodsCategory, BaseViewHolder> mAdapter;
 
     List<GoodsCategory> mList;
+    List<Long> mSelectedIds=new ArrayList<>();
 
-    public static GoodsCategoryFragment newInstance() {
+    public static GoodsCategoryFragment newInstance(List<Long> selectedIds) {
         GoodsCategoryFragment fragment = new GoodsCategoryFragment();
+        fragment.mSelectedIds=selectedIds;
         return fragment;
     }
 
@@ -83,6 +85,12 @@ public class GoodsCategoryFragment extends AbstractMyBaseFragment<GoodsCategoryP
             @Override
             protected void convert(BaseViewHolder helper, GoodsCategory item) {
                 helper.setText(R.id.rl_goods_category, item.getGoodsCategoryName());
+                for (Long id: mSelectedIds) {
+                    //将已选择的显示出来
+                    if(item.getGoodsCategoryId() == id)
+                        item.setChecked(true);
+                }
+
                 CheckBox checkBox = helper.getView(R.id.cb_goods_category);
                 checkBox.setButtonDrawable(isMax() ? R.drawable.ic_check_disable_selector : R.drawable.ic_check_selector);
                 checkBox.setChecked(item.isChecked());
@@ -100,12 +108,6 @@ public class GoodsCategoryFragment extends AbstractMyBaseFragment<GoodsCategoryP
 
         mPresenter.getInitData();
     }
-
-    @Override
-    public void setData(Object data) {
-
-    }
-
 
     @Override
     public void showLoading() {
@@ -141,7 +143,7 @@ public class GoodsCategoryFragment extends AbstractMyBaseFragment<GoodsCategoryP
     @OnClick(R.id.tv_ensure)
     public void onViewClicked() {
 
-        EventBus.getDefault().post(new GoodsCategoryEvent(getData()));
+        EventBus.getDefault().post(getData());
         pop();
     }
 

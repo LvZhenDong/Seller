@@ -4,15 +4,12 @@ import java.util.List;
 
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
-import food.xinyuan.seller.app.data.bean.request.AddGoods;
 import food.xinyuan.seller.app.data.bean.response.Appraise;
+import food.xinyuan.seller.app.data.bean.response.AppraiseStatistics;
 import food.xinyuan.seller.app.data.bean.response.Coupon;
-import food.xinyuan.seller.app.data.bean.response.Goods;
-import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
 import food.xinyuan.seller.app.data.bean.response.NewCustomer;
 import food.xinyuan.seller.app.data.bean.response.Printer;
 import food.xinyuan.seller.app.data.bean.response.SalesRank;
-import food.xinyuan.seller.app.data.bean.response.AppraiseStatistics;
 import food.xinyuan.seller.app.data.bean.response.ShopDetail;
 import food.xinyuan.seller.app.data.bean.response.ShopStatistics;
 import io.reactivex.Observable;
@@ -20,7 +17,6 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -143,79 +139,7 @@ public interface ShopService {
      */
     @PUT("/seller/printer")
     Observable<HttpResponseData<Printer>> addPrinter(@Body RequestBody json);
-    /**
-     * 获取商品类型
-     */
-    @GET("/seller/goodsCategory")
-    Observable<HttpResponseData<ListResponse<GoodsCategory>>> getGoodsCategory(@Query("pageSize") int pageSize);
 
-    /**
-     * 添加商品类型
-     * @param json
-     * @return
-     */
-    @PUT("/seller/goodsCategory")
-    Observable<HttpResponseData<GoodsCategory>> addGoodsCategory(@Body RequestBody json);
-
-    /**
-     * 删除商品类型
-     * @param id
-     * @return
-     */
-    @DELETE("/seller/goodsCategory/{goodsCategoryId}")
-    Observable<HttpResponseData> delGoodsCategory(@Path("goodsCategoryId") String id);
-
-    /**
-     * 获取商品列表
-     */
-    @GET("/seller/goods")
-    Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(@Query("goodsClassId") String
-                                                                           id,
-                                                                   @Query("pageId") int pageId);
-
-    /**
-     * 上传商品
-     *
-     * @param json
-     * @return
-     */
-    @PUT("/seller/goods")
-    Observable<HttpResponseData<AddGoods>> addGoods(@Body RequestBody json);
-
-    /**
-     * 获取商品详情
-     *
-     * @param json
-     * @return
-     */
-    @GET("/seller/goods")
-    Observable<HttpResponseData<Goods>> getGoods(@Body RequestBody json);
-
-    /**
-     * 下架商品
-     *
-     * @param json
-     * @return
-     */
-    @POST("/seller/goods/soldOut")
-    Observable<HttpResponseData> soldOutGoods(@Body RequestBody json);
-
-    /**
-     * 上架商品
-     *
-     * @param json
-     * @return
-     */
-    @POST("/seller/goods/putaway")
-    Observable<HttpResponseData> putawayGoods(@Body RequestBody json);
-
-    /**
-     * 删除商品
-     *
-     * @return
-     */
-    @DELETE("/seller/goods/{goodsId}")
-    Observable<HttpResponseData> deleteGoods(@Path("goodsId") String goodsId);
 
     /**
      * 获取红包list

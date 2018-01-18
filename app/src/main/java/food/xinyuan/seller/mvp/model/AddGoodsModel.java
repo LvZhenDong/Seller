@@ -13,9 +13,13 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import food.xinyuan.seller.app.api.service.CommService;
+import food.xinyuan.seller.app.api.service.GoodsService;
 import food.xinyuan.seller.app.api.service.ShopService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
+import food.xinyuan.seller.app.data.bean.request.UpdateGoods;
+import food.xinyuan.seller.app.data.bean.response.Goods;
+import food.xinyuan.seller.app.data.bean.response.GoodsDetail;
 import food.xinyuan.seller.app.data.bean.response.UploadFile;
 import food.xinyuan.seller.app.utils.RequestUtils;
 import food.xinyuan.seller.mvp.contract.AddGoodsContract;
@@ -49,7 +53,17 @@ public class AddGoodsModel extends BaseModel implements AddGoodsContract.Model {
 
     @Override
     public Observable<HttpResponseData<AddGoods>> addGoods(AddGoods addGoods) {
-        return mRepositoryManager.obtainRetrofitService(ShopService.class)
+        return mRepositoryManager.obtainRetrofitService(GoodsService.class)
                 .addGoods(RequestUtils.getRequestBody(addGoods));
+    }
+
+    @Override
+    public Observable<HttpResponseData<GoodsDetail>> getGoods(long goodsId) {
+        return mRepositoryManager.obtainRetrofitService(GoodsService.class).getGoods(goodsId);
+    }
+
+    @Override
+    public Observable<HttpResponseData<UpdateGoods>> updateGoods(long goodsId, UpdateGoods updateGoods) {
+        return mRepositoryManager.obtainRetrofitService(GoodsService.class).updateGoods(goodsId, RequestUtils.getRequestBody(updateGoods));
     }
 }

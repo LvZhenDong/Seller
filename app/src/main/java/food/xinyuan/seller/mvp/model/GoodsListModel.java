@@ -10,6 +10,7 @@ import com.jess.arms.di.scope.ActivityScope;
 
 import javax.inject.Inject;
 
+import food.xinyuan.seller.app.api.service.GoodsService;
 import food.xinyuan.seller.app.api.service.ShopService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
@@ -40,21 +41,21 @@ public class GoodsListModel extends BaseModel implements GoodsListContract.Model
 
     @Override
     public Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(String id,int pageId) {
-        return mRepositoryManager.obtainRetrofitService(ShopService.class).getGoodsList(id,pageId);
+        return mRepositoryManager.obtainRetrofitService(GoodsService.class).getGoodsList(id,pageId);
     }
 
     @Override
     public Observable<HttpResponseData> soldOutGoods(RequestBody json) {
-        return mRepositoryManager.obtainRetrofitService(ShopService.class).soldOutGoods(json);
+        return mRepositoryManager.obtainRetrofitService(GoodsService.class).soldOutGoods(json);
     }
 
     @Override
     public Observable<HttpResponseData>putawayGoods(RequestBody json) {
-        return mRepositoryManager.obtainRetrofitService(ShopService.class).putawayGoods(json);
+        return mRepositoryManager.obtainRetrofitService(GoodsService.class).putawayGoods(json);
     }
 
     @Override
     public Observable<HttpResponseData> deleteGoods(String id) {
-        return mRepositoryManager.obtainRetrofitService(ShopService.class).deleteGoods(id);
+        return mRepositoryManager.obtainRetrofitService(GoodsService.class).deleteGoods(id);
     }
 }

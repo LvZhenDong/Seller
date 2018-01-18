@@ -13,6 +13,10 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jess.arms.di.component.AppComponent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +77,7 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         tvHeaderCenter.setText(R.string.all_goods);
         CommonUtils.setBack(this, ivHeaderLeft);
 
@@ -84,8 +89,14 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
     }
 
     @Override
-    public void setData(Object data) {
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoadAddGoodsFragment(Goods goods){
+        start(AddGoodsFragment.newInstance(goods));
     }
 
     @Override
@@ -99,6 +110,8 @@ public class AllGoodsFragment extends AbstractMyBaseFragment<AllGoodsPresenter> 
         if (mDialog != null)
             mDialog.dismiss();
     }
+
+
 
     @Override
     public void getGoodsCategorySuc(List<GoodsCategory> data) {

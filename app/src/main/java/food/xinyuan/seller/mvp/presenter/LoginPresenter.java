@@ -7,6 +7,7 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
 
 import java.util.List;
@@ -60,9 +61,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
 
     public void sendVerCode(String phone) {
         if (DataUtils.isEmpty(phone)) {
-            mRootView.showSnackbarMsg(R.string.emptyPhone, Constant.SNACK_WARING);
+            ArmsUtils.snackbarText("请输入手机号码", Constant.SNACK_WARING);
         } else if (!DataUtils.checkMobile(phone)) {
-            mRootView.showSnackbarMsg(R.string.errorPhone, Constant.SNACK_WARING);
+            ArmsUtils.snackbarText("手机号码格式不正确，请检查", Constant.SNACK_WARING);
         } else {
             mModel.getCode(phone)
                     .subscribeOn(Schedulers.io())
@@ -80,7 +81,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
                         @Override
                         public void onNext(HttpResponseData<String> stringHttpResponseData) {
                             mRootView.sendVerCodeSuc();
-                            mRootView.showSnackbarMsg(R.string.send_ver_code_success, Constant.SNACK_NORMAL);
+                            ArmsUtils.snackbarText("验证码发送成功，请注意查收", Constant.SNACK_NORMAL);
                         }
                     });
         }
@@ -89,9 +90,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
 
     public void login(String phone, String verCode) {
         if (DataUtils.isEmpty(phone)) {
-            mRootView.showSnackbarMsg(R.string.emptyPhone, Constant.SNACK_WARING);
+            ArmsUtils.snackbarText("请输入手机号码", Constant.SNACK_WARING);
         } else if (!DataUtils.checkMobile(phone)) {
-            mRootView.showSnackbarMsg(R.string.errorPhone, Constant.SNACK_WARING);
+            ArmsUtils.snackbarText("手机号码格式不正确，请检查", Constant.SNACK_WARING);
         } else {
             mRootView.hideKeyboard();
             LoginRequest loginRequest = new LoginRequest(phone, verCode);

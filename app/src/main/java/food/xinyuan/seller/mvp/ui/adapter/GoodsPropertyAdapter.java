@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
+import food.xinyuan.seller.app.data.bean.response.GoodsProperty;
 
 /**
  *商品属性adapter
@@ -16,7 +17,7 @@ import food.xinyuan.seller.app.data.bean.request.AddGoods;
  * @author LvZhenDong
  *          created on 2018/1/4 20:50
  */
-public class GoodsPropertyAdapter extends BaseQuickAdapter<AddGoods.GoodsPropertysBean, BaseViewHolder> {
+public class GoodsPropertyAdapter extends BaseQuickAdapter<GoodsProperty, BaseViewHolder> {
 
 
     public GoodsPropertyAdapter(int layoutResId) {
@@ -24,7 +25,7 @@ public class GoodsPropertyAdapter extends BaseQuickAdapter<AddGoods.GoodsPropert
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AddGoods.GoodsPropertysBean item) {
+    protected void convert(BaseViewHolder helper, GoodsProperty item) {
         int pos = helper.getLayoutPosition();
         helper.setText(R.id.tv_title, "属性" + (pos + 1));
         helper.setText(R.id.tv_property_name,"属性名称："+item.getGoodsPropertyName());

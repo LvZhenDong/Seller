@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
-import food.xinyuan.seller.app.data.bean.request.AddGoods;
+import food.xinyuan.seller.app.data.bean.response.GoodsSpec;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.Constant;
 
@@ -51,14 +51,14 @@ public class GoodsSpecFragment extends AbstractMyBaseFragment {
     @BindView(R.id.tv_ensure)
     TextView tvEnsure;
 
-    AddGoods.AddSpecsBean mSpec;
+    GoodsSpec mSpec;
 
     public static GoodsSpecFragment newInstance() {
         GoodsSpecFragment fragment = new GoodsSpecFragment();
         return fragment;
     }
 
-    public static GoodsSpecFragment newInstance(AddGoods.AddSpecsBean bean) {
+    public static GoodsSpecFragment newInstance(GoodsSpec bean) {
         GoodsSpecFragment fragment = new GoodsSpecFragment();
         fragment.mSpec = bean;
         return fragment;
@@ -135,7 +135,7 @@ public class GoodsSpecFragment extends AbstractMyBaseFragment {
             pop();
         } else {
             //添加
-            EventBus.getDefault().post(new AddGoods.AddSpecsBean(swInventory.isChecked(),
+            EventBus.getDefault().post(new GoodsSpec(swInventory.isChecked(),
                     new Double(boxPrice),
                     new Integer(boxCount), name, new Double(price), swInventory.isChecked() ?
                     0 :

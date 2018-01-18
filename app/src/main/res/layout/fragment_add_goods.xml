@@ -156,26 +156,42 @@
                     style="@style/TvItemTitle"
                     android:text="商品状态"/>
 
-                <RadioGroup
-                    android:id="@+id/rg_status"
+
+                <TextView
+                    android:id="@+id/tv_status_hint"
+                    style="@style/TvItemHint"
+                    android:textColor="@color/tv_name"
+                    android:text="上架" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:checked="true"
+                    android:id="@+id/sb_status"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/tv_status_hint" />
 
-                    <android.support.v7.widget.AppCompatRadioButton
-                        android:id="@+id/rb_off"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="下架"/>
+                <!--<RadioGroup-->
+                    <!--android:id="@+id/rg_status"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <android.support.v7.widget.AppCompatRadioButton
-                        android:id="@+id/rb_on"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="上架"/>
-                </RadioGroup>
+                    <!--<android.support.v7.widget.AppCompatRadioButton-->
+                        <!--android:id="@+id/rb_off"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="下架"/>-->
+
+                    <!--<android.support.v7.widget.AppCompatRadioButton-->
+                        <!--android:id="@+id/rb_on"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="上架"/>-->
+                <!--</RadioGroup>-->
 
 
             </RelativeLayout>

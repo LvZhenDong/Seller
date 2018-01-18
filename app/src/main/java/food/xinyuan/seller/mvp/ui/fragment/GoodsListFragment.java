@@ -14,6 +14,8 @@ import com.jess.arms.utils.ArmsUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,10 +42,10 @@ public class GoodsListFragment extends AbstractMyBaseFragment<GoodsListPresenter
     GoodsAdapter mAdapter;
     AppComponent mAppComponent;
     MaterialDialog mDialog;
-    int mGroupId;
+    long mGroupId;
 
 
-    public static GoodsListFragment newInstance(int id) {
+    public static GoodsListFragment newInstance(long id) {
         GoodsListFragment fragment = new GoodsListFragment();
         fragment.mGroupId = id;
         return fragment;
@@ -80,7 +82,7 @@ public class GoodsListFragment extends AbstractMyBaseFragment<GoodsListPresenter
         mAdapter.setOnGoodsClickListener(new GoodsAdapter.OnGoodsClickListener() {
             @Override
             public void onEdit(Goods goods) {
-                start(AddGoodsFragment.newInstance(goods));
+                EventBus.getDefault().post(goods);
             }
 
             @Override

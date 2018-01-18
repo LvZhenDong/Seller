@@ -22,17 +22,17 @@ public class GoodsCategory implements Serializable {
      * sortOrder : 0
      */
 
-    private int goodsCategoryId;
+    private long goodsCategoryId;
     private String goodsCategoryName;
     private int sortOrder;
     //是否被选择
     private boolean checked;
 
-    public int getGoodsCategoryId() {
+    public long getGoodsCategoryId() {
         return goodsCategoryId;
     }
 
-    public void setGoodsCategoryId(int goodsCategoryId) {
+    public void setGoodsCategoryId(long goodsCategoryId) {
         this.goodsCategoryId = goodsCategoryId;
     }
 

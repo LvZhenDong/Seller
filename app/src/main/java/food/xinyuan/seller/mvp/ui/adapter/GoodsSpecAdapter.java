@@ -4,7 +4,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import food.xinyuan.seller.R;
-import food.xinyuan.seller.app.data.bean.request.AddGoods;
+import food.xinyuan.seller.app.data.bean.response.GoodsSpec;
 
 /**
  *商品规格adapter
@@ -12,13 +12,13 @@ import food.xinyuan.seller.app.data.bean.request.AddGoods;
  * @author LvZhenDong
  *          created on 2018/1/4 20:59
  */
-public class GoodsSpecAdapter extends BaseQuickAdapter<AddGoods.AddSpecsBean, BaseViewHolder> {
+public class GoodsSpecAdapter extends BaseQuickAdapter<GoodsSpec, BaseViewHolder> {
     public GoodsSpecAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AddGoods.AddSpecsBean item) {
+    protected void convert(BaseViewHolder helper, GoodsSpec item) {
         int position =  helper.getLayoutPosition();
         helper.setText(R.id.tv_title, "规格" + (position + 1));
         helper.setText(R.id.tv_spec_name, "规格名称：" + item.getGoodsSpecificationName());

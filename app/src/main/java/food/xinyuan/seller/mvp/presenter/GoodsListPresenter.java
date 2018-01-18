@@ -48,10 +48,10 @@ public class GoodsListPresenter extends BasePresenter<GoodsListContract.Model, G
         this.mApplication = null;
     }
 
-    int groupId;
+    long groupId;
     private int mPageId = 1;
 
-    public void refreshGoods(int categoryId){
+    public void refreshGoods(long categoryId){
         groupId=categoryId;
         mPageId=1;
         mModel.getGoodsList(categoryId + "",mPageId)
@@ -73,7 +73,7 @@ public class GoodsListPresenter extends BasePresenter<GoodsListContract.Model, G
                 });
     }
 
-    public void loadMoreGoods(int categoryId){
+    public void loadMoreGoods(long categoryId){
         mModel.getGoodsList(categoryId+"",mPageId)
                 .compose(TransFactory.noLoadingTrans(mRootView))
                 .doFinally(() -> {

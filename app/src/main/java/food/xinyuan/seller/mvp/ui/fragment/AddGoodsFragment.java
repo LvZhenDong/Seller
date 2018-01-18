@@ -2,7 +2,6 @@ package food.xinyuan.seller.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,7 +17,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.utils.ArmsUtils;
+import com.kyleduo.switchbutton.SwitchButton;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -36,14 +34,16 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
-import food.xinyuan.seller.app.data.bean.request.AddGoods;
 import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.GoodsCategory;
+import food.xinyuan.seller.app.data.bean.response.GoodsDetail;
+import food.xinyuan.seller.app.data.bean.response.GoodsProperty;
+import food.xinyuan.seller.app.data.bean.response.GoodsSpec;
 import food.xinyuan.seller.app.data.event.GoodsCategoryEvent;
 import food.xinyuan.seller.app.utils.CommonUtils;
+import food.xinyuan.seller.app.utils.DataUtils;
 import food.xinyuan.seller.app.utils.DialogUtils;
 import food.xinyuan.seller.app.utils.ImageLoaderUtils;
-import food.xinyuan.seller.app.utils.L;
 import food.xinyuan.seller.di.component.DaggerAddGoodsComponent;
 import food.xinyuan.seller.di.module.AddGoodsModule;
 import food.xinyuan.seller.mvp.contract.AddGoodsContract;
@@ -73,12 +73,10 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     ImageView ivAddImg;
     @BindView(R.id.et_name)
     EditText etName;
-    @BindView(R.id.rb_off)
-    AppCompatRadioButton rbOff;
-    @BindView(R.id.rb_on)
-    AppCompatRadioButton rbOn;
-    @BindView(R.id.rg_status)
-    RadioGroup rgStatus;
+    @BindView(R.id.sb_status)
+    SwitchButton sbStatus;
+    @BindView(R.id.tv_status_hint)
+    TextView tvStatusHint;
     @BindView(R.id.et_brief)
     EditText etBrief;
     @BindView(R.id.rl_goods_brief)
@@ -98,11 +96,11 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     String mImgStr;
     //上传网络图片后的地址
     String mImgUrl;
-    List<Integer> mCategoryList = new ArrayList<>();
-    List<AddGoods.GoodsPropertysBean> mGoodsPropertysBeans = new ArrayList<>();
-    List<AddGoods.AddSpecsBean> mSpecs = new ArrayList<>();
-    BaseQuickAdapter<AddGoods.AddSpecsBean, BaseViewHolder> mSpecAdapter;
-    BaseQuickAdapter<AddGoods.GoodsPropertysBean, BaseViewHolder> mPropertyAdapter;
+    List<Long> mCategorys = new ArrayList<>();
+    List<GoodsProperty> mGoodsPropertys = new ArrayList<>();
+    List<GoodsSpec> mSpecs = new ArrayList<>();
+    BaseQuickAdapter<GoodsSpec, BaseViewHolder> mSpecAdapter;
+    BaseQuickAdapter<GoodsProperty, BaseViewHolder> mPropertyAdapter;
 
     /**
      * 添加商品
@@ -139,19 +137,19 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        tvHeaderCenter.setText(R.string.add_goods);
 
-        rbOn.setChecked(true);
+
         mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
                 progress(true, 0).build();
 
         initRvProperty();
         initRvSpec();
-        if (mGoods != null) setDataIfEdit();
-    }
-
-    private void setDataIfEdit() {
-        //  TODO 编辑商品
+        if (mGoods != null) {
+            tvHeaderCenter.setText("编辑商品");
+            mPresenter.getGoods(mGoods.getGoodsId());
+        } else {
+            tvHeaderCenter.setText("添加商品");
+        }
     }
 
     /**
@@ -159,13 +157,13 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
      */
     private void initRvProperty() {
         mPropertyAdapter = new GoodsPropertyAdapter(R.layout.item_property);
-        mPropertyAdapter.setNewData(mGoodsPropertysBeans);
+        mPropertyAdapter.setNewData(mGoodsPropertys);
         mPropertyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            AddGoods.GoodsPropertysBean item = mPropertyAdapter.getItem(position);
+            GoodsProperty item = mPropertyAdapter.getItem(position);
             switch (view.getId()) {
                 //删除
                 case R.id.tv_del:
-                    mGoodsPropertysBeans.remove(item);
+                    mGoodsPropertys.remove(item);
                     mPropertyAdapter.notifyDataSetChanged();
                     break;
                 //修改
@@ -187,7 +185,7 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
         mSpecAdapter = new GoodsSpecAdapter(R.layout.item_spec);
         mSpecAdapter.setNewData(mSpecs);
         mSpecAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            AddGoods.AddSpecsBean item = mSpecAdapter.getItem(position);
+            GoodsSpec item = mSpecAdapter.getItem(position);
             switch (view.getId()) {
                 case R.id.tv_del:
                     mSpecs.remove(item);
@@ -205,12 +203,6 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     }
 
     @Override
-    public void setData(Object data) {
-
-    }
-
-
-    @Override
     public void showLoading() {
         if (mDialog != null)
             mDialog.show();
@@ -223,12 +215,12 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     }
 
     @OnClick({R.id.rl_goods_category, R.id.tv_goods_spec, R.id.iv_add_img, R.id.rl_goods_property,
-            R.id.tv_save, R.id.iv_header_left})
+            R.id.tv_save, R.id.iv_header_left, R.id.sb_status})
     public void onViewClicked(View view) {
         CommonUtils.hideSoftInput(getActivity());
         switch (view.getId()) {
             case R.id.rl_goods_category:
-                start(GoodsCategoryFragment.newInstance());
+                start(GoodsCategoryFragment.newInstance(mCategorys));
                 break;
             case R.id.tv_goods_spec:
                 start(GoodsSpecFragment.newInstance());
@@ -245,12 +237,22 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
                 startActivityForResult(imgIntent, REQUEST_IMAGE_PICKER);
                 break;
             case R.id.tv_save:
-                mPresenter.addGoods(etName.getText().toString().trim(), mImgUrl, etBrief.getText
-                                ().toString().trim(), rbOn.isChecked(),
-                        mCategoryList, mGoodsPropertysBeans, mSpecs);
+                if (mGoods == null) {
+                    mPresenter.addGoods(etName.getText().toString().trim(), mImgUrl,
+                            etBrief.getText().toString().trim(), sbStatus.isChecked(),
+                            mCategorys, mGoodsPropertys, mSpecs);
+                } else {
+                    mPresenter.updateGoods(mGoods.getGoodsId(), etName.getText().toString().trim(), mImgUrl,
+                            etBrief.getText().toString().trim(), sbStatus.isChecked(),
+                            mCategorys, mGoodsPropertys, mSpecs, mGoods);
+                }
+
                 break;
             case R.id.iv_header_left:
                 back();
+                break;
+            case R.id.sb_status:
+                tvStatusHint.setText(sbStatus.isChecked() ? "上架" : "下架");
                 break;
             default:
                 break;
@@ -271,15 +273,14 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     /**
      * 添加分类
      *
-     * @param event
+     * @param list
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAddCategory(GoodsCategoryEvent event) {
-        if (event.getList() != null) {
-            L.i(event.getList().size());
+    public void onAddCategory(List<GoodsCategory> list) {
+        if (!DataUtils.isEmpty(list)) {
             String category = "";
-            for (GoodsCategory item : event.getList()) {
-                mCategoryList.add(item.getGoodsCategoryId());
+            for (GoodsCategory item : list) {
+                mCategorys.add(item.getGoodsCategoryId());
                 category = category + (TextUtils.isEmpty(category) ? "" : "、") + item
                         .getGoodsCategoryName();
             }
@@ -293,11 +294,11 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
      * @param bean
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAddProperty(AddGoods.GoodsPropertysBean bean) {
+    public void onAddProperty(GoodsProperty bean) {
         if (bean.isUpdate()) {
-            mGoodsPropertysBeans.set(bean.getUpdatePos(), bean);
+            mGoodsPropertys.set(bean.getUpdatePos(), bean);
         } else {
-            mGoodsPropertysBeans.add(bean);
+            mGoodsPropertys.add(bean);
         }
         mPropertyAdapter.notifyDataSetChanged();
     }
@@ -308,7 +309,7 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
      * @param bean
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAddSpec(AddGoods.AddSpecsBean bean) {
+    public void onAddSpec(GoodsSpec bean) {
         if (bean.isUpdate()) {
             mSpecs.set(bean.getUpdatePos(), bean);
         } else {
@@ -346,16 +347,6 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     }
 
     @Override
-    public void showSnackbarMsg(String msg, int type) {
-        ArmsUtils.snackbarText(msg, type);
-    }
-
-    @Override
-    public void showSnackbarMsg(int msgId, int type) {
-        ArmsUtils.snackbarText(getString(msgId), type);
-    }
-
-    @Override
     public void addGoodsSuc() {
         pop();
     }
@@ -363,5 +354,26 @@ public class AddGoodsFragment extends AbstractMyBaseFragment<AddGoodsPresenter>
     @Override
     public void uploadImgSuc(String imgUrl) {
         mImgUrl = imgUrl;
+    }
+
+    @Override
+    public void getGoodsSuc(GoodsDetail goodsDetail) {
+        mGoods = goodsDetail.getGoods();
+        mImgUrl = mGoods.getGoodsImgUrl();
+        ImageLoaderUtils.loadImg(mAppComponent, mImgUrl, ivAddImg);
+        etName.setText(mGoods.getGoodsName());
+        //设置分类
+        mCategorys = goodsDetail.getGoodsCategoryIdList();
+        tvGoodsCategory.setText(mGoods.getGoodsClassNames());
+        //设置规格
+        mSpecs = mGoods.getGoodsSpecifications();
+        mSpecAdapter.setNewData(mSpecs);
+        //设置属性
+        mGoodsPropertys = mGoods.getGoodsPropertys();
+        mPropertyAdapter.setNewData(mGoodsPropertys);
+
+        sbStatus.setChecked(mGoods.isPutAway());
+        tvStatusHint.setText(mGoods.isPutAway() ? "上架" : "下架");
+        etBrief.setText(mGoods.getGoodsContent());
     }
 }

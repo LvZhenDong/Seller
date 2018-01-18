@@ -47,8 +47,8 @@ public class Goods {
     private String shopName;
     private boolean showSpecSelecter;
     private String goodsClassNames;
-    private List<GoodsSpecificationsBean> goodsSpecifications;
-    private List<GoodsPropertysBean> goodsPropertys;
+    private List<GoodsSpec> goodsSpecifications;
+    private List<GoodsProperty> goodsPropertys;
 
     public int getGoodsId() {
         return goodsId;
@@ -162,157 +162,19 @@ public class Goods {
         this.goodsClassNames = goodsClassNames;
     }
 
-    public List<GoodsSpecificationsBean> getGoodsSpecifications() {
+    public List<GoodsSpec> getGoodsSpecifications() {
         return goodsSpecifications;
     }
 
-    public void setGoodsSpecifications(List<GoodsSpecificationsBean> goodsSpecifications) {
-        this.goodsSpecifications = goodsSpecifications;
+    public void setGoodsSpecifications(List<GoodsSpec> goodsSpecs) {
+        this.goodsSpecifications = goodsSpecs;
     }
 
-    public List<GoodsPropertysBean> getGoodsPropertys() {
+    public List<GoodsProperty> getGoodsPropertys() {
         return goodsPropertys;
     }
 
-    public void setGoodsPropertys(List<GoodsPropertysBean> goodsPropertys) {
+    public void setGoodsPropertys(List<GoodsProperty> goodsPropertys) {
         this.goodsPropertys = goodsPropertys;
-    }
-
-    public static class GoodsSpecificationsBean {
-        /**
-         * goodsSpecificationId : 9055
-         * goodsId : 9055
-         * goodsSpecificationName :
-         * goodsSpecificationPrice : 15
-         * infiniteInventory : true
-         * boxesNumber : 1
-         * boxesMoney : 1
-         */
-
-        private int goodsSpecificationId;
-        private int goodsId;
-        private String goodsSpecificationName;
-        private double goodsSpecificationPrice;
-        private boolean infiniteInventory;
-        private int boxesNumber;
-        private double boxesMoney;
-
-        public int getGoodsSpecificationId() {
-            return goodsSpecificationId;
-        }
-
-        public void setGoodsSpecificationId(int goodsSpecificationId) {
-            this.goodsSpecificationId = goodsSpecificationId;
-        }
-
-        public int getGoodsId() {
-            return goodsId;
-        }
-
-        public void setGoodsId(int goodsId) {
-            this.goodsId = goodsId;
-        }
-
-        public String getGoodsSpecificationName() {
-            return goodsSpecificationName;
-        }
-
-        public void setGoodsSpecificationName(String goodsSpecificationName) {
-            this.goodsSpecificationName = goodsSpecificationName;
-        }
-
-        public double getGoodsSpecificationPrice() {
-            return goodsSpecificationPrice;
-        }
-
-        public void setGoodsSpecificationPrice(double goodsSpecificationPrice) {
-            this.goodsSpecificationPrice = goodsSpecificationPrice;
-        }
-
-        public boolean isInfiniteInventory() {
-            return infiniteInventory;
-        }
-
-        public void setInfiniteInventory(boolean infiniteInventory) {
-            this.infiniteInventory = infiniteInventory;
-        }
-
-        public int getBoxesNumber() {
-            return boxesNumber;
-        }
-
-        public void setBoxesNumber(int boxesNumber) {
-            this.boxesNumber = boxesNumber;
-        }
-
-        public double getBoxesMoney() {
-            return boxesMoney;
-        }
-
-        public void setBoxesMoney(double boxesMoney) {
-            this.boxesMoney = boxesMoney;
-        }
-    }
-
-    public static class GoodsPropertysBean {
-        /**
-         * goodsPropertyId : 234
-         * goodsId : 9055
-         * goodsPropertyName : 甜度
-         * goodsPropertyValueList : [{"value":"三分甜"},{"value":"正常甜"},{"value":"五分甜"},{"value":"无糖"}]
-         */
-
-        private int goodsPropertyId;
-        private int goodsId;
-        private String goodsPropertyName;
-        private List<GoodsPropertyValueListBean> goodsPropertyValueList;
-
-        public int getGoodsPropertyId() {
-            return goodsPropertyId;
-        }
-
-        public void setGoodsPropertyId(int goodsPropertyId) {
-            this.goodsPropertyId = goodsPropertyId;
-        }
-
-        public int getGoodsId() {
-            return goodsId;
-        }
-
-        public void setGoodsId(int goodsId) {
-            this.goodsId = goodsId;
-        }
-
-        public String getGoodsPropertyName() {
-            return goodsPropertyName;
-        }
-
-        public void setGoodsPropertyName(String goodsPropertyName) {
-            this.goodsPropertyName = goodsPropertyName;
-        }
-
-        public List<GoodsPropertyValueListBean> getGoodsPropertyValueList() {
-            return goodsPropertyValueList;
-        }
-
-        public void setGoodsPropertyValueList(List<GoodsPropertyValueListBean> goodsPropertyValueList) {
-            this.goodsPropertyValueList = goodsPropertyValueList;
-        }
-
-        public static class GoodsPropertyValueListBean {
-            /**
-             * value : 三分甜
-             */
-
-            private String value;
-
-            public String getValue() {
-                return value;
-            }
-
-            public void setValue(String value) {
-                this.value = value;
-            }
-        }
     }
 }

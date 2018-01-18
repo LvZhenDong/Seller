@@ -114,17 +114,6 @@ public class LoginActivity extends AbstractMyBaseActivity<LoginPresenter> implem
         }
     }
 
-
-    @Override
-    public void showSnackbarMsg(String msg, int type) {
-        ArmsUtils.snackbarText(msg, type);
-    }
-
-    @Override
-    public void showSnackbarMsg(int msgId, int type) {
-        ArmsUtils.snackbarText(getString(msgId), type);
-    }
-
     @Override
     public void hideKeyboard() {
         CommonUtils.toggleKeyboard(this);

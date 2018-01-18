@@ -28,6 +28,7 @@ import butterknife.OnClick;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.request.AddGoods;
+import food.xinyuan.seller.app.data.bean.response.GoodsProperty;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DataUtils;
@@ -53,7 +54,7 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
     @BindView(R.id.tv_ensure)
     TextView tvEnsure;
 
-    AddGoods.GoodsPropertysBean mProperty;
+    GoodsProperty mProperty;
     BaseQuickAdapter<String, BaseViewHolder> mAdapter;
 
     public static GoodsPropertyFragment newInstance() {
@@ -61,7 +62,7 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
         return fragment;
     }
 
-    public static GoodsPropertyFragment newInstance(AddGoods.GoodsPropertysBean bean) {
+    public static GoodsPropertyFragment newInstance(GoodsProperty bean) {
 
         GoodsPropertyFragment fragment = new GoodsPropertyFragment();
         fragment.mProperty = bean;
@@ -155,7 +156,7 @@ public class GoodsPropertyFragment extends AbstractMyBaseFragment {
                     pop();
 
                 }else{
-                    EventBus.getDefault().post(new AddGoods.GoodsPropertysBean(etName.getText()
+                    EventBus.getDefault().post(new GoodsProperty(etName.getText()
                             .toString().trim(),
                             mList));
                     pop();
