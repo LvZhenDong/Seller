@@ -8,10 +8,10 @@ import com.jess.arms.di.component.AppComponent;
 
 import food.xinyuan.seller.di.module.AppraiseListFragmentModule;
 
-import food.xinyuan.seller.mvp.ui.fragment.AppraiseListFragmentFragment;
+import food.xinyuan.seller.mvp.ui.fragment.AppraiseListFragment;
 
 @ActivityScope
 @Component(modules = AppraiseListFragmentModule.class, dependencies = AppComponent.class)
 public interface AppraiseListFragmentComponent {
-    void inject(AppraiseListFragmentFragment fragment);
+    void inject(AppraiseListFragment fragment);
 }

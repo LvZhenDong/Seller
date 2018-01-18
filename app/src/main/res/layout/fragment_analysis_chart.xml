@@ -9,48 +9,97 @@
     <include layout="@layout/view_header_tv_tv" />
 
     <ScrollView
-        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_search"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding_hor"
+                    android:paddingRight="@dimen/padding_hor"
+                    android:text="商品名称" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="@dimen/padding_hor"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_white_stroke_radius_5dp">
+
+
+                    <ImageView
+                        android:id="@+id/iv_search"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_search" />
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toLeftOf="@id/iv_search"
+                        android:background="@null"
+                        android:hint="请输入相关商品"
+                        android:singleLine="true"
+                        android:textSize="@dimen/tv_Regular" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
             <com.github.mikephil.charting.charts.LineChart
-                android:layout_margin="5dp"
                 android:id="@+id/lineChart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_margin="5dp"
                 android:background="@color/white" />
 
             <LinearLayout
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
                 <LinearLayout
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="日期"
-                        android:gravity="center"
-                        android:textSize="@dimen/tv_Blod"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="日期"
+                        android:textSize="@dimen/tv_Blod" />
 
                     <TextView
                         android:id="@+id/tv_count_tips"
-                        android:text="新客户数量"
-                        android:gravity="center"
-                        android:textSize="@dimen/tv_Blod"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text=""
+                        android:textSize="@dimen/tv_Blod" />
                 </LinearLayout>
 
                 <View style="@style/XYLine" />
@@ -58,28 +107,27 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:text="Tips:"
-                    android:textSize="@dimen/tv_Normal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/tv_Normal" />
+
                 <TextView
                     android:id="@+id/tv_tips"
-                    android:paddingLeft="10dp"
-                    android:text="新客户似的发射点发射点发生"
-                    android:textSize="@dimen/tv_Normal"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content" />
+                    android:paddingLeft="10dp"
+                    android:text=""
+                    android:textSize="@dimen/tv_Normal" />
             </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
-
-
 
 
 </LinearLayout>

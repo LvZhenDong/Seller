@@ -20,19 +20,19 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
 
-import food.xinyuan.seller.mvp.contract.AppraiseListFragmentContract;
+import food.xinyuan.seller.mvp.contract.AppraiseListContract;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 @ActivityScope
-public class AppraiseListFragmentPresenter extends BasePresenter<AppraiseListFragmentContract.Model, AppraiseListFragmentContract.View> {
+public class AppraiseListPresenter extends BasePresenter<AppraiseListContract.Model, AppraiseListContract.View> {
     private RxErrorHandler mErrorHandler;
     private Application mApplication;
     private ImageLoader mImageLoader;
     private AppManager mAppManager;
 
     @Inject
-    public AppraiseListFragmentPresenter(AppraiseListFragmentContract.Model model, AppraiseListFragmentContract.View rootView
+    public AppraiseListPresenter(AppraiseListContract.Model model, AppraiseListContract.View rootView
             , RxErrorHandler handler, Application application
             , ImageLoader imageLoader, AppManager appManager) {
         super(model, rootView);

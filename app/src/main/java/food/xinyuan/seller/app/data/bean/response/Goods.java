@@ -34,7 +34,7 @@ public class Goods {
      * goodsPropertys : [{"goodsPropertyId":234,"goodsId":9055,"goodsPropertyName":"甜度","goodsPropertyValueList":[{"value":"三分甜"},{"value":"正常甜"},{"value":"五分甜"},{"value":"无糖"}]},{"goodsPropertyId":235,"goodsId":9055,"goodsPropertyName":"加料","goodsPropertyValueList":[{"value":"X"},{"value":"加盐巴"},{"value":"加渣渣"}]},{"goodsPropertyId":236,"goodsId":9055,"goodsPropertyName":"fuck","goodsPropertyValueList":[{"value":"F"},{"value":"U"},{"value":"C"},{"value":"K"}]}]
      */
 
-    private int goodsId;
+    private Long goodsId;
     private int shopId;
     private String goodsName;
     private double goodsPrice;
@@ -50,11 +50,11 @@ public class Goods {
     private List<GoodsSpec> goodsSpecifications;
     private List<GoodsProperty> goodsPropertys;
 
-    public int getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(int goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 

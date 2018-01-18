@@ -98,7 +98,7 @@ public class GoodsListFragment extends AbstractMyBaseFragment<GoodsListPresenter
             }
 
             @Override
-            public void onDel(int goodsId,int pos) {
+            public void onDel(Long goodsId,int pos) {
                 DialogUtils.commonChooseDialog(getActivity(), "确定删除该商品?",
                         (dialog, which) -> mPresenter.delGoods(goodsId,pos)).show();
             }

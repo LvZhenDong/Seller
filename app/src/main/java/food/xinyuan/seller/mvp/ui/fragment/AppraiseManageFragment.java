@@ -15,14 +15,10 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.jess.arms.di.component.AppComponent;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
-import food.xinyuan.seller.app.data.bean.response.Appraise;
 import food.xinyuan.seller.app.data.bean.response.AppraiseStatistics;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.di.component.DaggerAppraiseManageComponent;
@@ -88,9 +84,9 @@ public class AppraiseManageFragment extends AbstractMyBaseFragment<AppraiseManag
 
         String[] strs={"全部评价","已回复","未回复"};
 
-        fragmentList.add(AppraiseListFragmentFragment.newInstance(0));
-        fragmentList.add(AppraiseListFragmentFragment.newInstance(1));
-        fragmentList.add(AppraiseListFragmentFragment.newInstance(2));
+        fragmentList.add(AppraiseListFragment.newInstance(0));
+        fragmentList.add(AppraiseListFragment.newInstance(1));
+        fragmentList.add(AppraiseListFragment.newInstance(2));
         ItemTitlePagerAdapter adapter=new ItemTitlePagerAdapter(getChildFragmentManager(),fragmentList,strs);
         vpAppraise.setAdapter(adapter);
         vpAppraise.setOffscreenPageLimit(3);

@@ -197,7 +197,7 @@ public interface ShopService {
      */
     @GET("/seller/analysis/goodsSales")
     Observable<HttpResponseData<List<NewCustomer>>> getGoodsSales(@Query("days") int days,
-                                                                  @Query("goodId") long goodsId);
+                                                                  @Query("goodId") Long goodsId);
 
     /**
      * 商品销售量排行

@@ -12,8 +12,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import food.xinyuan.seller.app.api.service.GoodsService;
 import food.xinyuan.seller.app.api.service.ShopService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
+import food.xinyuan.seller.app.data.bean.common.ListResponse;
+import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.NewCustomer;
 import food.xinyuan.seller.mvp.contract.AnalysisChartContract;
 import io.reactivex.Observable;
@@ -54,7 +57,12 @@ public class AnalysisChartModel extends BaseModel implements AnalysisChartContra
     }
 
     @Override
-    public Observable<HttpResponseData<List<NewCustomer>>> getGoodsSales(int days, long goodsId) {
+    public Observable<HttpResponseData<List<NewCustomer>>> getGoodsSales(int days, Long goodsId) {
         return mRepositoryManager.obtainRetrofitService(ShopService.class).getGoodsSales(days,goodsId);
+    }
+
+    @Override
+    public Observable<HttpResponseData<ListResponse<Goods>>> searchGoods(String name, int pageSize) {
+        return mRepositoryManager.obtainRetrofitService(GoodsService.class).searchGoods(name, pageSize);
     }
 }

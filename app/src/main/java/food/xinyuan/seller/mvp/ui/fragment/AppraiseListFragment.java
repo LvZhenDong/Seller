@@ -35,13 +35,13 @@ import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.DialogUtils;
 import food.xinyuan.seller.di.component.DaggerAppraiseListFragmentComponent;
 import food.xinyuan.seller.di.module.AppraiseListFragmentModule;
-import food.xinyuan.seller.mvp.contract.AppraiseListFragmentContract;
-import food.xinyuan.seller.mvp.presenter.AppraiseListFragmentPresenter;
+import food.xinyuan.seller.mvp.contract.AppraiseListContract;
+import food.xinyuan.seller.mvp.presenter.AppraiseListPresenter;
 
 import food.xinyuan.seller.mvp.ui.adapter.AppraiseAdapter;
 
 
-public class AppraiseListFragmentFragment extends AbstractMyBaseFragment<AppraiseListFragmentPresenter> implements AppraiseListFragmentContract.View {
+public class AppraiseListFragment extends AbstractMyBaseFragment<AppraiseListPresenter> implements AppraiseListContract.View {
 
     @BindView(R.id.rv_appraise_list)
     RecyclerView rvList;
@@ -57,8 +57,8 @@ public class AppraiseListFragmentFragment extends AbstractMyBaseFragment<Apprais
      */
     boolean hasShown;
 
-    public static AppraiseListFragmentFragment newInstance(int type) {
-        AppraiseListFragmentFragment fragment = new AppraiseListFragmentFragment();
+    public static AppraiseListFragment newInstance(int type) {
+        AppraiseListFragment fragment = new AppraiseListFragment();
         fragment.mType = type;
         return fragment;
     }

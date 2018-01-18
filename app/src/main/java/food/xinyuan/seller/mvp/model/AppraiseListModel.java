@@ -14,18 +14,18 @@ import food.xinyuan.seller.app.api.service.ShopService;
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
 import food.xinyuan.seller.app.data.bean.response.Appraise;
-import food.xinyuan.seller.mvp.contract.AppraiseListFragmentContract;
+import food.xinyuan.seller.mvp.contract.AppraiseListContract;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 
 
 @ActivityScope
-public class AppraiseListFragmentModel extends BaseModel implements AppraiseListFragmentContract.Model {
+public class AppraiseListModel extends BaseModel implements AppraiseListContract.Model {
     private Gson mGson;
     private Application mApplication;
 
     @Inject
-    public AppraiseListFragmentModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
+    public AppraiseListModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
         super(repositoryManager);
         this.mGson = gson;
         this.mApplication = application;

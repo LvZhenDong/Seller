@@ -51,12 +51,19 @@ public interface GoodsService {
     Observable<HttpResponseData> delGoodsCategory(@Path("goodsCategoryId") String id);
 
     /**
-     * 获取商品列表
+     * 获取根据分类商品列表
      */
     @GET("/seller/goods")
     Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(@Query("goodsClassId") String
                                                                            id,
                                                                    @Query("pageId") int pageId);
+
+    /**
+     * 搜索商品
+     */
+    @GET("/seller/goods")
+    Observable<HttpResponseData<ListResponse<Goods>>> searchGoods(@Query("goodsNameLike") String name,
+                                                                  @Query("pageSize") int pageSize);
 
     /**
      * 上传商品

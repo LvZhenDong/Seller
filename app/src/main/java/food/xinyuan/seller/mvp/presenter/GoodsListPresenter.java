@@ -95,7 +95,7 @@ public class GoodsListPresenter extends BasePresenter<GoodsListContract.Model, G
     }
 
     public void soldOutGoods(Goods item,int pos){
-        Integer[] array={item.getGoodsId()};
+        Long[] array={item.getGoodsId()};
         mModel.soldOutGoods(RequestUtils.getRequestBody(array))
                 .compose(TransFactory.commonTransNoData(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
@@ -108,7 +108,7 @@ public class GoodsListPresenter extends BasePresenter<GoodsListContract.Model, G
     }
 
     public void putawayGoods(Goods item,int pos){
-        Integer[] array={item.getGoodsId()};
+        Long[] array={item.getGoodsId()};
         mModel.putawayGoods(RequestUtils.getRequestBody(array))
                 .compose(TransFactory.commonTransNoData(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
@@ -120,7 +120,7 @@ public class GoodsListPresenter extends BasePresenter<GoodsListContract.Model, G
                 });
     }
 
-    public void delGoods(int goodsId,int pos){
+    public void delGoods(Long goodsId,int pos){
         mModel.deleteGoods(goodsId+"")
                 .compose(TransFactory.commonTransNoData(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {

@@ -77,6 +77,6 @@ public class GoodsAdapter extends BaseQuickAdapter<Goods, BaseViewHolder> {
 
         void onPutAway(Goods item, int pos);
 
-        void onDel(int goodsId, int pos);
+        void onDel(Long goodsId, int pos);
     }
 }
