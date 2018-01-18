@@ -5,21 +5,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jess.arms.di.component.AppComponent;
 
+import java.util.Date;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.utils.CommonUtils;
+import food.xinyuan.seller.app.utils.TimePickerUtils;
+import food.xinyuan.seller.app.utils.XDateUtils;
 import food.xinyuan.seller.di.component.DaggerActivityDelgoldComponent;
 import food.xinyuan.seller.di.module.ActivityDelgoldModule;
 import food.xinyuan.seller.mvp.contract.ActivityDelgoldContract;
 import food.xinyuan.seller.mvp.presenter.ActivityDelgoldPresenter;
-
-import food.xinyuan.seller.R;
 
 /**
  * 购满就减
@@ -30,6 +36,17 @@ public class ActivityDelgoldFragment extends AbstractMyBaseFragment<ActivityDelg
     ImageView ivHeaderLeft;
     @BindView(R.id.tv_header_center)
     TextView tvHeaderCenter;
+    @BindView(R.id.tv_start_time)
+    TextView tvStartTime;
+    @BindView(R.id.rl_start_time)
+    RelativeLayout rlStartTime;
+    @BindView(R.id.tv_end_time)
+    TextView tvEndTime;
+    @BindView(R.id.rl_end_time)
+    RelativeLayout rlEndTime;
+    @BindView(R.id.tv_save)
+    TextView tvSave;
+
 
     MaterialDialog mDialog;
 
@@ -61,11 +78,6 @@ public class ActivityDelgoldFragment extends AbstractMyBaseFragment<ActivityDelg
                 progress(true, 0).build();
     }
 
-    @Override
-    public void setData(Object data) {
-
-    }
-
 
     @Override
     public void showLoading() {
@@ -79,4 +91,31 @@ public class ActivityDelgoldFragment extends AbstractMyBaseFragment<ActivityDelg
             mDialog.dismiss();
     }
 
+    @OnClick({R.id.rl_start_time, R.id.rl_end_time, R.id.tv_save})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_start_time:
+                TimePickerUtils.getInstance().showStart(getActivity(),mTimeCallBack);
+                break;
+            case R.id.rl_end_time:
+                TimePickerUtils.getInstance().showEnd(getActivity(),mTimeCallBack);
+                break;
+            case R.id.tv_save:
+                break;
+        }
+    }
+
+    TimePickerUtils.TimeCallBack mTimeCallBack = new TimePickerUtils.TimeCallBack() {
+        @Override
+        public void onStartTimeSelect(Date startDate) {
+            tvStartTime.setText(XDateUtils
+                    .date2String(startDate, "yyyy-MM-dd"));
+        }
+
+        @Override
+        public void onEndTimeSelect(Date endDate) {
+            tvEndTime.setText(XDateUtils
+                    .date2String(endDate, "yyyy-MM-dd"));
+        }
+    };
 }

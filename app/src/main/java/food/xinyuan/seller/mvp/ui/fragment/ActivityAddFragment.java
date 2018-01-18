@@ -90,9 +90,11 @@ public class ActivityAddFragment extends AbstractMyBaseFragment {
                         start(ActivityFirstFragment.newInstance(null));
                         break;
                     case 2:
+                        //TODO 购满就减
                         start(ActivityDelgoldFragment.newInstance());
                         break;
                     case 3:
+                        //TODO 折扣商品
                         start(ActivitySaleFragment.newInstance());
                         break;
                     case 4:

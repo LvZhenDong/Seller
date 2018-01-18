@@ -146,7 +146,7 @@ public class ActivitySpecificFragment extends AbstractMyBaseFragment<ActivitySpe
                         ArmsUtils.makeText(getActivity(), "结束时间不能小于开始时间");
                     } else {
                         startDate = date;
-                        tvStartTime.setText(XDateUtils
+                        tvEndTime.setText(XDateUtils
                                 .date2String(date, "yyyy-MM-dd"));
                     }
                 });

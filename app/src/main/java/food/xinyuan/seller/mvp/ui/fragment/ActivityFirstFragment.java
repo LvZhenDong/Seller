@@ -32,6 +32,9 @@ import food.xinyuan.seller.mvp.contract.ActivityFirstContract;
 import food.xinyuan.seller.mvp.presenter.ActivityFirstPresenter;
 
 
+/**
+ * 首单立减
+ */
 public class ActivityFirstFragment extends AbstractMyBaseFragment<ActivityFirstPresenter> implements ActivityFirstContract.View {
 
     @BindView(R.id.iv_header_left)

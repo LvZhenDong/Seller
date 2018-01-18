@@ -21,7 +21,9 @@ import food.xinyuan.seller.mvp.presenter.ActivitySalePresenter;
 
 import food.xinyuan.seller.R;
 
-
+/**
+ * 折扣商品
+ */
 public class ActivitySaleFragment extends AbstractMyBaseFragment<ActivitySalePresenter> implements ActivitySaleContract.View {
 
     @BindView(R.id.iv_header_left)
