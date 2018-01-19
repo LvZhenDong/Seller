@@ -29,6 +29,7 @@ import food.xinyuan.seller.app.data.bean.response.Coupon;
 import food.xinyuan.seller.app.data.bean.response.ShopActivity;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.DialogUtils;
+import food.xinyuan.seller.app.utils.TimePickerUtils;
 import food.xinyuan.seller.app.utils.XDateUtils;
 import food.xinyuan.seller.di.component.DaggerActivityComplimentaryComponent;
 import food.xinyuan.seller.di.module.ActivityComplimentaryModule;
@@ -66,6 +67,7 @@ public class ActivityComplimentaryFragment extends AbstractMyBaseFragment<Activi
     private ShopActivity mShopActivity;
     List<String> mCouponNames = new ArrayList<>();
     List<Coupon> mCouponList = new ArrayList<>();
+    TimePickerUtils mTimePickerUtils;
 
     public static ActivityComplimentaryFragment newInstance(ShopActivity shopActivity) {
         ActivityComplimentaryFragment fragment = new ActivityComplimentaryFragment();
@@ -99,10 +101,11 @@ public class ActivityComplimentaryFragment extends AbstractMyBaseFragment<Activi
         if (mShopActivity != null) {
             //如果是修改活动，则填入数据
             tvStartTime.setText(XDateUtils.millis2String(mShopActivity.getBeginTime(), "yyyy-MM-dd"));
-            startDate = XDateUtils.millis2Date(mShopActivity.getBeginTime());
+            Date startDate = XDateUtils.millis2Date(mShopActivity.getBeginTime());
             long endTime = mShopActivity.getEndTime();
             tvEndTime.setText(endTime <= 0 ? "无限制" : XDateUtils.millis2String(mShopActivity.getEndTime(), "yyyy-MM-dd"));
-            endDate = XDateUtils.millis2Date(mShopActivity.getEndTime());
+            Date endDate = XDateUtils.millis2Date(mShopActivity.getEndTime());
+            mTimePickerUtils = new TimePickerUtils(startDate, endDate);
             if (mShopActivity.getActivityContent() != null) {
                 etMin.setText(mShopActivity.getActivityContent().getFull() + "");
                 etCount.setText(mShopActivity.getActivityContent().getCouponCount() + "");
@@ -112,14 +115,11 @@ public class ActivityComplimentaryFragment extends AbstractMyBaseFragment<Activi
 
         } else {
             //如果是添加活动，仅加载红包list
-            tvStartTime.setText(XDateUtils.date2String(startDate, "yyyy-MM-dd"));
+            mTimePickerUtils = new TimePickerUtils();
+            tvStartTime.setText(XDateUtils.date2String(Calendar.getInstance().getTime(),
+                    "yyyy-MM-dd"));
             mPresenter.getCouponList();
         }
-
-    }
-
-    @Override
-    public void setData(Object data) {
 
     }
 
@@ -136,40 +136,32 @@ public class ActivityComplimentaryFragment extends AbstractMyBaseFragment<Activi
             mDialog.dismiss();
     }
 
-    private Date startDate = Calendar.getInstance().getTime();
-    private Date endDate;
-    //只显示年月日
-    boolean[] types = {true, true, true, false, false, false};
-
     private int mSelectedCoupon = -1;
+
+    TimePickerUtils.TimeCallBack callBack = new TimePickerUtils.TimeCallBack() {
+        @Override
+        public void onStartTimeSelect(Date startDate) {
+            tvStartTime.setText(XDateUtils
+                    .date2String(startDate, "yyyy-MM-dd"));
+        }
+
+        @Override
+        public void onEndTimeSelect(Date endDate) {
+            tvEndTime.setText(XDateUtils
+                    .date2String(endDate, "yyyy-MM-dd"));
+        }
+    };
 
     @OnClick({R.id.rl_start_time, R.id.rl_end_time, R.id.tv_coupon, R.id.tv_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_start_time:
                 hideSoftInput();
-                showTimerPicker((date, v) -> {
-
-                    if (endDate != null && date.after(endDate)) {
-                        ArmsUtils.makeText(getActivity(), "结束时间不能小于开始时间");
-                    } else {
-                        startDate = date;
-                        tvStartTime.setText(XDateUtils
-                                .date2String(date, "yyyy-MM-dd"));
-                    }
-                });
+                mTimePickerUtils.showStart(getActivity(), callBack);
                 break;
             case R.id.rl_end_time:
                 hideSoftInput();
-                showTimerPicker((date, v) -> {
-                    if (startDate.after(date)) {
-                        ArmsUtils.makeText(getActivity(), "结束时间不能小于开始时间");
-                    } else {
-                        endDate = date;
-                        tvEndTime.setText(XDateUtils
-                                .date2String(date, "yyyy-MM-dd"));
-                    }
-                });
+                mTimePickerUtils.showEnd(getActivity(), callBack);
                 break;
             case R.id.tv_coupon:
                 DialogUtils.singleChoiceDialog(getActivity(), mCouponNames, mSelectedCoupon,
@@ -181,37 +173,24 @@ public class ActivityComplimentaryFragment extends AbstractMyBaseFragment<Activi
                 break;
             case R.id.tv_save:
 
-                if (mShopActivity== null){
+                if (mShopActivity == null) {
                     //添加
                     mPresenter.addActivity(tvStartTime.getText().toString().trim(),
                             tvEndTime.getText().toString().trim(),
                             etMin.getText().toString().trim(),
                             etCount.getText().toString().trim(),
                             mSelectedCoupon, mCouponList);
-                }else {
+                } else {
                     //修改
                     mPresenter.updateActivity(tvStartTime.getText().toString().trim(),
                             tvEndTime.getText().toString().trim(),
                             etMin.getText().toString().trim(),
                             etCount.getText().toString().trim(),
-                            mSelectedCoupon, mCouponList,mShopActivity.getActivityId());
+                            mSelectedCoupon, mCouponList, mShopActivity.getActivityId());
                 }
 
                 break;
         }
-    }
-
-    private void showTimerPicker(TimePickerView.OnTimeSelectListener listener) {
-        Calendar calendar = Calendar.getInstance();
-        //如果已经选择了开始时间，则以选定的时间做为开始，否则以当前系统时间开始
-        if (startDate != null)
-            calendar.setTime(startDate);
-        TimePickerView pvTime = new TimePickerView.Builder(getActivity(), listener)
-                .setRangDate(calendar, null)
-                .setType(types)
-                .build();
-
-        pvTime.show();
     }
 
     @Override
@@ -219,7 +198,7 @@ public class ActivityComplimentaryFragment extends AbstractMyBaseFragment<Activi
         mCouponList = list;
         boolean updateActivity = (mShopActivity != null && mShopActivity.getActivityContent() != null);
         for (Coupon item : list) {
-            mCouponNames.add(item.getCouponName() + "  "+item.getEndTimeStr());
+            mCouponNames.add(item.getCouponName() + "  " + item.getEndTimeStr());
             //如果是修改活动的话，还要将已经选择的红包显示出来
             if (updateActivity && item.getCouponId() == mShopActivity.getActivityContent().getCouponId()) {
                 tvCoupon.setText(item.getCouponName() + item.getEndTimeStr());

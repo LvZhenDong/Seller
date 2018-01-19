@@ -26,6 +26,7 @@ import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.event.EventConstant;
 import food.xinyuan.seller.app.utils.CommonUtils;
+import food.xinyuan.seller.app.utils.TimePickerUtils;
 import food.xinyuan.seller.app.utils.XDateUtils;
 import food.xinyuan.seller.di.component.DaggerAddCouponComponent;
 import food.xinyuan.seller.di.module.AddCouponModule;
@@ -80,6 +81,7 @@ public class AddCouponFragment extends AbstractMyBaseFragment<AddCouponPresenter
     RelativeLayout rlMoney;
 
     MaterialDialog mDialog;
+    TimePickerUtils mTimePickerUtils;
 
     public static AddCouponFragment newInstance() {
         AddCouponFragment fragment = new AddCouponFragment();
@@ -103,21 +105,17 @@ public class AddCouponFragment extends AbstractMyBaseFragment<AddCouponPresenter
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        mTimePickerUtils=new TimePickerUtils();
         tvHeaderCenter.setText("红包设置");
         CommonUtils.setBack(this, ivHeaderLeft);
 
         mDialog = new MaterialDialog.Builder(getActivity()).content(R.string.waiting).
                 progress(true, 0).build();
 
-        tvStartTime.setText(XDateUtils.date2String(startDate, "yyyy-MM-dd"));
+        tvStartTime.setText(XDateUtils.date2String(Calendar.getInstance().getTime(),
+                "yyyy-MM-dd"));
 
     }
-
-    @Override
-    public void setData(Object data) {
-
-    }
-
 
     @Override
     public void showLoading() {
@@ -128,6 +126,20 @@ public class AddCouponFragment extends AbstractMyBaseFragment<AddCouponPresenter
     public void hideLoading() {
         if (mDialog != null) mDialog.dismiss();
     }
+
+    TimePickerUtils.TimeCallBack callBack=new TimePickerUtils.TimeCallBack() {
+        @Override
+        public void onStartTimeSelect(Date startDate) {
+            tvStartTime.setText(XDateUtils
+                    .date2String(startDate, "yyyy-MM-dd"));
+        }
+
+        @Override
+        public void onEndTimeSelect(Date endDate) {
+            tvEndTime.setText(XDateUtils
+                    .date2String(endDate, "yyyy-MM-dd"));
+        }
+    };
 
     @OnClick({R.id.sw_pick_up, R.id.sw_fixed, R.id.rl_start_time, R.id.rl_end_time, R.id.tv_save})
     public void onViewClicked(View view) {
@@ -147,28 +159,12 @@ public class AddCouponFragment extends AbstractMyBaseFragment<AddCouponPresenter
                 }
                 break;
             case R.id.rl_start_time:
-                showTimerPicker((date, v) -> {
-
-                    if (endDate != null && date.after(endDate)) {
-                        ArmsUtils.makeText(getActivity(), "结束时间不能小于开始时间");
-                    } else {
-                        startDate = date;
-                        tvStartTime.setText(XDateUtils
-                                .date2String(date, "yyyy-MM-dd"));
-                    }
-                });
+                hideSoftInput();
+                mTimePickerUtils.showStart(getActivity(),callBack);
                 break;
             case R.id.rl_end_time:
-                showTimerPicker((date, v) -> {
-                    if (startDate.after(date)) {
-                        ArmsUtils.makeText(getActivity(), "结束时间不能小于开始时间");
-                    } else {
-                        endDate = date;
-                        tvEndTime.setText(XDateUtils
-                                .date2String(date, "yyyy-MM-dd"));
-                    }
-                });
-
+                hideSoftInput();
+                mTimePickerUtils.showEnd(getActivity(),callBack);
                 break;
             case R.id.tv_save:
                 //添加固定金额红包
@@ -186,25 +182,6 @@ public class AddCouponFragment extends AbstractMyBaseFragment<AddCouponPresenter
 
                 break;
         }
-    }
-
-    private Date startDate = Calendar.getInstance().getTime();
-    private Date endDate;
-
-    //只显示年月日
-    boolean[] types = {true, true, true, false, false, false};
-
-    private void showTimerPicker(TimePickerView.OnTimeSelectListener listener) {
-        Calendar calendar = Calendar.getInstance();
-        //如果已经选择了开始时间，则以选定的时间做为开始，否则以当前系统时间开始
-        if (startDate != null)
-            calendar.setTime(startDate);
-        TimePickerView pvTime = new TimePickerView.Builder(getActivity(), listener)
-                .setRangDate(calendar, null)
-                .setType(types)
-                .build();
-
-        pvTime.show();
     }
 
     @Override

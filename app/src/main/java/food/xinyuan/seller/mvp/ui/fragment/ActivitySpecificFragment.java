@@ -25,6 +25,7 @@ import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
 import food.xinyuan.seller.app.data.bean.response.ShopActivity;
 import food.xinyuan.seller.app.utils.CommonUtils;
+import food.xinyuan.seller.app.utils.TimePickerUtils;
 import food.xinyuan.seller.app.utils.XDateUtils;
 import food.xinyuan.seller.di.component.DaggerActivitySpecificComponent;
 import food.xinyuan.seller.di.module.ActivitySpecificModule;
@@ -56,6 +57,7 @@ public class ActivitySpecificFragment extends AbstractMyBaseFragment<ActivitySpe
     TextView tvSave;
 
     ShopActivity mShopActivity;
+    TimePickerUtils mTimePickerUtils;
 
     public static ActivitySpecificFragment newInstance(ShopActivity shopActivity) {
         ActivitySpecificFragment fragment = new ActivitySpecificFragment();
@@ -89,20 +91,18 @@ public class ActivitySpecificFragment extends AbstractMyBaseFragment<ActivitySpe
         if (mShopActivity != null) {
             //如果是修改活动，则填入数据
             tvStartTime.setText(XDateUtils.millis2String(mShopActivity.getBeginTime(), "yyyy-MM-dd"));
-            startDate = XDateUtils.millis2Date(mShopActivity.getBeginTime());
+            Date startDate = XDateUtils.millis2Date(mShopActivity.getBeginTime());
             long endTime = mShopActivity.getEndTime();
             tvEndTime.setText(endTime <= 0 ? "无限制" : XDateUtils.millis2String(mShopActivity.getEndTime(), "yyyy-MM-dd"));
-            endDate = XDateUtils.millis2Date(mShopActivity.getEndTime());
+            Date endDate = XDateUtils.millis2Date(mShopActivity.getEndTime());
+            mTimePickerUtils=new TimePickerUtils(startDate,endDate);
             etName.setText(mShopActivity.getActivityName());
         } else {
             //如果是添加活动，仅加载红包list
-            tvStartTime.setText(XDateUtils.date2String(startDate, "yyyy-MM-dd"));
+            mTimePickerUtils=new TimePickerUtils();
+            tvStartTime.setText(XDateUtils.date2String(Calendar.getInstance().getTime(),
+                    "yyyy-MM-dd"));
         }
-    }
-
-    @Override
-    public void setData(Object data) {
-
     }
 
 
@@ -118,49 +118,30 @@ public class ActivitySpecificFragment extends AbstractMyBaseFragment<ActivitySpe
             mDialog.dismiss();
     }
 
-    private Date startDate = Calendar.getInstance().getTime();
-    private Date endDate;
-    //只显示年月日
-    boolean[] types = {true, true, true, false, false, false};
+    TimePickerUtils.TimeCallBack callBack=new TimePickerUtils.TimeCallBack() {
+        @Override
+        public void onStartTimeSelect(Date startDate) {
+            tvStartTime.setText(XDateUtils
+                    .date2String(startDate, "yyyy-MM-dd"));
+        }
 
-    private void showTimerPicker(TimePickerView.OnTimeSelectListener listener) {
-        Calendar calendar = Calendar.getInstance();
-        //如果已经选择了开始时间，则以选定的时间做为开始，否则以当前系统时间开始
-        if (startDate != null)
-            calendar.setTime(startDate);
-        TimePickerView pvTime = new TimePickerView.Builder(getActivity(), listener)
-                .setRangDate(calendar, null)
-                .setType(types)
-                .build();
-
-        pvTime.show();
-    }
+        @Override
+        public void onEndTimeSelect(Date endDate) {
+            tvEndTime.setText(XDateUtils
+                    .date2String(endDate, "yyyy-MM-dd"));
+        }
+    };
 
     @OnClick({R.id.rl_start_time, R.id.rl_end_time, R.id.tv_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_start_time:
-                showTimerPicker((date, v) -> {
-
-                    if (endDate != null && date.after(endDate)) {
-                        ArmsUtils.makeText(getActivity(), "结束时间不能小于开始时间");
-                    } else {
-                        startDate = date;
-                        tvEndTime.setText(XDateUtils
-                                .date2String(date, "yyyy-MM-dd"));
-                    }
-                });
+                hideSoftInput();
+                mTimePickerUtils.showStart(getActivity(),callBack);
                 break;
             case R.id.rl_end_time:
-                showTimerPicker((date, v) -> {
-                    if (startDate.after(date)) {
-                        ArmsUtils.makeText(getActivity(), "结束时间不能小于开始时间");
-                    } else {
-                        endDate = date;
-                        tvEndTime.setText(XDateUtils
-                                .date2String(date, "yyyy-MM-dd"));
-                    }
-                });
+                hideSoftInput();
+                mTimePickerUtils.showEnd(getActivity(),callBack);
                 break;
             case R.id.tv_save:
                 if(mShopActivity == null){

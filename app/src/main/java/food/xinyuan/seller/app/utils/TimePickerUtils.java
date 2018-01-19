@@ -21,6 +21,15 @@ public class TimePickerUtils {
 
     private Date startDate = Calendar.getInstance().getTime();
     private Date endDate;
+
+    public TimePickerUtils() {
+    }
+
+    public TimePickerUtils(Date startDate, Date endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     //只显示年月日
     boolean[] types = {true, true, true, false, false, false};
 
