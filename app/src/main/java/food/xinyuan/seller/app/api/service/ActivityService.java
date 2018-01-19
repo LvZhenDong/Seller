@@ -1,7 +1,11 @@
 package food.xinyuan.seller.app.api.service;
 
+import java.util.List;
+
 import food.xinyuan.seller.app.data.bean.HttpResponseData;
 import food.xinyuan.seller.app.data.bean.common.ListResponse;
+import food.xinyuan.seller.app.data.bean.response.ActGoods;
+import food.xinyuan.seller.app.data.bean.response.Goods;
 import food.xinyuan.seller.app.data.bean.response.Order;
 import food.xinyuan.seller.app.data.bean.response.ShopActivity;
 import io.reactivex.Observable;
@@ -69,4 +73,12 @@ public interface ActivityService {
      */
     @GET("/seller/activity/{activityId}")
     Observable<HttpResponseData<ShopActivity>> getActivity(@Path("activityId") long activityId);
+
+    /**
+     * 获取活动商品list
+     * @param activityId
+     * @return
+     */
+    @GET("/seller/activityGoods/{activityId}")
+    Observable<HttpResponseData<List<ActGoods>>> getActivityGoods(@Path("activityId") long activityId);
 }

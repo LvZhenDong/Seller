@@ -54,8 +54,7 @@ public interface GoodsService {
      * 获取根据分类商品列表
      */
     @GET("/seller/goods")
-    Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(@Query("goodsClassId") String
-                                                                           id,
+    Observable<HttpResponseData<ListResponse<Goods>>> getGoodsList(@Query("goodsClassId") String id,
                                                                    @Query("pageId") int pageId);
 
     /**
@@ -117,4 +116,13 @@ public interface GoodsService {
     @POST("/seller/goods/{goodsId}")
     Observable<HttpResponseData<UpdateGoods>> updateGoods(@Path("goodsId") long goodsId,
                                                           @Body RequestBody json);
+
+    /**
+     * 设置活动商品
+     * @param activityId
+     * @param json
+     * @return
+     */
+    @PUT("/seller/activity/goods/{activityId}")
+    Observable<HttpResponseData> setActGoods(@Path("activityId") long activityId,@Body RequestBody json);
 }

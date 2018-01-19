@@ -61,21 +61,43 @@
         <RelativeLayout style="@style/RlItem">
 
             <TextView
-                android:id="@+id/et_reduce_hint"
+                android:id="@+id/et_name_hint"
                 style="@style/TvItemTitle"
                 android:text="活动名称" />
 
             <EditText
-                android:id="@+id/et_reduce"
-                android:layout_toRightOf="@id/et_reduce_hint"
-                android:layout_marginLeft="10dp"
+                android:id="@+id/et_name"
                 style="@style/EtItemHint"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/et_reduce_hint"
                 android:hint="请输入活动名称" />
 
             <View
                 style="@style/XYLine"
                 android:layout_alignParentBottom="true" />
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_goods_manage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_white_stroke_radius_5dp"
+            android:padding="5dp"
+            android:text="商品管理"
+            android:textColor="@color/tv_name"
+            android:textSize="@dimen/tv_Blod" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_act_goods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55dp"
+            android:layout_marginLeft="@dimen/padding_hor"
+            android:layout_marginRight="@dimen/padding_hor"
+            android:background="@color/black" />
 
     </LinearLayout>
 

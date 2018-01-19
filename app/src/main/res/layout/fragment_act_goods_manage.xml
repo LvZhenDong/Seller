@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white">
+
+    <include layout="@layout/view_header_tv_tv" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/padding_hor">
+
+            <TextView
+                android:drawableLeft="@drawable/ic_green_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:text="参加活动的商品需要进行勾选"
+                android:textColor="@color/tv_name"
+                android:textSize="@dimen/tv_Normal" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_green_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:text="折扣必须大于0且小于10"
+                android:textColor="@color/tv_name"
+                android:textSize="@dimen/tv_Normal" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_green_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:text="限购为空或0表示不限购"
+                android:textColor="@color/tv_name"
+                android:textSize="@dimen/tv_Normal" />
+        </LinearLayout>
+        <View
+            android:layout_marginTop="@dimen/margin_top_normal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/padding_hor"
+            android:layout_marginRight="@dimen/padding_hor"
+            android:background="@color/black" />
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="@dimen/padding_hor"
+            android:layout_marginRight="@dimen/padding_hor"
+            android:background="@color/white"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:text="商品名称"
+                android:textColor="@color/tv_name"
+                android:textSize="@dimen/tv_Normal" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="原价"
+                android:textColor="@color/tv_name"
+                android:textSize="@dimen/tv_Normal" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="折扣"
+                android:textColor="@color/tv_name"
+                android:textSize="@dimen/tv_Normal" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="限购"
+                android:textColor="@color/tv_name"
+                android:textSize="@dimen/tv_Normal" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="参加活动"
+                android:textColor="@color/tv_name"
+                android:textSize="@dimen/tv_Normal" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/padding_hor"
+            android:layout_marginRight="@dimen/padding_hor"
+            android:background="@color/black" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_goods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55dp"
+            android:layout_marginLeft="@dimen/padding_hor"
+            android:layout_marginRight="@dimen/padding_hor"
+            android:background="@color/black" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_item"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_btn_green_selector"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/white" />
+</RelativeLayout>

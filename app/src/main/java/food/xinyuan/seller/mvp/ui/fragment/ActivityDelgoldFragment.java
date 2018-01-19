@@ -163,9 +163,11 @@ public class ActivityDelgoldFragment extends AbstractMyBaseFragment<ActivityDelg
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_start_time:
+                hideSoftInput();
                 mTimePickerUtils.showStart(getActivity(), mTimeCallBack);
                 break;
             case R.id.rl_end_time:
+                hideSoftInput();
                 mTimePickerUtils.showEnd(getActivity(), mTimeCallBack);
                 break;
             case R.id.tv_save:

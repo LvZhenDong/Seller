@@ -1,5 +1,6 @@
 package food.xinyuan.seller.mvp.ui.widgets;
 
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -16,14 +17,14 @@ import android.view.View;
  * @CreateDate 2018/1/4
  */
 public class SurroundDecoration extends RecyclerView.ItemDecoration {
-    private final int decoration;//边距大小 px
+    protected final int decoration;//边距大小 px
 
     public SurroundDecoration(int decoration) {
         this.decoration = decoration;
     }
 
     public SurroundDecoration() {
-        this.decoration = 5;
+        this.decoration = 6;
     }
 
     @Override
@@ -35,11 +36,26 @@ public class SurroundDecoration extends RecyclerView.ItemDecoration {
         if (current == -1) return;//holder出现异常时，可能为-1
 
         if (current == 0)
-            outRect.set(decoration * 2, decoration*2, decoration * 2, decoration);
+            dealWithTop(outRect);
+        else if(current == lastPosition)
+            outRect.set(decoration , decoration/2, decoration , decoration);
         else
-            outRect.set(decoration * 2, decoration, decoration * 2, decoration);
+            outRect.set(decoration , decoration/2, decoration , decoration/2);
+    }
 
+    protected void dealWithTop(Rect outRect){
+        outRect.set(decoration , decoration, decoration , decoration/2);
+    }
 
+    public static class NoTop extends SurroundDecoration{
+        public NoTop(int decoration) {
+            super(decoration);
+        }
+
+        @Override
+        protected void dealWithTop(Rect outRect) {
+            outRect.set(decoration , 0, decoration , decoration/2);
+        }
     }
 
 }

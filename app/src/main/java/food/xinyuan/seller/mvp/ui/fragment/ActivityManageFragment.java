@@ -116,7 +116,8 @@ public class ActivityManageFragment extends AbstractMyBaseFragment<ActivityManag
                                 start(ActivityComplimentaryFragment.newInstance(item));
                                 break;
                             case 1:
-
+                                //折扣商品
+                                start(ActivitySaleFragment.newInstance(item));
                                 break;
                             case 2:
                                 //购满就减

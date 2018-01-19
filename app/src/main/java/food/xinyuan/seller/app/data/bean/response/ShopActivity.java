@@ -30,6 +30,22 @@ public class ShopActivity {
     }
 
     /**
+     * 添加折扣商品
+     * @param beginTime
+     * @param endTime
+     * @param name
+     */
+    public void setSaleActivity(long beginTime,long endTime,String name){
+        this.activityType= Constant.ACTIVITY_TYPE_SALE;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+        this.activityName=name;
+        ActivityContentBean activityContentBean = new ActivityContentBean();
+        activityContentBean.setTypeName("sharefood.models.activity.activity.entity.SaleActivityData");
+        this.activityContent = activityContentBean;
+    }
+
+    /**
      * 添加首单立减活动
      * @param beginTime
      * @param endTime

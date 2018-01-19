@@ -84,19 +84,23 @@ public class ActivityAddFragment extends AbstractMyBaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position){
                     case 0:
+                        //购满就送
                         start(ActivityComplimentaryFragment.newInstance(null));
                         break;
                     case 1:
+                        //首单立减
                         start(ActivityFirstFragment.newInstance(null));
                         break;
                     case 2:
+                        //购满就减
                         start(ActivityDelgoldFragment.newInstance(null));
                         break;
                     case 3:
-                        //TODO 折扣商品
-                        start(ActivitySaleFragment.newInstance());
+                        //折扣商品
+                        start(ActivitySaleFragment.newInstance(null));
                         break;
                     case 4:
+                        //其他
                         start(ActivitySpecificFragment.newInstance(null));
                         break;
                 }

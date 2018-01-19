@@ -101,7 +101,7 @@ public class ActivityFirstFragment extends AbstractMyBaseFragment<ActivityFirstP
                 etReduce.setText(mShopActivity.getActivityContent().getMoney() + "");
             }
         } else {
-            //如果是添加活动，仅加载红包list
+
             mTimePickerUtils = new TimePickerUtils();
             tvStartTime.setText(XDateUtils.date2String(Calendar.getInstance().getTime(),
                     "yyyy-MM-dd"));
