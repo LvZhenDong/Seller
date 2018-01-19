@@ -607,22 +607,22 @@ public class ShopDetail {
                  * subtract : 1
                  */
 
-                private int full;
-                private int subtract;
+                private double full;
+                private double subtract;
 
-                public int getFull() {
+                public double getFull() {
                     return full;
                 }
 
-                public void setFull(int full) {
+                public void setFull(double full) {
                     this.full = full;
                 }
 
-                public int getSubtract() {
+                public double getSubtract() {
                     return subtract;
                 }
 
-                public void setSubtract(int subtract) {
+                public void setSubtract(double subtract) {
                     this.subtract = subtract;
                 }
             }

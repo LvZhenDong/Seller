@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="@dimen/padding_hor"
+            android:paddingRight="@dimen/padding_hor"
+            android:text="购满" />
+
+        <EditText
+            android:id="@+id/et_full"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_white_stroke_radius_5dp"
+            android:inputType="numberDecimal"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:singleLine="true"
+            android:textSize="@dimen/tv_Normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="@dimen/padding_hor"
+            android:paddingRight="@dimen/padding_hor"
+            android:text="减" />
+
+        <EditText
+            android:id="@+id/et_reduce"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_white_stroke_radius_5dp"
+            android:inputType="numberDecimal"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:singleLine="true"
+            android:textSize="@dimen/tv_Normal" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_del"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="@dimen/padding_hor"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_btn_red_selector"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_add"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="@dimen/padding_hor"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@id/tv_del"
+        android:background="@drawable/bg_btn_green_radius_5dp_selector"
+        android:gravity="center"
+        android:text="增加"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

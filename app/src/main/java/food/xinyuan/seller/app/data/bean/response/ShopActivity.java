@@ -2,6 +2,8 @@ package food.xinyuan.seller.app.data.bean.response;
 
 import android.text.TextUtils;
 
+import java.util.List;
+
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.utils.Constant;
 import food.xinyuan.seller.app.utils.XDateUtils;
@@ -44,6 +46,22 @@ public class ShopActivity {
     }
 
     /**
+     * 添加购满就减活动
+     * @param beginTime
+     * @param endTime
+     * @param delgolds
+     */
+    public void setDelgoldActivity(long beginTime, long endTime, List<Delgolds> delgolds){
+        this.activityType=Constant.ACTIVITY_TYPE_DELGOLD;
+        this.beginTime=beginTime;
+        this.endTime=endTime;
+        ActivityContentBean activityContentBean = new ActivityContentBean();
+        activityContentBean.setTypeName("sharefood.models.activity.activity.entity.DelgoldActivityData");
+        activityContentBean.setDelgolds(delgolds);
+        this.activityContent=activityContentBean;
+    }
+
+    /**
      * 添加其他活动
      * @param beginTime
      * @param endTime
@@ -83,9 +101,9 @@ public class ShopActivity {
     private String activityName;
     private String activityType;
     private ActivityContentBean activityContent;
-    private boolean audit;
+    private Boolean audit;
     private Boolean isValid;
-    private long beginTime;
+    private Long beginTime;
     private long endTime;
 
     public int getType() {
@@ -219,11 +237,20 @@ public class ShopActivity {
          */
 
         private String typeName;
-        private long couponId;
-        private double full;
-        private int couponCount;
-        private double money;
+        private Long couponId;
+        private Double full;
+        private Integer couponCount;
+        private Double money;
         private String content;
+        private List<Delgolds> delgolds;
+
+        public List<Delgolds> getDelgolds() {
+            return delgolds;
+        }
+
+        public void setDelgolds(List<Delgolds> delgolds) {
+            this.delgolds = delgolds;
+        }
 
         public String getContent() {
             return content;

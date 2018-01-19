@@ -1,6 +1,8 @@
 package food.xinyuan.seller.mvp.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +26,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import food.xinyuan.seller.R;
 import food.xinyuan.seller.app.base.AbstractMyBaseFragment;
+import food.xinyuan.seller.app.data.bean.response.Delgolds;
+import food.xinyuan.seller.app.data.bean.response.ShopActivity;
 import food.xinyuan.seller.app.utils.CommonUtils;
 import food.xinyuan.seller.app.utils.SpannableStringUtils;
 import food.xinyuan.seller.app.utils.TimePickerUtils;
@@ -29,6 +36,7 @@ import food.xinyuan.seller.di.component.DaggerActivityDelgoldComponent;
 import food.xinyuan.seller.di.module.ActivityDelgoldModule;
 import food.xinyuan.seller.mvp.contract.ActivityDelgoldContract;
 import food.xinyuan.seller.mvp.presenter.ActivityDelgoldPresenter;
+import food.xinyuan.seller.mvp.ui.adapter.DelgoldAdapter;
 
 /**
  * 购满就减
@@ -49,15 +57,20 @@ public class ActivityDelgoldFragment extends AbstractMyBaseFragment<ActivityDelg
     RelativeLayout rlEndTime;
     @BindView(R.id.tv_save)
     TextView tvSave;
-
-
-    MaterialDialog mDialog;
-    TimePickerUtils mTimePickerUtils = new TimePickerUtils();
+    @BindView(R.id.rv_delgold)
+    RecyclerView rvDelgold;
     @BindView(R.id.tv_tips)
     TextView tvTips;
 
-    public static ActivityDelgoldFragment newInstance() {
+    MaterialDialog mDialog;
+    TimePickerUtils mTimePickerUtils;
+    DelgoldAdapter mAdapter;
+
+    private ShopActivity mShopActivity;
+
+    public static ActivityDelgoldFragment newInstance(ShopActivity shopActivity) {
         ActivityDelgoldFragment fragment = new ActivityDelgoldFragment();
+        fragment.mShopActivity = shopActivity;
         return fragment;
     }
 
@@ -86,7 +99,51 @@ public class ActivityDelgoldFragment extends AbstractMyBaseFragment<ActivityDelg
                 .append(" 活动金额必须由小到大依次设置").create();
         tvTips.setText(stringBuilder);
 
-        tvStartTime.setText(XDateUtils.date2String(Calendar.getInstance().getTime(), "yyyy-MM-dd"));
+
+        initRv();
+        init();
+    }
+
+    private void init(){
+        if (mShopActivity != null) {
+            //如果是修改活动，则填入数据
+            tvStartTime.setText(XDateUtils.millis2String(mShopActivity.getBeginTime(), "yyyy-MM-dd"));
+            Date startDate = XDateUtils.millis2Date(mShopActivity.getBeginTime());
+            long endTime = mShopActivity.getEndTime();
+            tvEndTime.setText(endTime <= 0 ? "无限制" : XDateUtils.millis2String(mShopActivity.getEndTime(), "yyyy-MM-dd"));
+            Date endDate = XDateUtils.millis2Date(mShopActivity.getEndTime());
+            mTimePickerUtils = new TimePickerUtils(startDate, endDate);
+
+            mAdapter.setNewData(mShopActivity.getActivityContent().getDelgolds());
+        }else {
+            //如果是添加活动，仅加载红包list
+            mTimePickerUtils = new TimePickerUtils();
+            tvStartTime.setText(XDateUtils.date2String(Calendar.getInstance().getTime(),
+                    "yyyy-MM-dd"));
+
+            mAdapter.addData(new Delgolds());
+        }
+    }
+    private void initRv(){
+
+        rvDelgold.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter=new DelgoldAdapter(R.layout.item_activity_delgold);
+        rvDelgold.setAdapter(mAdapter);
+
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if(position < 0)return;
+                switch (view.getId()){
+                    case R.id.tv_del:
+                        mAdapter.remove(position);
+                        break;
+                    case R.id.tv_add:
+                        mAdapter.addData(new Delgolds());
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -112,6 +169,16 @@ public class ActivityDelgoldFragment extends AbstractMyBaseFragment<ActivityDelg
                 mTimePickerUtils.showEnd(getActivity(), mTimeCallBack);
                 break;
             case R.id.tv_save:
+                if(mShopActivity == null){
+                    mPresenter.addActivity(tvStartTime.getText().toString(),
+                            tvEndTime.getText().toString(),
+                            mAdapter.getData());
+                }else {
+                    mPresenter.updateActivity(tvStartTime.getText().toString(),
+                            tvEndTime.getText().toString(),
+                            mAdapter.getData(),mShopActivity.getActivityId());
+                }
+
                 break;
         }
     }
@@ -129,4 +196,9 @@ public class ActivityDelgoldFragment extends AbstractMyBaseFragment<ActivityDelg
                     .date2String(endDate, "yyyy-MM-dd"));
         }
     };
+
+    @Override
+    public void addActivitySuc() {
+        pop();
+    }
 }

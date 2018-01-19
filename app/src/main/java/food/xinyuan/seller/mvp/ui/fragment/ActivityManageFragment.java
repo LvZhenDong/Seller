@@ -119,7 +119,8 @@ public class ActivityManageFragment extends AbstractMyBaseFragment<ActivityManag
 
                                 break;
                             case 2:
-
+                                //购满就减
+                                start(ActivityDelgoldFragment.newInstance(item));
                                 break;
                             case 3:
                                 //首单立减

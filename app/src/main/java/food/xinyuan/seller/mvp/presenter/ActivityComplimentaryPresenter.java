@@ -73,34 +73,6 @@ public class ActivityComplimentaryPresenter extends BasePresenter<ActivityCompli
 
     public void addActivity(String startTime, String endTime, String minStr, String countStr,
                             int selectedCoupon, List<Coupon> list) {
-        if (TextUtils.isEmpty(minStr)) {
-            ArmsUtils.makeText(mApplication, "请输入最低消费金额");
-        } else if (selectedCoupon < 0) {
-            ArmsUtils.makeText(mApplication, "请选择红包种类");
-        } else if (TextUtils.isEmpty(countStr)) {
-            ArmsUtils.makeText(mApplication, "请输入赠送红包数量");
-        } else {
-            double min = new Double(minStr);
-            int count = new Integer(countStr);
-            int couponId = list.get(selectedCoupon).getCouponId();
-
-            ShopActivity shopActivity = new ShopActivity(Constant.ACTIVITY_TYPE_COMPLIMENTARY,
-                    XDateUtils.string2Millis(startTime, "yyyy-MM-dd"),
-                    XDateUtils.string2Millis(endTime, "yyyy-MM-dd"),
-                    new ShopActivity.ActivityContentBean(couponId, min, count,
-                            "sharefood.models.activity.activity.entity.ComplimentaryActivityData"));
-
-            mModel.addActivity(RequestUtils.getRequestBody(shopActivity))
-                    .compose(TransFactory.commonTrans(mRootView))
-                    .subscribe(new ErrorHandleSubscriber<ShopActivity>(mErrorHandler) {
-                        @Override
-                        public void onNext(ShopActivity shopActivity) {
-                            ArmsUtils.makeText(mApplication, "添加成功");
-                            EventBus.getDefault().post(EventConstant.UPDATE_ACTIVITY_LIST);
-                            mRootView.addActivitySuc();
-                        }
-                    });
-        }
 
         ShopActivity shopActivity=createShopActivity(startTime, endTime, minStr, countStr, selectedCoupon, list);
         if(shopActivity != null){

@@ -10,7 +10,12 @@ import com.jess.arms.di.scope.ActivityScope;
 
 import javax.inject.Inject;
 
+import food.xinyuan.seller.app.api.service.ActivityService;
+import food.xinyuan.seller.app.data.bean.HttpResponseData;
+import food.xinyuan.seller.app.data.bean.response.ShopActivity;
 import food.xinyuan.seller.mvp.contract.ActivityDelgoldContract;
+import io.reactivex.Observable;
+import okhttp3.RequestBody;
 
 
 @ActivityScope
@@ -32,4 +37,13 @@ public class ActivityDelgoldModel extends BaseModel implements ActivityDelgoldCo
         this.mApplication = null;
     }
 
+    @Override
+    public Observable<HttpResponseData<ShopActivity>> addActivity(RequestBody json) {
+        return mRepositoryManager.obtainRetrofitService(ActivityService.class).addActivity(json);
+    }
+
+    @Override
+    public Observable<HttpResponseData<ShopActivity>> updateActivity(long activityId, RequestBody json) {
+        return mRepositoryManager.obtainRetrofitService(ActivityService.class).updateActivity(activityId, json);
+    }
 }
